@@ -1,0 +1,33 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.pdb
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Misc
+*.sdf
+*.suo
+*.tlog
+*.idb
+*.log
+*.filters
+*.user
+*.lastbuildstate
+*.unsuccessfulbuild
+*.opensdf
+*.dat
+*.ilk
+*.crc
+*.version
+*.lib
+_Resharper*
