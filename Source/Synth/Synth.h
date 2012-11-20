@@ -18,6 +18,7 @@ public:
 	void Synth_Init();
 	void MixTest(SampleBufferFloat* bufferOut, int numSamples);
 	void Render(short *buffer, int numSamples);
+	void RenderFloat(float* bufferLeft, float* bufferRight, int numSamples);
 	~Synth(void);
 };
 

@@ -1,18 +1,18 @@
 #include "GLImage.h"
 #include "GLHelpers.h"
 
-GLImage::GLImage(int pngId)
+GuiImage::GuiImage(int pngId)
 {
 	GlHelpers::GetTexture(pngId, &textureId, &width, &height);
 	this->imageAssetCode = pngId;
 }
 
 
-GLImage::~GLImage(void)
+GuiImage::~GuiImage(void)
 {
 }
 
-void GLImage::bind()
+void GuiImage::bind()
 {
 	glBindTexture(GL_TEXTURE_2D, textureId);
 }

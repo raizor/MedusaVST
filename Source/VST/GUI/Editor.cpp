@@ -23,11 +23,14 @@
 
 #include "Editor.h"
 #include "../../includes.h"
-#include "Components/GLImageManager.h"
+#include "../Utils/console.h"
+#include "Components/GuiImageManager.h"
 
 // init statics
 int Editor::_winWidth = 0;
 int Editor::_winHeight = 0;
+bool Editor::_initDone = false;
+GuiMainWindow* Editor::_mainWindow = NULL;
 
 //----------------------------------------------------------------------------
 Editor::Editor(AudioEffect *effect):
@@ -37,8 +40,8 @@ thing(0.0f)
 {
 	currentPatch = NULL;
 	//Set the opengl context's size - This must be called here!
-	_winWidth = 980;
-	_winHeight = 750;
+	_winWidth = 920;
+	_winHeight = 863;
 	setRect(0, 0, _winWidth, _winHeight);
 }
 
@@ -88,8 +91,16 @@ void Editor::guiOpen()
 	glLineWidth(2.0f);
 
 	glEnable(GL_TEXTURE_2D);
-	GLImageManager::InitInstance();
-	_mainWindow = new GuiMainWindow(_winWidth, _winHeight, 0, 0, IDB_PNG_MAIN);
+	if (!_initDone)
+	{	
+		GuiImageManager::InitInstance();
+		_mainWindow = new GuiMainWindow(920, 696, 0, 167, IDB_PNG_PANEL_MAIN);
+
+		//MessageBoxEx(NULL, "", "", NULL, NULL);
+		//_initDone = true;
+	}
+	PatchList::list->CurrentPatch = PatchList::list->patches[0];
+	_mainWindow->PatchChanged(PatchList::list->CurrentPatch);
 
 	//Start timer to constantly update gui.
 	start();
@@ -155,6 +166,35 @@ void Editor::draw()
 	glEnd();
 	*/
 	
+}
+
+void Editor::onMouseMove(int x, int y)
+{
+	GEvent* evt = new GEvent();
+	evt->pos.x = x;
+	evt->pos.y = y;
+	evt->type = kGEventMouseMoved;
+	_mainWindow->HandleEvent(evt);
+}
+
+void Editor::onMouseDown(int button, int x, int y)
+{
+	GEvent* evt = new GEvent();
+	evt->pos.x = x;
+	evt->pos.y = y;
+	evt->type = kGEventMouseDown;
+	evt->button = (GEventMouseButton)button;
+	_mainWindow->HandleEvent(evt);
+}
+
+void Editor::onMouseUp(int button, int x, int y)
+{
+	GEvent* evt = new GEvent();
+	evt->pos.x = x;
+	evt->pos.y = y;
+	evt->type = kGEventMouseUp;
+	evt->button = (GEventMouseButton)button;
+	_mainWindow->HandleEvent(evt);
 }
 
 //----------------------------------------------------------------------------

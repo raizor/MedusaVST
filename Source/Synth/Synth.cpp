@@ -107,6 +107,63 @@ void Synth::Render(short *buffer, int numSamples)
 }
 
 
+void Synth::RenderFloat(float* bufferLeft, float* bufferRight, int numSamples)
+{
+	if (rendering)
+	{
+		DebugBreak();
+	}
+	rendering = true;
+	// clear output buffer
+	zt_memset(bufferLeft, 0, numSamples);
+	zt_memset(bufferRight, 0, numSamples);
+
+	for(int i=0; i<Constants_Polyphony; i++)
+	{
+		Voice* voice = VoicePool::Pool->Voices[i];
+		if (voice != 0 && voice->State != kVoiceStateOff)
+		{
+			voice->Generate(numSamples/2);
+		}
+	}
+
+	MixBuffer->ClearRange(numSamples/2);
+	VoicePool::Pool->MixVoicesToBuffer(MixBuffer, numSamples/2);
+	//MixTest(MixBuffer, numSamples/2);
+
+	// TODO: this should be stereo!! wtf!!
+
+	int r = 0;
+
+	int ix = 0;
+	for(int i=0; i<numSamples/2; i++)
+	{
+		int idx = (Constants::instance->BufferOffset+i) % Constants_MixBufferSizeFloat;
+		float fv = zt_clampfMixMax(MixBuffer->Buffer[idx].ch[0] * Constants::instance->MasterVolume, -1.0f, 1.0f); // clamp
+		float fv2 = zt_clampfMixMax(MixBuffer->Buffer[idx].ch[1] * Constants::instance->MasterVolume, -1.0f, 1.0f); // clamp
+		//short sval = (short)(fv * Constants_ClipLimitMax);
+		//short sval2 = (short)(fv2 * Constants_ClipLimitMax);
+		bufferLeft[ix] = fv;
+		bufferRight[ix] = fv2;
+		ix++;
+	}
+
+	/*
+	int outIdx = 0;
+	for(int i=0; i<numSamples; i++)
+	{
+		int idx = (Constants_BufferOffset+i) % Constants_MixBufferSizeFloat;
+		float fv = zt_clampfMixMax(SynthInstance->MixBuffer->Buffer[idx].ch[0], -1.0f, 1.0f); // clamp
+		short sval = (short)(fv * Constants_ClipLimitMax);
+		buffer[outIdx++] = sval;
+		buffer[outIdx++] = sval;
+	}*/
+	int bo = Constants::instance->BufferOffset;
+	Constants::instance->BufferOffset = (bo + (numSamples/2)) % Constants_MixBufferSizeFloat;
+	rendering = false;
+}
+
+
 Synth::~Synth(void)
 {
 }

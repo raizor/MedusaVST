@@ -23,6 +23,9 @@
 #include "gmnames.h"
 #include <stdio.h>
 
+Editor* VstXSynth::gui = NULL;
+Synth* VstXSynth::synth = NULL;
+
 //-------------------------------------------------------------------------------------------------------
 AudioEffect* createEffectInstance (audioMasterCallback audioMaster)
 {
@@ -69,8 +72,14 @@ VstXSynth::VstXSynth (audioMasterCallback audioMaster)
 		isSynth ();
 		setUniqueID ('VxS2');			// <<<! *must* change this!!!!
 	}
-	synth = new Synth();
-	gui = new Editor(this);
+	if (synth == NULL)
+	{
+		synth = new Synth();
+	}
+	if (gui == NULL)
+	{
+		gui = new Editor(this);
+	}	
 	setEditor(gui);
 
 	initProcess ();

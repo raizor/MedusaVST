@@ -6,7 +6,7 @@
 #include "glext.h"
 
 
-class GLImage
+class GuiImage
 {
 public:
 	int imageAssetCode;
@@ -15,8 +15,8 @@ public:
 	GLint height;
 	GLenum eFormat;
 		
-	GLImage(int pngId);
-	~GLImage(void);
+	GuiImage(int pngId);
+	~GuiImage(void);
 	
 	void bind();
 };

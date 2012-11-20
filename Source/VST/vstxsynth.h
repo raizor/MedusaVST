@@ -25,6 +25,7 @@
 #include "public.sdk/source/vst2.x/audioeffect.h"
 #include "GUI/Editor.h"
 #include "GUI/VSTGL/VSTGLEditor.h"
+#include "Synth.h"
 
 //------------------------------------------------------------------------------------------
 enum
@@ -124,8 +125,8 @@ private:
 	float fPhase1, fPhase2;
 	float fScaler;
 
-	Editor* gui;
-	Synth* synth;
+	static Editor* gui;
+	static Synth* synth;
 
 	VstXSynthProgram* programs;
 	VstInt32 channelPrograms[16];

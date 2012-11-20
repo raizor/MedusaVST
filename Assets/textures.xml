@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:dcd65f18f0af9dc48d5aefa79378e4e6$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="textures.png" width="1024" height="2048">
+    <sprite n="but_1_off.png" x="194" y="442" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_1_off_lit.png" x="194" y="415" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_1_on.png" x="462" y="599" w="26" h="27"/>
+    <sprite n="but_1_on_lit.png" x="194" y="388" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_2_off.png" x="194" y="361" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_2_off_lit.png" x="194" y="334" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_2_on.png" x="462" y="570" w="26" h="27"/>
+    <sprite n="but_2_on_lit.png" x="194" y="307" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_3_off.png" x="194" y="280" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_3_off_lit.png" x="194" y="253" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_3_on.png" x="986" y="498" w="26" h="27"/>
+    <sprite n="but_3_on_lit.png" x="194" y="226" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_4_off.png" x="194" y="199" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_4_off_lit.png" x="194" y="172" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_4_on.png" x="986" y="469" w="26" h="27"/>
+    <sprite n="but_4_on_lit.png" x="146" y="145" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_5_off.png" x="999" y="83" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_5_off_lit.png" x="999" y="56" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_5_on.png" x="986" y="440" w="26" h="27"/>
+    <sprite n="but_5_on_lit.png" x="999" y="29" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_6_off.png" x="999" y="2" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_6_off_lit.png" x="148" y="61" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_6_on.png" x="986" y="411" w="26" h="27"/>
+    <sprite n="but_6_on_lit.png" x="148" y="34" w="22" h="25" oX="4" oY="2" oW="26" oH="27"/>
+    <sprite n="but_amp_off.png" x="986" y="331" w="30" h="25" oX="4" oY="2" oW="34" oH="27"/>
+    <sprite n="but_amp_off_lit.png" x="986" y="304" w="30" h="25" oX="4" oY="2" oW="34" oH="27"/>
+    <sprite n="but_amp_on.png" x="988" y="194" w="32" h="27" oX="2" oY="0" oW="34" oH="27"/>
+    <sprite n="but_amp_on_lit.png" x="991" y="138" w="30" h="25" oX="4" oY="2" oW="34" oH="27"/>
+    <sprite n="but_filterLink_off.png" x="146" y="88" w="24" h="29" oX="4" oY="2" oW="28" oH="31"/>
+    <sprite n="but_filterLink_on.png" x="986" y="382" w="26" h="27" oX="1" oY="0" oW="28" oH="31"/>
+    <sprite n="but_filterMode_dual.png" x="172" y="31" w="49" h="43" oX="2" oY="2" oW="51" oH="49"/>
+    <sprite n="but_filterMode_para.png" x="228" y="2" w="49" h="47" oX="2" oY="1" oW="51" oH="49"/>
+    <sprite n="but_master_limit_off.png" x="986" y="358" w="28" h="22" oX="4" oY="4" oW="32" oH="26"/>
+    <sprite n="but_master_limit_on.png" x="991" y="110" w="30" h="26" oX="0" oY="0" oW="32" oH="26"/>
+    <sprite n="but_modArp_arp.png" x="90" y="2" w="80" h="30" oX="4" oY="0" oW="86" oH="30"/>
+    <sprite n="but_modArp_mod.png" x="2" y="2" w="86" h="30"/>
+    <sprite n="but_mod_1-8.png" x="172" y="2" w="54" h="27"/>
+    <sprite n="but_mod_9-16.png" x="2" y="34" w="48" h="27" oX="4" oY="0" oW="54" oH="27"/>
+    <sprite n="but_osc_power_off.png" x="194" y="469" w="22" h="22" oX="4" oY="4" oW="26" oH="26"/>
+    <sprite n="but_osc_power_on.png" x="146" y="119" w="24" h="24" oX="0" oY="0" oW="26" oH="26"/>
+    <sprite n="but_pitch_off.png" x="986" y="277" w="32" h="25" oX="4" oY="2" oW="36" oH="27"/>
+    <sprite n="but_pitch_off_lit.png" x="986" y="250" w="32" h="25" oX="4" oY="2" oW="36" oH="27"/>
+    <sprite n="but_pitch_on.png" x="988" y="165" w="34" h="27" oX="2" oY="0" oW="36" oH="27"/>
+    <sprite n="but_pitch_on_lit.png" x="988" y="223" w="32" h="25" oX="4" oY="2" oW="36" oH="27"/>
+    <sprite n="knob_bi_focus_0.png" x="926" y="1035" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_1.png" x="884" y="1035" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_10.png" x="842" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_100.png" x="800" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_101.png" x="758" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_102.png" x="716" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_103.png" x="674" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_104.png" x="632" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_105.png" x="590" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_106.png" x="548" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_107.png" x="506" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_108.png" x="86" y="1072" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_109.png" x="2" y="1101" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_11.png" x="44" y="1072" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_110.png" x="296" y="1038" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_111.png" x="128" y="1066" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_112.png" x="170" y="1041" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_113.png" x="212" y="1040" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_114.png" x="254" y="1038" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_115.png" x="380" y="1036" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_116.png" x="338" y="1036" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_117.png" x="422" y="1034" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_118.png" x="464" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_119.png" x="968" y="993" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_12.png" x="926" y="993" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_120.png" x="884" y="993" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_121.png" x="842" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_122.png" x="800" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_123.png" x="758" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_124.png" x="716" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_125.png" x="674" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_126.png" x="632" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_127.png" x="590" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_128.png" x="548" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_13.png" x="506" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_14.png" x="86" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_15.png" x="2" y="1059" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_16.png" x="44" y="1030" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_17.png" x="296" y="996" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_18.png" x="128" y="1024" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_19.png" x="170" y="999" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_2.png" x="212" y="998" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_20.png" x="254" y="996" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_21.png" x="380" y="994" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_22.png" x="338" y="994" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_23.png" x="422" y="992" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_24.png" x="464" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_25.png" x="970" y="951" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_26.png" x="928" y="951" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_27.png" x="886" y="951" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_28.png" x="844" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_29.png" x="802" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_3.png" x="760" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_30.png" x="718" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_31.png" x="676" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_32.png" x="634" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_33.png" x="592" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_34.png" x="550" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_35.png" x="508" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_36.png" x="86" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_37.png" x="2" y="1017" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_38.png" x="44" y="988" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_39.png" x="296" y="954" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_4.png" x="128" y="982" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_40.png" x="170" y="957" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_41.png" x="212" y="956" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_42.png" x="254" y="954" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_43.png" x="380" y="952" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_44.png" x="338" y="952" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_45.png" x="422" y="950" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_46.png" x="466" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_47.png" x="974" y="909" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_48.png" x="932" y="909" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_49.png" x="890" y="909" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_5.png" x="848" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_50.png" x="806" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_51.png" x="764" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_52.png" x="722" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_53.png" x="680" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_54.png" x="638" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_55.png" x="596" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_56.png" x="554" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_57.png" x="512" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_58.png" x="86" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_59.png" x="2" y="975" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_6.png" x="44" y="946" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_60.png" x="296" y="912" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_61.png" x="128" y="940" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_62.png" x="170" y="915" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_63.png" x="212" y="914" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_64.png" x="254" y="912" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_65.png" x="380" y="910" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_66.png" x="338" y="910" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_67.png" x="424" y="908" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_68.png" x="470" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_69.png" x="980" y="867" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_7.png" x="938" y="867" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_70.png" x="896" y="867" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_71.png" x="854" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_72.png" x="812" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_73.png" x="770" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_74.png" x="728" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_75.png" x="686" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_76.png" x="644" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_77.png" x="602" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_78.png" x="560" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_79.png" x="518" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_8.png" x="86" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_80.png" x="2" y="933" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_81.png" x="44" y="904" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_82.png" x="296" y="870" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_83.png" x="128" y="898" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_84.png" x="170" y="873" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_85.png" x="212" y="872" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_86.png" x="254" y="870" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_87.png" x="382" y="868" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_88.png" x="340" y="868" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_89.png" x="428" y="866" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_9.png" x="476" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_90.png" x="946" y="825" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_91.png" x="904" y="825" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_92.png" x="862" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_93.png" x="820" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_94.png" x="778" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_95.png" x="736" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_96.png" x="694" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_97.png" x="652" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_98.png" x="610" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_focus_99.png" x="568" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_0.png" x="526" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_1.png" x="86" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_10.png" x="2" y="891" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_100.png" x="44" y="862" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_101.png" x="298" y="828" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_102.png" x="128" y="856" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_103.png" x="170" y="831" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_104.png" x="212" y="830" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_105.png" x="256" y="828" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_106.png" x="386" y="826" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_107.png" x="344" y="826" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_108.png" x="434" y="824" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_109.png" x="484" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_11.png" x="954" y="783" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_110.png" x="912" y="783" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_111.png" x="870" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_112.png" x="828" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_113.png" x="786" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_114.png" x="744" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_115.png" x="702" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_116.png" x="660" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_117.png" x="618" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_118.png" x="576" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_119.png" x="534" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_12.png" x="86" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_120.png" x="2" y="849" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_121.png" x="44" y="820" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_122.png" x="302" y="786" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_123.png" x="128" y="814" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_124.png" x="170" y="789" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_125.png" x="214" y="788" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_126.png" x="260" y="786" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_127.png" x="392" y="784" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_128.png" x="350" y="784" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_13.png" x="442" y="782" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_14.png" x="492" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_15.png" x="958" y="741" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_16.png" x="916" y="741" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_17.png" x="874" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_18.png" x="832" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_19.png" x="790" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_2.png" x="748" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_20.png" x="706" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_21.png" x="664" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_22.png" x="622" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_23.png" x="580" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_24.png" x="538" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_25.png" x="86" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_26.png" x="2" y="807" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_27.png" x="44" y="778" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_28.png" x="308" y="744" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_29.png" x="128" y="772" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_3.png" x="172" y="747" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_30.png" x="218" y="746" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_31.png" x="266" y="744" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_32.png" x="400" y="742" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_33.png" x="358" y="742" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_34.png" x="450" y="740" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_35.png" x="496" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_36.png" x="958" y="699" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_37.png" x="916" y="699" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_38.png" x="874" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_39.png" x="832" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_4.png" x="790" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_40.png" x="748" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_41.png" x="706" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_42.png" x="664" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_43.png" x="622" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_44.png" x="580" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_45.png" x="538" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_46.png" x="86" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_47.png" x="2" y="765" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_48.png" x="44" y="736" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_49.png" x="316" y="702" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_5.png" x="130" y="730" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_50.png" x="176" y="705" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_51.png" x="224" y="704" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_52.png" x="274" y="702" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_53.png" x="408" y="700" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_54.png" x="366" y="700" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_55.png" x="454" y="698" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_56.png" x="496" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_57.png" x="952" y="657" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_58.png" x="910" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_59.png" x="868" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_6.png" x="826" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_60.png" x="784" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_61.png" x="742" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_62.png" x="700" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_63.png" x="658" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_64.png" x="616" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_65.png" x="574" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_66.png" x="88" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_67.png" x="2" y="723" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_68.png" x="46" y="694" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_69.png" x="134" y="688" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_7.png" x="182" y="663" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_70.png" x="232" y="662" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_71.png" x="324" y="660" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_72.png" x="282" y="660" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_73.png" x="412" y="658" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_74.png" x="370" y="658" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_75.png" x="454" y="656" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_76.png" x="532" y="652" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_77.png" x="962" y="615" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_78.png" x="920" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_79.png" x="878" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_8.png" x="836" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_80.png" x="794" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_81.png" x="752" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_82.png" x="710" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_83.png" x="668" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_84.png" x="626" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_85.png" x="584" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_86.png" x="490" y="614" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_87.png" x="542" y="610" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_88.png" x="962" y="573" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_89.png" x="920" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_9.png" x="878" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_90.png" x="836" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_91.png" x="794" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_92.png" x="752" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_93.png" x="710" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_94.png" x="668" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_95.png" x="626" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_96.png" x="584" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_97.png" x="542" y="568" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_98.png" x="412" y="616" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_bi_main_99.png" x="370" y="616" w="40" h="40" oX="6" oY="6" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_0.png" x="326" y="616" w="42" h="42" oX="4" oY="4" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_1.png" x="90" y="648" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_10.png" x="922" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_100.png" x="458" y="338" w="46" h="46"/>
+    <sprite n="knob_uni_focus_101.png" x="410" y="338" w="46" h="46"/>
+    <sprite n="knob_uni_focus_102.png" x="362" y="338" w="46" h="46"/>
+    <sprite n="knob_uni_focus_103.png" x="314" y="338" w="46" h="46"/>
+    <sprite n="knob_uni_focus_104.png" x="98" y="370" w="46" h="46"/>
+    <sprite n="knob_uni_focus_105.png" x="2" y="399" w="46" h="46"/>
+    <sprite n="knob_uni_focus_106.png" x="50" y="370" w="46" h="46"/>
+    <sprite n="knob_uni_focus_107.png" x="146" y="364" w="46" h="46"/>
+    <sprite n="knob_uni_focus_108.png" x="218" y="339" w="46" h="46"/>
+    <sprite n="knob_uni_focus_109.png" x="266" y="338" w="46" h="46"/>
+    <sprite n="knob_uni_focus_11.png" x="876" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_110.png" x="938" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_111.png" x="890" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_112.png" x="842" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_113.png" x="794" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_114.png" x="746" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_115.png" x="698" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_116.png" x="650" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_117.png" x="602" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_118.png" x="554" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_119.png" x="506" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_12.png" x="830" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_120.png" x="458" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_121.png" x="410" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_122.png" x="362" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_123.png" x="314" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_124.png" x="98" y="322" w="46" h="46"/>
+    <sprite n="knob_uni_focus_125.png" x="2" y="351" w="46" h="46"/>
+    <sprite n="knob_uni_focus_126.png" x="50" y="322" w="46" h="46"/>
+    <sprite n="knob_uni_focus_127.png" x="146" y="316" w="46" h="46"/>
+    <sprite n="knob_uni_focus_128.png" x="218" y="291" w="46" h="46"/>
+    <sprite n="knob_uni_focus_13.png" x="784" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_14.png" x="738" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_15.png" x="692" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_16.png" x="646" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_17.png" x="2" y="585" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_18.png" x="50" y="556" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_19.png" x="146" y="550" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_2.png" x="2" y="677" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_20.png" x="194" y="525" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_21.png" x="266" y="524" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_22.png" x="506" y="522" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_23.png" x="938" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_24.png" x="890" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_25.png" x="842" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_26.png" x="794" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_27.png" x="746" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_28.png" x="698" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_29.png" x="650" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_3.png" x="46" y="648" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_30.png" x="602" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_31.png" x="554" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_32.png" x="458" y="478" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_33.png" x="410" y="478" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_34.png" x="362" y="478" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_35.png" x="314" y="478" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_36.png" x="98" y="510" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_37.png" x="2" y="539" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_38.png" x="50" y="510" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_39.png" x="146" y="504" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_4.png" x="138" y="642" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_40.png" x="218" y="479" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_41.png" x="266" y="478" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_42.png" x="506" y="476" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_43.png" x="938" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_44.png" x="890" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_45.png" x="842" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_46.png" x="794" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_47.png" x="746" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_48.png" x="698" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_49.png" x="650" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_5.png" x="188" y="617" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_50.png" x="602" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_51.png" x="554" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_52.png" x="458" y="432" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_53.png" x="410" y="432" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_54.png" x="362" y="432" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_55.png" x="266" y="290" w="46" h="46"/>
+    <sprite n="knob_uni_focus_56.png" x="938" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_57.png" x="890" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_58.png" x="842" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_59.png" x="794" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_6.png" x="238" y="616" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_60.png" x="746" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_61.png" x="698" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_62.png" x="650" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_63.png" x="602" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_64.png" x="554" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_65.png" x="506" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_66.png" x="458" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_67.png" x="410" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_68.png" x="362" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_69.png" x="314" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_7.png" x="418" y="570" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_70.png" x="98" y="274" w="46" h="46"/>
+    <sprite n="knob_uni_focus_71.png" x="2" y="303" w="46" h="46"/>
+    <sprite n="knob_uni_focus_72.png" x="50" y="274" w="46" h="46"/>
+    <sprite n="knob_uni_focus_73.png" x="146" y="268" w="46" h="46"/>
+    <sprite n="knob_uni_focus_74.png" x="218" y="243" w="46" h="46"/>
+    <sprite n="knob_uni_focus_75.png" x="266" y="242" w="46" h="46"/>
+    <sprite n="knob_uni_focus_76.png" x="940" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_77.png" x="892" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_78.png" x="844" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_79.png" x="796" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_8.png" x="374" y="570" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_80.png" x="748" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_81.png" x="700" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_82.png" x="652" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_83.png" x="604" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_84.png" x="556" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_85.png" x="508" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_86.png" x="460" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_87.png" x="412" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_88.png" x="364" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_89.png" x="316" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_9.png" x="330" y="570" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_focus_90.png" x="98" y="226" w="46" h="46"/>
+    <sprite n="knob_uni_focus_91.png" x="2" y="255" w="46" h="46"/>
+    <sprite n="knob_uni_focus_92.png" x="50" y="226" w="46" h="46"/>
+    <sprite n="knob_uni_focus_93.png" x="146" y="220" w="46" h="46"/>
+    <sprite n="knob_uni_focus_94.png" x="218" y="195" w="46" h="46"/>
+    <sprite n="knob_uni_focus_95.png" x="268" y="194" w="46" h="46"/>
+    <sprite n="knob_uni_focus_96.png" x="940" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_focus_97.png" x="892" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_focus_98.png" x="844" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_focus_99.png" x="796" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_0.png" x="282" y="616" w="42" h="42" oX="4" oY="4" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_1.png" x="286" y="570" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_10.png" x="600" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_100.png" x="748" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_101.png" x="700" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_102.png" x="652" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_103.png" x="604" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_104.png" x="556" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_105.png" x="508" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_106.png" x="460" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_107.png" x="412" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_108.png" x="364" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_109.png" x="316" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_11.png" x="554" y="522" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_110.png" x="98" y="178" w="46" h="46"/>
+    <sprite n="knob_uni_main_111.png" x="2" y="207" w="46" h="46"/>
+    <sprite n="knob_uni_main_112.png" x="50" y="178" w="46" h="46"/>
+    <sprite n="knob_uni_main_113.png" x="146" y="172" w="46" h="46"/>
+    <sprite n="knob_uni_main_114.png" x="220" y="147" w="46" h="46"/>
+    <sprite n="knob_uni_main_115.png" x="268" y="146" w="46" h="46"/>
+    <sprite n="knob_uni_main_116.png" x="943" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_117.png" x="895" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_118.png" x="847" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_119.png" x="799" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_12.png" x="452" y="524" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_120.png" x="751" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_121.png" x="703" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_122.png" x="655" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_123.png" x="607" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_124.png" x="559" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_125.png" x="511" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_126.png" x="463" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_127.png" x="415" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_128.png" x="367" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_13.png" x="406" y="524" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_14.png" x="360" y="524" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_15.png" x="314" y="524" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_16.png" x="98" y="556" w="44" h="44" oX="2" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_17.png" x="314" y="432" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_18.png" x="98" y="464" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_19.png" x="2" y="493" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_2.png" x="94" y="602" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_20.png" x="50" y="464" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_21.png" x="146" y="458" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_22.png" x="218" y="433" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_23.png" x="266" y="432" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_24.png" x="506" y="430" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_25.png" x="938" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_26.png" x="890" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_27.png" x="842" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_28.png" x="794" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_29.png" x="746" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_3.png" x="2" y="631" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_30.png" x="698" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_31.png" x="650" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_32.png" x="602" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_33.png" x="554" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_34.png" x="458" y="386" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_35.png" x="410" y="386" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_36.png" x="362" y="386" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_37.png" x="314" y="386" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_38.png" x="98" y="418" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_39.png" x="2" y="447" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_4.png" x="50" y="602" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_40.png" x="50" y="418" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_41.png" x="146" y="412" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_42.png" x="218" y="387" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_43.png" x="266" y="386" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_44.png" x="506" y="384" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_45.png" x="938" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_46.png" x="890" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_47.png" x="842" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_48.png" x="794" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_49.png" x="746" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_5.png" x="144" y="596" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_50.png" x="698" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_51.png" x="650" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_52.png" x="602" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_53.png" x="554" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_54.png" x="506" y="338" w="46" h="44" oX="0" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_55.png" x="319" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_56.png" x="172" y="124" w="46" h="46"/>
+    <sprite n="knob_uni_main_57.png" x="220" y="99" w="46" h="46"/>
+    <sprite n="knob_uni_main_58.png" x="271" y="98" w="46" h="46"/>
+    <sprite n="knob_uni_main_59.png" x="951" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_6.png" x="194" y="571" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_60.png" x="903" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_61.png" x="855" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_62.png" x="807" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_63.png" x="759" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_64.png" x="711" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_65.png" x="663" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_66.png" x="615" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_67.png" x="567" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_68.png" x="519" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_69.png" x="471" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_7.png" x="242" y="570" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_70.png" x="423" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_71.png" x="375" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_72.png" x="327" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_73.png" x="98" y="130" w="46" h="46"/>
+    <sprite n="knob_uni_main_74.png" x="2" y="159" w="46" h="46"/>
+    <sprite n="knob_uni_main_75.png" x="50" y="130" w="46" h="46"/>
+    <sprite n="knob_uni_main_76.png" x="172" y="76" w="46" h="46"/>
+    <sprite n="knob_uni_main_77.png" x="223" y="51" w="46" h="46"/>
+    <sprite n="knob_uni_main_78.png" x="279" y="50" w="46" h="46"/>
+    <sprite n="knob_uni_main_79.png" x="951" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_8.png" x="498" y="568" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_80.png" x="903" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_81.png" x="855" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_82.png" x="807" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_83.png" x="759" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_84.png" x="711" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_85.png" x="663" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_86.png" x="615" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_87.png" x="567" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_88.png" x="519" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_89.png" x="471" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_9.png" x="968" y="527" w="42" h="44" oX="4" oY="2" oW="46" oH="46"/>
+    <sprite n="knob_uni_main_90.png" x="423" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_91.png" x="375" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_92.png" x="327" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_93.png" x="279" y="2" w="46" h="46"/>
+    <sprite n="knob_uni_main_94.png" x="98" y="82" w="46" h="46"/>
+    <sprite n="knob_uni_main_95.png" x="2" y="111" w="46" h="46"/>
+    <sprite n="knob_uni_main_96.png" x="50" y="82" w="46" h="46"/>
+    <sprite n="knob_uni_main_97.png" x="100" y="34" w="46" h="46"/>
+    <sprite n="knob_uni_main_98.png" x="2" y="63" w="46" h="46"/>
+    <sprite n="knob_uni_main_99.png" x="52" y="34" w="46" h="46"/>
+    <sprite n="slider.png" x="422" y="1076" w="38" h="33"/>
+    <sprite n="slider_2.png" x="464" y="1072" w="38" h="33"/>
+    <sprite n="slider_focus.png" x="968" y="1070" w="38" h="33"/>
+    <sprite n="slider_focus_2.png" x="968" y="1035" w="38" h="33"/>
+</TextureAtlas>

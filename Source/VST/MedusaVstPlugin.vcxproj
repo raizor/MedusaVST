@@ -106,7 +106,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>dsound.lib;winmm.lib;opengl32.lib;glu32.lib;WeenerSynth.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dsound.lib;winmm.lib;medusaSynth.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -147,7 +147,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>dsound.lib;winmm.lib;WeenerSynth.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dsound.lib;winmm.lib;medusaSynth.lib;WeenerSynth.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -172,10 +172,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GUI\Components\GLImageManager.h" />
-    <ClInclude Include="GUI\Components\GuiStackItem.h" />
+    <ClInclude Include="GUI\Components\GuiKeyboard.h" />
+    <ClInclude Include="Utils\console.h" />
+    <ClInclude Include="Utils\GEvent.h" />
+    <ClInclude Include="GUI\Components\GuiButton.h" />
+    <ClInclude Include="GUI\Components\GuiLabel.h" />
+    <ClInclude Include="GUI\Components\GuiSlider.h" />
+    <ClInclude Include="GUI\Components\GuiPanelOsc.h" />
+    <ClInclude Include="GUI\Components\GuiKnob.h" />
+    <ClInclude Include="GUI\Components\GuiImageManager.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="resources\resource.h" />
+    <ClInclude Include="Utils\Types.h" />
     <ClInclude Include="Utils\GLImage.h" />
     <ClInclude Include="GUI\Components\GuiMainWindow.h" />
     <ClInclude Include="Utils\glext.h" />
@@ -196,8 +204,16 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GUI\Components\GLImageManager.cpp" />
-    <ClCompile Include="GUI\Components\GuiStackItem.cpp" />
+    <ClCompile Include="GUI\Components\GuiKeyboard.cpp" />
+    <ClCompile Include="Utils\console.cpp" />
+    <ClCompile Include="Utils\GEvent.cpp" />
+    <ClCompile Include="GUI\Components\GuiButton.cpp" />
+    <ClCompile Include="GUI\Components\GuiLabel.cpp" />
+    <ClCompile Include="GUI\Components\GuiSlider.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelOsc.cpp" />
+    <ClCompile Include="GUI\Components\GuiKnob.cpp" />
+    <ClCompile Include="GUI\Components\GuiImageManager.cpp" />
+    <ClCompile Include="Utils\Types.cpp" />
     <ClCompile Include="Utils\GLImage.cpp" />
     <ClCompile Include="GUI\Components\GuiMainWindow.cpp" />
     <ClCompile Include="Utils\GlHelpers.cpp" />
@@ -226,15 +242,36 @@
     <ResourceCompile Include="resources\resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\knobs\textures.json" />
     <None Include="resources\vstxsynth.vstxml" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="maingui.png" />
+    <Image Include="keyboard\keyboard_overlay.png" />
+    <Image Include="knobs\knobSurround.png" />
+    <Image Include="knobs\knob_bi.png" />
+    <Image Include="knobs\knob_bi_focus.png" />
+    <Image Include="knobs\knob_bi_main.png" />
+    <Image Include="knobs\knob_bi_strip.png" />
+    <Image Include="knobs\knob_uni_focus.png" />
+    <Image Include="knobs\knob_uni_main.png" />
+    <Image Include="knobs\knob_uni_strip.png" />
+    <Image Include="knobs\textures.png" />
+    <Image Include="panels\header.png" />
+    <Image Include="panels\panel_main.png" />
+    <Image Include="resources\font8.png" />
+    <Image Include="resources\keyboard\keyboard_overlay.png" />
+    <Image Include="resources\knobs\knobsurround.png" />
+    <Image Include="resources\knobs\knob_bi_focus.png" />
+    <Image Include="resources\knobs\knob_bi_main.png" />
+    <Image Include="resources\knobs\knob_bi_strip.png" />
+    <Image Include="resources\knobs\knob_uni_focus.png" />
+    <Image Include="resources\knobs\knob_uni_main.png" />
+    <Image Include="resources\knobs\knob_uni_strip.png" />
     <Image Include="resources\maingui.png" />
+    <Image Include="resources\panels\header.png" />
+    <Image Include="resources\panels\main_panels.png" />
     <Image Include="resources\stackItemPanel.png" />
     <Image Include="resources\test.png" />
-    <Image Include="stackItemPanel.png" />
-    <Image Include="test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 #pragma once
 
-class GLImage;
+class GuiImage;
 class objectStack
 {
 public:
@@ -20,5 +20,5 @@ class imageStack : public objectStack
 {
 public:
 	imageStack(int size);
-	GLImage* GetItem(int index);
+	GuiImage* GetItem(int index);
 };

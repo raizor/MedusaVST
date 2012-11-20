@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="ConnectionString" Value="Connect Timeout=1;server=(local);User Id=dfuzeService;Password=dfuzeService;database=dfuze30Sql_33" />
+    <add key="MediaStorePath" Value="G:\WORK\DfuzeData\Dfuze30_33\media" />
+    <add key="ImpersonateUsername" Value="" />
+    <add key="ImpersonatePassword" Value="" />
+    <add key="ImpersonateDomain" Value="" /> 
+  </appSettings>
+</configuration>

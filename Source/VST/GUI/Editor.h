@@ -26,7 +26,6 @@
 
 #include "VSTGL/VSTGLEditor.h"
 #include "VSTGL/VSTGLTimer.h"
-#include "Synth.h"
 #include "Components/GuiMainWindow.h"
 #include <iostream>
 
@@ -36,8 +35,9 @@ class Editor : public VSTGLEditor,
 {
 public:
 	Patch* currentPatch;
-	GuiMainWindow* _mainWindow;
+	static GuiMainWindow* _mainWindow;
 	static int _winWidth, _winHeight;
+	static bool _initDone;
 		
 	///	Constructor.
 	Editor(AudioEffect *effect);
@@ -56,6 +56,10 @@ public:
 
 	///	Called repeatedly, to update the graphics.
 	void timerCallback();
+
+	void onMouseMove(int x, int y);
+	void onMouseDown(int button, int x, int y);
+	void onMouseUp(int button, int x, int y);
   private:
 	///	Variable used to rotate the pyramid.
 	float thing;

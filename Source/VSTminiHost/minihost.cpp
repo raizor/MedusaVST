@@ -136,7 +136,7 @@ int main (int argc, char* argv[])
 	//const char* fileName = "again.dll";
 	//const char* fileName = "adelay.dll";
 	//const char* fileName = "surrounddelay.dll";
-	const char* fileName = "vstxsynth.dll";
+	const char* fileName = "MedusaVstPlugin.dll";
 	//const char* fileName = "drawtest.dll";
 
 	if (argc > 1)

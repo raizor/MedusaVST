@@ -24,7 +24,7 @@
 
 #include "VSTGLEditor.h"
 #include "public.sdk/source/vst2.x/audioeffect.h"
-
+#include "../../includes.h"
 #include <cstdio>
 
 #ifdef WIN32
@@ -157,7 +157,7 @@ bool VSTGLEditor::open(void *ptr)
 	if(useVSync)
 		setupVSync();
 	guiOpen();
-
+	
 	return true;
 }
 
@@ -232,6 +232,9 @@ void VSTGLEditor::createWindow()
 	char tempstr[32];
 	HWND parentHWnd = static_cast<HWND>(systemWindow);
 
+	int winWidth = (_rect.right-_rect.left);
+	int winHeight = (_rect.bottom-_rect.top);
+
 	//sprintf(tempstr, "VSTGLWindow%08x", static_cast<HINSTANCE>(hInstance));
 	sprintf(tempstr, "VSTGLWindow%08x", reinterpret_cast<int>(this));
 	tempHWnd = CreateWindowEx(0,					//extended window style
@@ -241,12 +244,36 @@ void VSTGLEditor::createWindow()
 							  WS_VISIBLE,			//window style
 							  0,					//horizontal position of window
 							  0,					//vertical position of window
-							  (_rect.right-_rect.left),//window width
-							  (_rect.bottom-_rect.top),//window height
+							  winWidth,//window width
+							  winHeight,//window height
 							  parentHWnd,			//handle to parent or owner window
 							  NULL,					//handle to menu, or child-window identifier
 							  (HINSTANCE)hInstance,	//handle to application instance
 							  NULL);				//pointer to window-creation data
+
+	/* Variables */
+	RECT rc;
+
+	/* If Parent Window Is Set As Null, Get The Desktop Window */
+	if(parentHWnd == NULL)
+	{
+
+		parentHWnd = GetDesktopWindow();
+
+	}
+
+	/* Get Parent Client Area Measurements */
+	GetClientRect(parentHWnd, &rc);
+
+	/* Center The Window */
+	MoveWindow(
+		parentHWnd,
+		winWidth / 2,
+		0,
+		winWidth,
+		winHeight,
+		TRUE
+		);
 
 	//This is so we can send messages to this object from the message loop.
 	SetWindowLong(tempHWnd, GWL_USERDATA, (long)this);
@@ -402,6 +429,16 @@ LONG WINAPI VSTGLEditor::GLWndProc(HWND hwnd,
 	VstKeyCode tempkey;
 	VSTGLEditor *ed = reinterpret_cast<VSTGLEditor *>(GetWindowLong(hwnd, GWL_USERDATA));
 
+	/*
+	int modifiers = 0;
+	if (GetKeyState (VK_CONTROL) < 0)
+		modifiers |= kGEventModifierControl;
+	if (GetKeyState (VK_SHIFT) < 0)
+		modifiers |= kGEventModifierShift;
+	// added to achieve information from the ALT button
+	if (GetKeyState (VK_MENU) < 0)
+		modifiers |= kGEventModifierAlt;
+	*/
 	switch(message)
 	{
 		case WM_LBUTTONDOWN:

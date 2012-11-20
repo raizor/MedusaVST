@@ -32,10 +32,10 @@ imageStack::imageStack(int size) : objectStack(size)
 
 }
 
-GLImage* imageStack::GetItem(int index)
+GuiImage* imageStack::GetItem(int index)
 {
 	void* obj = items[index];
-	return (GLImage*)obj;
+	return (GuiImage*)obj;
 }
 
 

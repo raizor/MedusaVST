@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="ConnectionString" Value="Connect Timeout=1;server=(local);Integrated Security=True;database=dfuze30sqlMain" />
+    <add key="MediaStorePath" Value="C:\Users\Wasim\root\Media" />
+    <add key="ImpersonateUsername" Value="" />
+    <add key="ImpersonatePassword" Value="" />
+    <add key="ImpersonateDomain" Value="" />
+  </appSettings>
+</configuration>
