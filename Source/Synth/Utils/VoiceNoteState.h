@@ -8,5 +8,5 @@ public:
 	enum NoteState NoteInfo;
 	long NoteOnTimeId;
 	
-	VoiceNoteState(Voice* voice);
+	VoiceNoteState();
 };

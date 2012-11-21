@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "../Constants.h"
 #include "../Utils/ZynthTools.h"
 #include "../Utils/PitchUtils.h"
@@ -45,8 +41,3 @@ public:
 	void Voice::StopDead();
 
 };
-
-
-#ifdef __cplusplus
-}
-#endif

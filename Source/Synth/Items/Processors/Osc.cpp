@@ -2,7 +2,7 @@
 #include "../../Utils/Voice.h"
 #include "../../Utils/WaveTableGen.h"
 
-Osc::Osc(void) : ItemProcessor(true)
+Osc::Osc(void) : ItemProcessor(kStackItemTypeWfOsc, true)
 {
 	AddIntParam(0); // waveform type
 

@@ -25,13 +25,13 @@
 			<Name>Dfuze.Service.HostingWindowsService</Name>
 			<Project>{B7354124-D6BB-4BCD-AD0C-DEC24B289D26}</Project>
 		</ProjectReference>
-		<ProjectReference Include="..\..\..\..\..\..\..\WORK\Dfuze Development Branches\v3.3.0 Development\Dfuze Service\Dfuze.Service.Utils\Dfuze.Service.Utils.csproj">
-			<Name>Dfuze.Service.Utils</Name>
-			<Project>{7F5E8462-B1A9-4ED1-90F0-E9ECB238AE7A}</Project>
-		</ProjectReference>
 		<ProjectReference Include="..\..\..\..\..\..\..\WORK\Dfuze Development Branches\v3.3.0 Development\Dfuze Service\DfuzeServiceMonitor\DfuzeServiceMonitor.csproj">
 			<Name>DfuzeServiceMonitor</Name>
 			<Project>{31BCDB03-596D-45EA-8020-E8E82B14FC7A}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\..\..\..\..\..\..\WORK\Dfuze Development Branches\v3.3.0 Development\Dfuze Service\Dfuze.Service.Utils\Dfuze.Service.Utils.csproj">
+			<Name>Dfuze.Service.Utils</Name>
+			<Project>{7F5E8462-B1A9-4ED1-90F0-E9ECB238AE7A}</Project>
 		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>

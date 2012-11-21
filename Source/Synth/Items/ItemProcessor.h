@@ -8,8 +8,8 @@ class Voice;
 class ItemProcessor : public Item
 {
 public:
-	ItemProcessor(bool hasWaveTable = false);
+	ItemProcessor(StackItemType type, bool hasWaveTable = false);
 	~ItemProcessor(void);
-	void Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples);
+	virtual void Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples);
 };
 

@@ -1,8 +1,8 @@
 #include "VoiceNoteState.h"
 
-VoiceNoteState::VoiceNoteState(Voice* voice)
+VoiceNoteState::VoiceNoteState()
 {
-	VoiceInfo = voice;
+	VoiceInfo = 0;
 	NoteInfo = kNoteStateOff;	
 	NoteOnTimeId = 0;
 }

@@ -21,6 +21,7 @@
 
 #include "vstxsynth.h"
 #include "Utils/VoicePool.h"
+#include "Utils/WaveFormGen.h"
 
 enum
 {
@@ -32,6 +33,9 @@ const double midiScaler = (1. / 127.);
 static float sawtooth[kWaveSize];
 static float pulse[kWaveSize];
 static float freqtab[kNumFrequencies];
+
+static long runtime = 0;
+
 
 //-----------------------------------------------------------------------------------------
 // VstXSynth
@@ -161,6 +165,9 @@ void VstXSynth::initProcess ()
 //	*/
 //}
 
+static int xx = 0;
+
+static double tv = 0;
 
 //-----------------------------------------------------------------------------------------
 void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
@@ -168,7 +175,15 @@ void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 samp
 	float* out1 = outputs[0];
 	float* out2 = outputs[1];
 
-	synth->RenderFloat(out1, out2, sampleFrames);
+
+	float baseFreq = freqtab[currentNote & 0x7f] * fScaler;
+	float freq1 = baseFreq + fFreq1;	// not really linear...
+	float freq2 = baseFreq + fFreq2;
+	float* wave1 = (fWaveform1 < .5) ? sawtooth : pulse;
+	float* wave2 = (fWaveform2 < .5) ? sawtooth : pulse;
+	float wsf = (float)kWaveSize;
+	float vol = (float)(fVolume * (double)currentVelocity * midiScaler);
+	VstInt32 mask = kWaveSize - 1;
 		
 	if (currentDelta > 0)
 	{
@@ -184,65 +199,13 @@ void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 samp
 		sampleFrames -= currentDelta;
 		currentDelta = 0;
 	}
-		
-	int sd = 0;
 
-	//synth->RenderFloat(out1, out2, sampleFrames);
-	for(int i=0; i<sampleFrames; i++)
-	{
-		float vv = msys_frand(&sd);
-		out1[i] = vv;
-		out2[i] = vv;
-	}
+	// loop
+	synth->RenderFloat(out1, out2, sampleFrames);
+	out1+=sampleFrames;
+	out2+=sampleFrames;
 
-	
-	int xx = 0;
-
-	if (noteIsOn)
-	{
-		float baseFreq = freqtab[currentNote & 0x7f] * fScaler;
-		float freq1 = baseFreq + fFreq1;	// not really linear...
-		float freq2 = baseFreq + fFreq2;
-		float* wave1 = (fWaveform1 < .5) ? sawtooth : pulse;
-		float* wave2 = (fWaveform2 < .5) ? sawtooth : pulse;
-		float wsf = (float)kWaveSize;
-		float vol = (float)(fVolume * (double)currentVelocity * midiScaler);
-		VstInt32 mask = kWaveSize - 1;
-		
-		if (currentDelta > 0)
-		{
-			if (currentDelta >= sampleFrames)	// future
-			{
-				currentDelta -= sampleFrames;
-				return;
-			}
-			memset (out1, 0, currentDelta * sizeof (float));
-			memset (out2, 0, currentDelta * sizeof (float));
-			out1 += currentDelta;
-			out2 += currentDelta;
-			sampleFrames -= currentDelta;
-			currentDelta = 0;
-		}
-
-		// loop
-		while (--sampleFrames >= 0)
-		{
-			// this is all very raw, there is no means of interpolation,
-			// and we will certainly get aliasing due to non-bandlimited
-			// waveforms. don't use this for serious projects...
-			//(*out1++) = wave1[(VstInt32)fPhase1 & mask] * fVolume1 * vol;
-			//(*out2++) = wave2[(VstInt32)fPhase2 & mask] * fVolume2 * vol;
-			(*out1++) = wave1[(VstInt32)fPhase1 & mask] * fVolume1 * vol;
-			(*out2++) = wave2[(VstInt32)fPhase2 & mask] * fVolume2 * vol;
-			fPhase1 += freq1;
-			fPhase2 += freq2;
-		}
-	}						
-	else
-	{
-		memset (out1, 0, sampleFrames * sizeof (float));
-		memset (out2, 0, sampleFrames * sizeof (float));
-	}
+	runtime+=sampleFrames;
 	
 }
 
@@ -262,24 +225,36 @@ VstInt32 VstXSynth::processEvents (VstEvents* ev)
 			VstInt32 note = midiData[1] & 0x7f;
 			VstInt32 velocity = midiData[2] & 0x7f;
 			if (status == 0x80)
+			{
 				velocity = 0;	// note off by velocity 0
+				//VoicePool::Pool->Stop(0, note);
+
+			}
 			if (!velocity && (note == currentNote))
 			{
-				noteOff ();
-				//VoicePool::Pool->Stop(0, currentNote);
+				//noteOff ();
+			//	VoicePool::Pool->Stop(0, note);
+
 			}
 			else
 			{
+				MidiEvent* evt = new MidiEvent();
+				evt->time = event->deltaFrames - runtime;
+
+				//Synth::midiQueue->events[Synth::midiQueue->writeOffset] = evt;
 				//VoicePool::Pool->GetVoiceAndPlayNote(0, note, PatchList::list->CurrentPatch);
-				noteOn (note, velocity, event->deltaFrames);
+				currentNote = note;
+				//noteOn (note, velocity, event->deltaFrames);
 			}
 		}
 		else if (status == 0xb0)
 		{
 			if (midiData[1] == 0x7e || midiData[1] == 0x7b)	// all notes off
 			{
-				noteOff ();
-				//VoicePool::Pool->StopAllVoices();
+				//noteOff ();
+				VoicePool::Pool->StopAllVoices();
+				Synth::midiQueue->readOffset = 0;
+				Synth::midiQueue->writeOffset = 0;
 			}
 		}
 		event++;

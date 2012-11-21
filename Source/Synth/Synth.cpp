@@ -6,6 +6,9 @@
 #include "Utils/PadSynth/PadSynth.h"
 #include "Utils/Patch.h"
 #include "Items/Processors/Osc.h"
+#include "Items/Processors/Adsr.h"
+
+MidiEventQueue* Synth::midiQueue = 0;
 
 Synth::Synth(void)
 {
@@ -15,6 +18,7 @@ Synth::Synth(void)
 void Synth::Synth_Init()
 {
 	rendering = false;
+	midiQueue = new MidiEventQueue(10000);
 	Constants::instance = new Constants();
 	PowerOfTwoTable::instance = new PowerOfTwoTable();
 	PitchUtils::instance = new PitchUtils();
@@ -35,9 +39,20 @@ void Synth::Synth_Init()
 	// setup test patch
 	Osc* osc = new Osc();
 	osc->enabled = true;
-	Patch* patch = PatchList::list->patches[0];
-	patch->items[patch->numItems++] = osc;
-	VoicePool::Pool->GetVoiceAndPlayNote(0, 20, patch);
+	
+	Adsr* eg = new Adsr(kEgTypeAmp);
+	eg->enabled  = true; // no needed
+	
+	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+	
+	
+	p->items[p->numItems++] = osc;
+
+	p->egAmp = eg;
+
+
+
+	//VoicePool::Pool->GetVoiceAndPlayNote(0, 69, patch);
 }
 
 void Synth::MixTest(SampleBufferFloat* bufferOut, int numSamples)
@@ -74,9 +89,7 @@ void Synth::Render(short *buffer, int numSamples)
 	MixBuffer->ClearRange(numSamples/2);
 	VoicePool::Pool->MixVoicesToBuffer(MixBuffer, numSamples/2);
 	//MixTest(MixBuffer, numSamples/2);
-
-	// TODO: this should be stereo!! wtf!!
-
+	
 	int r = 0;
 
 	int ix = 0;
@@ -106,6 +119,10 @@ void Synth::Render(short *buffer, int numSamples)
 	rendering = false;
 }
 
+static  int xx = 0;
+static float vol = 1.0f;
+static bool volUp = false;
+static float volInc = 0.00001f;
 
 void Synth::RenderFloat(float* bufferLeft, float* bufferRight, int numSamples)
 {
@@ -114,52 +131,42 @@ void Synth::RenderFloat(float* bufferLeft, float* bufferRight, int numSamples)
 		DebugBreak();
 	}
 	rendering = true;
-	// clear output buffer
-	zt_memset(bufferLeft, 0, numSamples);
-	zt_memset(bufferRight, 0, numSamples);
+
+	zt_memset(bufferLeft, 0, numSamples * sizeof(float));
+	zt_memset(bufferRight, 0, numSamples * sizeof(float));
 
 	for(int i=0; i<Constants_Polyphony; i++)
 	{
 		Voice* voice = VoicePool::Pool->Voices[i];
 		if (voice != 0 && voice->State != kVoiceStateOff)
 		{
-			voice->Generate(numSamples/2);
+			voice->Generate(numSamples);
 		}
 	}
 
-	MixBuffer->ClearRange(numSamples/2);
-	VoicePool::Pool->MixVoicesToBuffer(MixBuffer, numSamples/2);
-	//MixTest(MixBuffer, numSamples/2);
-
-	// TODO: this should be stereo!! wtf!!
-
-	int r = 0;
+	MixBuffer->ClearRange(numSamples);
+	VoicePool::Pool->MixVoicesToBuffer(MixBuffer, numSamples);
 
 	int ix = 0;
-	for(int i=0; i<numSamples/2; i++)
+	for(int i=0; i<numSamples; i++)
 	{
 		int idx = (Constants::instance->BufferOffset+i) % Constants_MixBufferSizeFloat;
 		float fv = zt_clampfMixMax(MixBuffer->Buffer[idx].ch[0] * Constants::instance->MasterVolume, -1.0f, 1.0f); // clamp
 		float fv2 = zt_clampfMixMax(MixBuffer->Buffer[idx].ch[1] * Constants::instance->MasterVolume, -1.0f, 1.0f); // clamp
-		//short sval = (short)(fv * Constants_ClipLimitMax);
-		//short sval2 = (short)(fv2 * Constants_ClipLimitMax);
-		bufferLeft[ix] = fv;
-		bufferRight[ix] = fv2;
-		ix++;
+		short sval = (short)(fv * Constants_ClipLimitMax);
+		short sval2 = (short)(fv2 * Constants_ClipLimitMax);
+		bufferLeft[i] = fv;
+		bufferRight[i] = fv;
 	}
+	
+	int bo = Constants::instance->BufferOffset;
+	Constants::instance->BufferOffset = (bo + (numSamples)) % Constants_MixBufferSizeFloat;
 
-	/*
-	int outIdx = 0;
 	for(int i=0; i<numSamples; i++)
 	{
-		int idx = (Constants_BufferOffset+i) % Constants_MixBufferSizeFloat;
-		float fv = zt_clampfMixMax(SynthInstance->MixBuffer->Buffer[idx].ch[0], -1.0f, 1.0f); // clamp
-		short sval = (short)(fv * Constants_ClipLimitMax);
-		buffer[outIdx++] = sval;
-		buffer[outIdx++] = sval;
-	}*/
-	int bo = Constants::instance->BufferOffset;
-	Constants::instance->BufferOffset = (bo + (numSamples/2)) % Constants_MixBufferSizeFloat;
+		//bufferLeft[i] = msys_frand(&xx);
+		//bufferRight[i] = msys_frand(&xx);
+	}
 	rendering = false;
 }
 

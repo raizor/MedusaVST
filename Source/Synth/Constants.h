@@ -42,7 +42,7 @@ typedef double            sF64;
 #define Constants_ClipLimitMin -Constants_ClipLimitMax  // audio clipping amplitude
 #define Constants_BlockAlign (Constants_NumAudioChannels * Constants_BytesPerSample) 
 #define Constants_BytesPerSec (Constants_SamplesPerSec * Constants_BlockAlign)
-#define Constants_BufferSizeInSamples 1500 
+#define Constants_BufferSizeInSamples 4410 
 #define Constants_MixBufferSizeFloat Constants_BufferSizeInSamples 
 #define Constants_MixBufferSizeBytes (Constants_MixBufferSizeFloat * Constants_NumAudioChannels * Constants_BytesPerSample) 
 #define Constants_Pi  3.1415926535897932384
@@ -269,6 +269,25 @@ enum ModulationCurve
 	kModulationCurveMultUnipolarPlus = 6,
 	kModulationCurveMultUnipolarMinus = 7
 };
+
+enum PlayerEventType
+{
+	kPlayerEventTypeNoteOn = 0,
+	kPlayerEventTypeNoteOff,
+	kPlayerEventTypeProgramChange
+};
+
+enum EgStage
+{
+	kStageNone = 0,
+	kStageDelay,
+	kStageAttack,
+	kStageDecay,
+	kStageSustain,
+	kStageRelease
+};
+
+
 
 #define FILTERTYPE V2Filter
 #define FILTER_INIT V2Filter_Init

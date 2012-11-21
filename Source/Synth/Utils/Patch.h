@@ -5,12 +5,14 @@
 #include "Params/ParamFloat.h"
 
 class Voice;
+class Adsr;
 class ModulationMatrix;
 
 class Patch
 {
 public:
 	Item** items;
+	Adsr* egAmp;
 	int numItems;
 	int number;
 	int polyphony;
@@ -36,7 +38,9 @@ public:
 	Patch** patches;
 	Patch* CurrentPatch;
 	int count;
+	int currentPatchNumOnChannel[Constants_NumMidiChannels];
 	static PatchList* list;
+
 
 	PatchList();
 	~PatchList();

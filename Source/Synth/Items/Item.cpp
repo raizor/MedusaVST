@@ -2,8 +2,9 @@
 #include "../Utils/WaveTableGen.h"
 
 
-Item::Item(bool hasBuffer, bool hasWaveTable)
+Item::Item(bool hasBuffer, StackItemType type, bool hasWaveTable)
 {
+	itemType = type;
 	this->hasBuffer = hasBuffer;
 	this->hasWaveTable = hasWaveTable;
 	buffer = new SampleBufferFloat(Constants_MixBufferSizeFloat);
@@ -45,4 +46,9 @@ void Item::AddBoolParam(ParamBool* param)
 void Item::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples)
 {
 	// do nothing, virtual here
+}
+
+void Item::Reset()
+{
+
 }

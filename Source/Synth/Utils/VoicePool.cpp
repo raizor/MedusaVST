@@ -19,7 +19,7 @@ VoicePool::VoicePool()
 	{
 		for(int note=0; note<Constants_NoteCount; note++)
 		{
-			NoteStates[channel][note] = new VoiceNoteState(Voices[channel]);
+			NoteStates[channel][note] = new VoiceNoteState();
 		}		
 	}
 	InitializeCriticalSection(&cs);
@@ -136,7 +136,7 @@ void VoicePool::MixVoicesToBuffer(SampleBufferFloat* bufferOut, int numSamples)
 	for(int chan=0; chan<Constants_NumMidiChannels; chan++)
 	{
 		// TODO
-		Patch* patch = 0;//&GlobalPatchList->Patches[Constants_CurrentPatchNumber[chan]];
+		Patch* patch = PatchList::list->patches[PatchList::list->currentPatchNumOnChannel[chan]];
 
 		// clear channel buffer
 		BufferChannels->ClearRange(numSamples);
@@ -221,6 +221,7 @@ Voice* VoicePool::GetVoiceAndPlayNote(int channel, int noteId, Patch* patch)
     //MessageBox.Show("START channel: " + channel + " note: " + noteId);
 
 	// stop voice if already playing this note on this chan
+	// TODO: WHAT??
 	if (NotePlaying(channel, noteId))
 	{
 		// stop dead
@@ -244,8 +245,8 @@ Voice* VoicePool::GetVoiceAndPlayNote(int channel, int noteId, Patch* patch)
 			if (voice != 0 && voice->State == kVoiceStateOn && voice->ChannelId == channel)
 			{
 				// toggle old note id
-				//VoicePool_Pool->NoteStates[voice->ChannelId][voice->NoteId]->NoteInfo = NoteStateOff;
-				//VoicePool_Pool->NoteStates[voice->ChannelId][noteId]->NoteInfo = NoteStateOn;
+				//NoteStates[voice->ChannelId][voice->NoteId]->NoteInfo = kNoteStateOff;
+				//NoteStates[voice->ChannelId][noteId]->NoteInfo = kNoteStateOn;
 				// bend the note
 				NoteStates[voice->ChannelId][noteId]->NoteOnTimeId = Counter++;
 				voice->PitchBend(noteId);

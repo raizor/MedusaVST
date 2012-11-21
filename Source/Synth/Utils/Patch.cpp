@@ -1,6 +1,7 @@
 #include "Patch.h"
 #include "Voice.h"
 #include "../Items/Processors/Osc.h"
+#include "../Items/Processors/Adsr.h"
 #include "Params/Modulation/ModulationMatrix.h"
 
 PatchList* PatchList::list = 0;
@@ -41,6 +42,13 @@ void Patch::Generate(Voice* voice, int numSamples)
 			item->Process(voice->Buffer, voice->Buffer, voice, numSamples);	
 		}
 	}
+
+	if (egAmp->enabled)
+	{
+		// EGs output to voice temp buffer
+		egAmp->Process(voice->Buffer, voice->Buffer, voice, numSamples);
+	}
+
 }
 
 void Patch::Start( Voice* voice)
@@ -110,6 +118,7 @@ void Patch::ResetForVoice(Voice* voice)
 PatchList::PatchList()
 {
 	patches = new Patch*[Constants_MaxPatches];
+	zt_memset(&currentPatchNumOnChannel[0], 0, Constants_NumMidiChannels * sizeof(int));
 	for(int i=0; i<Constants_MaxPatches; i++)
 	{
 		patches[i] = new Patch(i);

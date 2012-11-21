@@ -252,6 +252,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<row><td>ISExpHlp.dll</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\ISExpHlp.dll</td></row>
 		<row><td>ISSELFREG.DLL</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\isregsvr.dll</td></row>
+		<row><td>ISSetupFilesHelper</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\SFHelper.dll</td></row>
 		<row><td>NewBinary1</td><td/><td>&lt;ISProductFolder&gt;\Support\Themes\InstallShield Blue Theme\banner.jpg</td></row>
 		<row><td>NewBinary10</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CompleteSetupIco.ibd</td></row>
 		<row><td>NewBinary11</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CustomSetupIco.ibd</td></row>
@@ -262,7 +263,6 @@
 		<row><td>NewBinary16</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallFirstUse.ico</td></row>
 		<row><td>NewBinary17</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallPartial.ico</td></row>
 		<row><td>NewBinary18</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallStateMenu.ico</td></row>
-		<row><td>NewBinary19</td><td/><td>&lt;ISProductFolder&gt;\redist\Language independent\i386\SerialNumCAHelper.dll</td></row>
 		<row><td>NewBinary2</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\New.ibd</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
 		<row><td>NewBinary4</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\WarningIcon.ibd</td></row>
@@ -342,10 +342,13 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>Dfuze.Service.HostingConsoleApplication.Content_Files</td><td>{44F99495-BB51-4541-8A54-C52A3D58D90B}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuze.service.hostingconsole</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Dfuze.Service.HostingConsoleApplication.Primary_output</td><td>{52968E72-2176-41DE-A88E-A2E03AA447DD}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuze.service.hostingconsole1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Dfuze.Service.HostingWindowsService.Primary_output</td><td>{38404124-3E79-4BDD-BDAF-DE994EB77A1E}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuze.service.hostingwindows</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Dfuze.Service.Utils.Content_Files</td><td>{C5F358FF-9109-47A3-BBEE-1BE7745892D3}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuze.service.utils.content_</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Dfuze.Service.HostingWindowsService.Primary_output</td><td>{38404124-3E79-4BDD-BDAF-DE994EB77A1E}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuze.service.hostingwindows</td><td>81</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Dfuze.Service.Utils.Content_Files</td><td>{1C9FF8A9-8A5E-42C9-BA76-87A0406EDA64}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuze.service.utils.content_</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DfuzeServiceMonitor.Content_Files</td><td>{9502C2F4-010E-4A5C-9DF7-44389FBA9863}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuzeservicemonitor.content_</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DfuzeServiceMonitor.Primary_output</td><td>{E62DD35D-1083-4A3D-B56C-1EA3DD6EBF54}</td><td>INSTALLDIR</td><td>2</td><td/><td>dfuzeservicemonitor.primary_</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td>{1580863E-63C6-4272-9461-BEAD91F21165}</td><td>StartupFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{BD183508-6C66-40EB-B03A-B51454A0092B}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>NewComponent1</td><td>{E798806D-493D-4EB4-9F73-C010E9FD891A}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -903,6 +906,7 @@
 		<row><td>AdminWelcome</td><td>Next</td><td>NewDialog</td><td>AdminNetworkLocation</td><td>1</td><td>0</td></row>
 		<row><td>CancelSetup</td><td>No</td><td>EndDialog</td><td>Return</td><td>1</td><td>0</td></row>
 		<row><td>CancelSetup</td><td>Yes</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
+		<row><td>CancelSetup</td><td>Yes</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>CancelSetup</td><td>Yes</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed</td><td>0</td></row>
@@ -914,10 +918,10 @@
 		<row><td>CustomSetup</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>OutOfNoRbDiskSpace &lt;&gt; 1</td><td>0</td></row>
 		<row><td>CustomSetup</td><td>Next</td><td>[_IsSetupTypeMin]</td><td>Custom</td><td>1</td><td>0</td></row>
 		<row><td>CustomSetupTips</td><td>OK</td><td>EndDialog</td><td>Return</td><td>1</td><td>1</td></row>
-		<row><td>CustomerInformation</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed</td><td>1</td></row>
+		<row><td>CustomerInformation</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>1</td><td>1</td></row>
 		<row><td>CustomerInformation</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>EndDialog</td><td>Exit</td><td>(SERIALNUMVALRETRYLIMIT) And (SERIALNUMVALRETRYLIMIT&lt;0) And (SERIALNUMVALRETURN&lt;&gt;SERIALNUMVALSUCCESSRETVAL)</td><td>2</td></row>
-		<row><td>CustomerInformation</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>(Not SERIALNUMVALRETURN) OR (SERIALNUMVALRETURN=SERIALNUMVALSUCCESSRETVAL)</td><td>3</td></row>
+		<row><td>CustomerInformation</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>(Not SERIALNUMVALRETURN) OR (SERIALNUMVALRETURN=SERIALNUMVALSUCCESSRETVAL)</td><td>3</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>[ALLUSERS]</td><td>1</td><td>ApplicationUsers = "AllUsers" And Privileged</td><td>1</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>[ALLUSERS]</td><td>{}</td><td>ApplicationUsers = "OnlyCurrentUser" And Privileged</td><td>2</td></row>
 		<row><td>DatabaseFolder</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>1</td><td>1</td></row>
@@ -1012,12 +1016,13 @@
 		<row><td>SetupCompleteError</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>SetupCompleteError</td><td>Cancel</td><td>[Suspend]</td><td>1</td><td>1</td><td>1</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
+		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>LAUNCHPROGRAM And PROGRAMFILETOLAUNCHATEND &lt;&gt; "" And NOT Installed</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>7</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>3</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>6</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1031,6 +1036,7 @@
 		<row><td>SetupInterrupted</td><td>Cancel</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupInterrupted</td><td>Cancel</td><td>[Suspend]</td><td>1</td><td>1</td><td>1</td></row>
 		<row><td>SetupInterrupted</td><td>Finish</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
+		<row><td>SetupInterrupted</td><td>Finish</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>SetupInterrupted</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupInterrupted</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupProgress</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
@@ -1055,6 +1061,9 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>INSTALLDIR</td><td>NewComponent1</td></row>
+		<row><td>StartupFolder</td><td>ISX_DEFAULTCOMPONENT</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1070,8 +1079,9 @@
 		<row><td>ISSelfRegisterCosting</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterCosting</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
+		<row><td>ISSetupFilesCleanup</td><td>257</td><td>ISSetupFilesHelper</td><td>SFCleanupEx</td><td/><td/></row>
+		<row><td>ISSetupFilesExtract</td><td>257</td><td>ISSetupFilesHelper</td><td>SFStartupEx</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
-		<row><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchProgram</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
@@ -1140,17 +1150,18 @@
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
 		<row><td>DATABASEDIR</td><td>ISYourDataBaseDir</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>DFUZE_SERVICE</td><td>XPECT_SOFTWARE</td><td>DFUZES~1|Dfuze Service</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>MY_PRODUCT_NAME</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>DFUZE_SERVICE</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MY_PRODUCT_NAME</td><td>XPECT_SOFTWARE</td><td>DFUZES~1|Dfuze Service</td><td/><td>0</td><td/></row>
+		<row><td>MY_PRODUCT_NAME</td><td>XPECT_SOFTWARE</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
@@ -1171,6 +1182,8 @@
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>XPECT_SOFTWARE</td><td>ProgramFilesFolder</td><td>XPECTS~1|Xpect Software</td><td/><td>0</td><td/></row>
+		<row><td>servic_1_serviceinstaller</td><td>xpects_1_xpect_software</td><td>SERVIC~1|ServiceInstaller</td><td/><td>1</td><td/></row>
+		<row><td>xpects_1_xpect_software</td><td>ProgramMenuFolder</td><td>XPECTS~1|Xpect Software</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
@@ -1868,6 +1881,9 @@
 		<row><td>AlwaysInstall</td><td>Dfuze.Service.Utils.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>DfuzeServiceMonitor.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>DfuzeServiceMonitor.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>NewComponent1</td></row>
 	</table>
 
 	<table name="File">
@@ -1884,7 +1900,7 @@
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>dfuze.service.hostingconsole</td><td>Dfuze.Service.HostingConsoleApplication.Content_Files</td><td>Dfuze.Service.HostingConsoleApplication.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Dfuze.Service.HostingConsoleApplication&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>dfuze.service.hostingconsole1</td><td>Dfuze.Service.HostingConsoleApplication.Primary_output</td><td>Dfuze.Service.HostingConsoleApplication.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Dfuze.Service.HostingConsoleApplication&gt;|Built</td><td>3</td><td/></row>
-		<row><td>dfuze.service.hostingwindows</td><td>Dfuze.Service.HostingWindowsService.Primary_output</td><td>Dfuze.Service.HostingWindowsService.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Dfuze.Service.HostingWindowsService&gt;|Built</td><td>3</td><td/></row>
+		<row><td>dfuze.service.hostingwindows</td><td>Dfuze.Service.HostingWindowsService.Primary_output</td><td>Dfuze.Service.HostingWindowsService.Primary output</td><td>0</td><td/><td/><td>0</td><td>1</td><td>&lt;Dfuze.Service.HostingWindowsService&gt;|Built</td><td>3</td><td/></row>
 		<row><td>dfuze.service.utils.content_</td><td>Dfuze.Service.Utils.Content_Files</td><td>Dfuze.Service.Utils.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Dfuze.Service.Utils&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>dfuzeservicemonitor.content_</td><td>DfuzeServiceMonitor.Content_Files</td><td>DfuzeServiceMonitor.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DfuzeServiceMonitor&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>dfuzeservicemonitor.primary_</td><td>DfuzeServiceMonitor.Primary_output</td><td>DfuzeServiceMonitor.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DfuzeServiceMonitor&gt;|Built</td><td>3</td><td/></row>
@@ -2147,9 +2163,12 @@
 		<row><td>Dfuze.Service.HostingConsoleApplication.Content_Files</td><td/><td/><td>_FABF8BC1_4642_4D25_85DF_356A687A8EDF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Dfuze.Service.HostingConsoleApplication.Primary_output</td><td/><td/><td>_0888FE4A_6228_4D5E_B8AA_1739EDD83A1F_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Dfuze.Service.HostingWindowsService.Primary_output</td><td/><td/><td>_C1DAE5DE_717D_450F_A4DC_5E8FCB51C527_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Dfuze.Service.Utils.Content_Files</td><td/><td/><td>_34CA044C_F9B8_404A_804C_3AF651C8879C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Dfuze.Service.Utils.Content_Files</td><td/><td/><td>_E6848C90_4933_4869_94A3_5A69C8D6B5D8_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>DfuzeServiceMonitor.Content_Files</td><td/><td/><td>_3088A972_1D3C_4F0A_B1DF_69DCF7D7F9C0_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>DfuzeServiceMonitor.Primary_output</td><td/><td/><td>_217D3918_C710_40B8_96BE_C9DEE5404F7F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_08A6EB94_5331_47E0_A1D6_8A3BD0F151B6_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_39B0CFEE_83C7_4E4E_B141_12B7A1770A9F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>NewComponent1</td><td/><td/><td>_5118C722_D458_4E19_ABCD_3B46F817FF9D_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2741,6 +2760,7 @@
 		<col def="S50">Language</col>
 		<col def="I2">Splash</col>
 		<col def="S0">Path</col>
+		<row><td>_isconfig.xml</td><td>_isconfig.xml</td><td/><td>0</td><td>0</td><td>&lt;ISProjectDataFolder&gt;\_isconfig.xml</td></row>
 	</table>
 
 	<table name="ISSetupPrerequisites">
@@ -2782,10 +2802,9 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Xpect Software</td><td>0</td><td/><td>1168149296</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Xpect Software</td><td>0</td><td/><td>-1516193428</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
-		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40FULL</td><td>1033</td><td>Microsoft .NET Framework 4.0 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-1516238613</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
@@ -3594,6 +3613,7 @@
 		<row><td>IDS_PROGMSG_XML_ROLLBACK_FILES</td><td>1033</td><td>Rolling back XML file changes...</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDS_PROGMSG_XML_UPDATE_FILE</td><td>1033</td><td>Updating XML file %s...</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>1168147248</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>DFUZES~1|DfuzeServiceMonitor</td><td>0</td><td/><td>-1516238420</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1168147248</td></row>
@@ -3882,8 +3902,10 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1168147248</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.xpect-software.com</td><td>0</td><td/><td>-1516203733</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Xpect Software</td><td>0</td><td/><td>1168149296</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.xpect-software.com</td><td>0</td><td/><td>-1516193012</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Xpect Software</td><td>0</td><td/><td>-1516193428</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1516234388</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>DFUZES~1|DfuzeServiceMontior</td><td>0</td><td/><td>-1516193396</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1168147248</td></row>
 	</table>
 
@@ -3992,6 +4014,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_S_1FABEF0B1A6F46B18BF6EEFDAEC26093.exe</td><td/><td>D:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4037,6 +4060,8 @@
 		<row><td>ISSelfRegisterCosting</td><td/><td>2201</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td/><td>5601</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td/><td>6601</td><td/><td/></row>
+		<row><td>ISSetupFilesCleanup</td><td>UILevel &lt; 5</td><td>6602</td><td/><td/></row>
+		<row><td>ISSetupFilesExtract</td><td/><td>3</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td/><td>2202</td><td/><td/></row>
 		<row><td>InstallFiles</td><td/><td>4000</td><td>InstallFiles</td><td/></row>
 		<row><td>InstallFinalize</td><td/><td>6600</td><td>InstallFinalize</td><td/></row>
@@ -4124,7 +4149,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{FC4B6DF7-954D-4E71-B7C8-49A940D39361}</td></row>
 		<row><td>ISUSSignature</td><td>{78F9085E-DA2D-4819-96F2-D7F04499CB82}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRealSetupDesign,viewAppFiles,viewProject,viewUI,viewTextMessages,viewDependencies,viewObjects,viewUpdateService</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRealSetupDesign,viewAppFiles,viewProject,viewUI,viewTextMessages,viewDependencies,viewObjects,viewShortcuts,viewFeatureFiles,viewCustomActions,viewInstallScriptStd,viewSupportFiles,viewRelease,viewCE,viewISToday,viewAppV,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewUpdateService,viewEnvironmentVariables,viewVRoots,viewComponentServices,viewSystemSearch,viewRegistry</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4157,6 +4182,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
 		<row><td>FindRelatedProducts</td><td/><td>430</td><td>FindRelatedProducts</td><td/></row>
 		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td>ISPreventDowngrade</td><td/></row>
+		<row><td>ISSetupFilesCleanup</td><td>UILevel &lt; 5</td><td>1301</td><td/><td/></row>
+		<row><td>ISSetupFilesExtract</td><td/><td>3</td><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Not Installed</td><td>1210</td><td>InstallWelcome</td><td/></row>
 		<row><td>IsolateComponents</td><td/><td>950</td><td>IsolateComponents</td><td/></row>
 		<row><td>LaunchConditions</td><td>Not Installed</td><td>410</td><td>LaunchConditions</td><td/></row>
@@ -4471,9 +4498,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_SERVER</td><td/><td/></row>
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
-		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
-		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{E62DD35D-1083-4A3D-B56C-1EA3DD6EBF54}</td><td/></row>
-		<row><td>LAUNCHPROGRAMFILEKEY</td><td>dfuzeservicemonitor.primary_</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
@@ -4501,7 +4525,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]DfuzeServiceMonitor.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{9E18C42C-E1D2-45DD-8A20-3FF6164A18DD}</td><td/></row>
 		<row><td>ProductName</td><td>ServiceInstaller</td><td/></row>
 		<row><td>ProductVersion</td><td>1.00.0000</td><td/></row>
@@ -4516,7 +4539,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SHOWLAUNCHPROGRAM</td><td>-1</td><td/></row>
+		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
@@ -4580,6 +4603,10 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
+		<row><td>FileKey1</td><td>DfuzeServiceMonitor.Primary_output</td><td/><td>xpects_1_xpect_software</td><td>2</td></row>
+		<row><td>FileKey2</td><td>DfuzeServiceMonitor.Primary_output</td><td/><td>servic_1_serviceinstaller</td><td>2</td></row>
+		<row><td>UNINST_Uninstall_ServiceInstaller</td><td>NewComponent1</td><td/><td>servic_1_serviceinstaller</td><td>2</td></row>
+		<row><td>_Built</td><td>DfuzeServiceMonitor.Primary_output</td><td/><td>servic_1_serviceinstaller</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4665,6 +4692,10 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>NewShortcut1</td><td>StartupFolder</td><td>##ID_STRING4##</td><td>DfuzeServiceMonitor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>UNINST_Uninstall_ServiceInstaller</td><td>servic_1_serviceinstaller</td><td>UNINST|Uninstall ServiceInstaller</td><td>NewComponent1</td><td>[SystemFolder]msiexec.exe</td><td>/x {9E18C42C-E1D2-45DD-8A20-3FF6164A18DD}</td><td/><td/><td>UNINST_Uninstall_S_1FABEF0B1A6F46B18BF6EEFDAEC26093.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>servic_1_serviceinstaller</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>DfuzeServiceMonitor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>DfuzeServiceMonitor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

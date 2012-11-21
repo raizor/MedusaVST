@@ -1,7 +1,7 @@
 #include "ItemProcessor.h"
 #include "../Utils/Voice.h"
 
-ItemProcessor::ItemProcessor(bool hasWaveTable) : Item(true, hasWaveTable)
+ItemProcessor::ItemProcessor(StackItemType type, bool hasWaveTable) : Item(true, type, hasWaveTable)
 {
 }
 

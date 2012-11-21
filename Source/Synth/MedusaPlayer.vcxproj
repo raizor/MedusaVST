@@ -19,11 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Items\Processors\Adsr.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Items\ItemProcessor.h" />
     <ClInclude Include="Items\Item.h" />
+    <ClInclude Include="Items\Processors\Adsr.h" />
     <ClInclude Include="Items\Processors\Osc.h" />
+    <ClInclude Include="Utils\Midi.h" />
     <ClInclude Include="Utils\Params\Modulation\ModulationMatrix.h" />
     <ClInclude Include="Utils\PadSynth\PadSynth.h" />
     <ClInclude Include="Utils\Params\ParamBool.h" />
@@ -45,11 +46,12 @@
     <ClInclude Include="ZynthTypes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Items\Processors\Adsr.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Items\ItemProcessor.cpp" />
     <ClCompile Include="Items\Item.cpp" />
+    <ClCompile Include="Items\Processors\Adsr.cpp" />
     <ClCompile Include="Items\Processors\Osc.cpp" />
+    <ClCompile Include="Utils\Midi.cpp" />
     <ClCompile Include="Utils\Params\Modulation\ModulationMatrix.cpp" />
     <ClCompile Include="Utils\PadSynth\PadSynth.cpp" />
     <ClCompile Include="Utils\Params\ParamBool.cpp" />

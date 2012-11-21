@@ -15,6 +15,7 @@ public:
 	bool hasBuffer;
 	bool hasWaveTable;
 	bool enabled;
+	StackItemType itemType;
 	SampleBufferFloat* buffer;
 	ParamFloat** paramsFloat;
 	ParamInt** paramsInt;
@@ -24,12 +25,13 @@ public:
 	int numParamsInt;
 	WaveTableIndex* WaveTableIdx;
 
-	Item(bool hasBuffer, bool hasWaveTable = false);
+	Item(bool hasBuffer, StackItemType type, bool hasWaveTable = false);
 	~Item(void);
 
-	void AddFloatParam(ParamFloat* param);
-	void AddIntParam(ParamInt* param);
-	void AddBoolParam(ParamBool* param);
+	virtual void AddFloatParam(ParamFloat* param);
+	virtual void AddIntParam(ParamInt* param);
+	virtual void AddBoolParam(ParamBool* param);
 	virtual void Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples);
+	virtual void Reset();
 };
 
