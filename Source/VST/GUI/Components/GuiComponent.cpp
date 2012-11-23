@@ -65,7 +65,22 @@ void GuiComponent::draw()
 	}else{
 		
 		glDisable(GL_TEXTURE_2D);
-		glColor4f(1,0,1,0.2f);
+		switch (type)
+		{
+		case kGuiComponentTypeSlider:
+			{
+				glColor4f(1,1,0,0.2f);
+				break;
+			}
+
+		default:
+			{
+				glColor4f(1,0,1,0.2f);
+				break;
+			}
+
+		}
+		
 		glBegin(GL_QUADS);
 
 		glVertex2i(0,0);

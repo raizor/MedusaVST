@@ -6,6 +6,7 @@
 #include "GuiPanelLfo.h"
 #include "GuiPanelModulations.h"
 #include "GuiPanelFilter.h"
+#include "GuiPanelMaster.h"
 #include "GuiKeyboard.h"
 
 class GuiMainWindow : public GuiComponent

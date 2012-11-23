@@ -8,7 +8,8 @@ using namespace std;
 enum GuiComponentType
 {
 	kGuiComponentTypeGeneric = 0,
-	kGuiComponentTypeKnob
+	kGuiComponentTypeKnob,
+	kGuiComponentTypeSlider
 };
 
 class GuiComponent

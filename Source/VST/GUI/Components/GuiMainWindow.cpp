@@ -17,8 +17,8 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelFilter = new GuiPanelFilter(460, 217, 460, 170, 0);
 	panelEg = new GuiPanelEg(460, 217, 0, 384, 0);
 	panelLfo = new GuiPanelLfo(460, 217, 460, 384, 0); 
-	panelModulations = new GuiPanelModulations(0, 0, 0, 596, 0); 
-	panelMaster = new GuiComponent(0, 0, 640, 594); 
+	panelModulations = new GuiPanelModulations(630, 205, 0, 594, 0); 
+	panelMaster = new GuiPanelMaster(279, 202, 640, 594, 0); 
 
 	keyboard = new GuiKeyboard(0, 0, 14, 634, IDB_KEYBOARD_OVERLAYS);
 
@@ -27,6 +27,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	AddSubComponent(panelFilter);
 	AddSubComponent(panelLfo);
 	AddSubComponent(panelModulations);
+	AddSubComponent(panelMaster);
 	AddSubComponent(keyboard);
 	/*
 	subComponents->push(panelFilter);

@@ -8,6 +8,7 @@
 class GuiPanelMaster : public GuiComponent
 {
 public:
+	GuiButton* butLimit;
 	GuiPanelMaster(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelMaster(void);
 };

@@ -172,6 +172,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Components\GuiVizualizer.h" />
     <ClInclude Include="GUI\Components\GuiPanelKeyboard.h" />
     <ClInclude Include="GUI\Components\GuiPanelHeader.h" />
     <ClInclude Include="GUI\Components\GuiPanelMaster.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Components\GuiVizualizer.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelKeyboard.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelHeader.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelMaster.cpp" />
