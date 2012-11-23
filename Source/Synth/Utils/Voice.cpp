@@ -53,6 +53,7 @@ void Voice::PitchBend(int noteId)
 
 void Voice::Generate(long numSamples)
 {
+	// TODO TODO: Note off is turning off previous voice?!?!
 	Buffer->ClearRange(numSamples); // clear voice buffer
 	float freq = Frequency;
 	PitchBendBuffer->ClearRange(numSamples);
@@ -100,12 +101,14 @@ void Voice::Generate(long numSamples)
 // stop the voice dead and reset the patch
 void Voice::Stop()
 {
+	printf("* STOP VOICE %d", Number);
 	State = kVoiceStateOff;
 	//voice->CurrentPatch->
 }
 
 void Voice::StopDead()
 {
+	printf("* STOP DEAD VOICE %d", Number);
 	// set state
 	State = kVoiceStateOff;
 	StopPos = 0;

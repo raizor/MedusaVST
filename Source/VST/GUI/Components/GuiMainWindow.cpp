@@ -13,17 +13,21 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	movePoint = new GPoint(0,0);
 
 	// container panels for main gui
-	panelOsc = new GuiPanelOsc(0,0,0,0,0);
-	panelFilter = new GuiComponent(0,0,0,0);
-	panelEg = new GuiComponent(0,0,0,0);
-	panelLfo = new GuiComponent(0,0,0,0); 
-	panelMod = new GuiComponent(0,0,0,0); 
-	panelMaster = new GuiComponent(0,0,0,0); 
+	panelOsc = new GuiPanelOsc( 460, 217, 0, 170, 0);
+	panelFilter = new GuiPanelFilter(460, 217, 460, 170, 0);
+	panelEg = new GuiPanelEg(460, 217, 0, 384, 0);
+	panelLfo = new GuiPanelLfo(460, 217, 460, 384, 0); 
+	panelModulations = new GuiPanelModulations(0, 0, 0, 596, 0); 
+	panelMaster = new GuiComponent(0, 0, 640, 594); 
 
 	keyboard = new GuiKeyboard(0, 0, 14, 634, IDB_KEYBOARD_OVERLAYS);
 
-	subComponents->push(panelOsc);
-	subComponents->push(keyboard);
+	AddSubComponent(panelOsc);
+	AddSubComponent(panelEg);
+	AddSubComponent(panelFilter);
+	AddSubComponent(panelLfo);
+	AddSubComponent(panelModulations);
+	AddSubComponent(keyboard);
 	/*
 	subComponents->push(panelFilter);
 	subComponents->push(panelEg);
@@ -57,6 +61,11 @@ void GuiMainWindow::draw()
 	//if (!dirty) return; // doesn't need drawing
 
 	image->bind();
+
+	glPushMatrix();
+
+	glTranslatef(offsetX, offsetY, 0);
+
 	//glColor4f(1,1,1,1);
 	glBegin(GL_QUADS);
 
@@ -67,26 +76,30 @@ void GuiMainWindow::draw()
 	float x2 = x1 + panelSize;
 
 	glTexCoord2f(x1,0);
-	glVertex2i(offsetX,offsetY);
+	glVertex2i(0, 0);
 
 	glTexCoord2f(x1,1);
-	glVertex2i(offsetX,offsetY+height);
+	glVertex2i(0, 0+height);
 
 	glTexCoord2f(x2,1);
-	glVertex2i(offsetX+width,offsetY+height);
+	glVertex2i(0+width, 0+height);
 
 	glTexCoord2f(x2,0);
-	glVertex2i(offsetX+width,offsetY);
+	glVertex2i(0+width, 0);
 
 	glEnd();
 
+
 	// draw sub components last as they likely appear on top of this component
-	for(int i=0; i<subComponents->count; i++)
+	for(int i=0; i<SubComponentCount(); i++)
 	{
-		GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+		GuiComponent* gc = GetComponent(i);
 		gc->dirty = dirty; // mark children as dirty as we're dirty, dirty children!!
 		gc->draw();
 	}
+
+
+	glPopMatrix();
 
 	dirty = false;
 }

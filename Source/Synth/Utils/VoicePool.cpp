@@ -56,6 +56,15 @@ bool VoicePool::NotePlaying(int channel, int note)
 
 void VoicePool::Stop(int channel, int noteId)
 {
+	printf("NOTE OFF: chan %d, note %d\n", channel, noteId);
+	if (noteId == 76)
+	{
+		DebugPrintLine("");
+		DebugPrintLine("");
+		DebugPrintLine("");
+		DebugPrintLine("");
+
+	}
 	EnterCriticalSection(&Pool->cs);
 	if (NoteStates[channel][noteId]->NoteInfo == kNoteStateOn)
 	{
@@ -89,6 +98,7 @@ void VoicePool::Stop(int channel, int noteId)
 			VoiceOff:
 			NoteStates[channel][noteId]->NoteInfo = kNoteStateOff;			
 			NoteStates[channel][noteId]->VoiceInfo->State =  kVoiceStateStopping;
+			printf("Stopping voice %d\n", NoteStates[channel][noteId]->VoiceInfo->Number);
 		}
 	}
 	LeaveCriticalSection(&Pool->cs);
@@ -96,6 +106,7 @@ void VoicePool::Stop(int channel, int noteId)
 
 void VoicePool::StopAllVoices()
 {
+	printf("NOTE OFF ALL\n");
 	// stop voices
 	for (int i = 0; i < Constants_Polyphony; i++)
 	{
@@ -213,6 +224,7 @@ void VoicePool::MixVoicesToBuffer(SampleBufferFloat* bufferOut, int numSamples)
 
 Voice* VoicePool::GetVoiceAndPlayNote(int channel, int noteId, Patch* patch)
 {
+	printf("NOTE ON: chan %d, note %d, patch %d\n", channel, noteId, patch->number);
 	// TODO
 	int patchMaxPoly = patch->polyphony;
 
@@ -314,6 +326,7 @@ Voice* VoicePool::GetVoiceAndPlayNote(int channel, int noteId, Patch* patch)
 	{
 		NoteStates[channel][noteId]->VoiceInfo = voiceToRealloc;
 		NoteStates[channel][noteId]->NoteInfo = kNoteStateOn;
+		printf("Starting voice %d\n", NoteStates[channel][noteId]->VoiceInfo->Number);
 		voiceToRealloc->Start(noteId, channel, patch, Counter++);
 	}
 	LeaveCriticalSection(&cs);

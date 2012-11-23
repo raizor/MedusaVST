@@ -137,8 +137,8 @@ private:
 	bool noteIsOn;
 
 	void initProcess ();
-	void noteOn (VstInt32 note, VstInt32 velocity, VstInt32 delta);
-	void noteOff ();
+	//void noteOn (VstInt32 note, VstInt32 velocity, VstInt32 delta);
+	//void noteOff ();
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
 };
 

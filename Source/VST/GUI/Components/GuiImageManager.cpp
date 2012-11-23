@@ -1,10 +1,12 @@
 #include "GuiImageManager.h"
+#include "../../Utils/types.h"
+#include "../Sprites/buttons.h"
 
 GuiImageManager* GuiImageManager::instance = 0;
 
 void GuiImageManager::InitInstance()
 {
-	instance = new GuiImageManager();
+	GuiImageManager::instance = new GuiImageManager();
 }
 
 GuiImageManager::GuiImageManager(void)
@@ -17,6 +19,7 @@ GuiImageManager::GuiImageManager(void)
 	glImages->push(new GuiImage(IDB_KNOBS_BI)); // bi knobs
 	glImages->push(new GuiImage(IDB_PNG_KNOB_SURROUND)); // bi focus knobs
 	glImages->push(new GuiImage(IDB_KEYBOARD_OVERLAYS)); // item panel
+	glImages->push(new GuiImage(IDB_BUTTONSTRIP)); // item panel
 }
 
 GuiImageManager::~GuiImageManager(void)

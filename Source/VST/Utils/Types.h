@@ -92,3 +92,26 @@ private:
 	std::vector<GColor> colors;
 };
 
+class GSpriteCollection;
+
+class GSprite
+{
+public:
+	GSprite();
+	GSprite(const GCoord x, const GCoord y, const GCoord width, const GCoord height, const int spriteId);
+	GCoord posX, posY, width, height;
+	GSpriteCollection* spriteCollection;
+	int spriteId;
+};
+
+class GSpriteCollection
+{
+public:
+	std::vector<GSprite*> sprites;
+	int imageWidth, imageHeight;
+	GCoord pixelSizeX, pixelSizeY;
+	GSpriteCollection();
+	void GSpriteCollection::AddSprite(GSprite* sprite);
+	GSprite* GetSprite(int spriteId);
+};
+

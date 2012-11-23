@@ -12,7 +12,9 @@ public:
 class MidiEvent
 {
 public:
-	int time;
+	int deltaTime;
+	bool handled;
+	int note;
 	PlayerEventType type;
 	MidiEvent(void);
 	~MidiEvent(void);
@@ -30,6 +32,7 @@ public:
 	~MidiEventQueue(void);
 	void AddEvent(MidiEvent* evt);
 	MidiEvent* GetEvent();
+	void Clear();
 };
 
 

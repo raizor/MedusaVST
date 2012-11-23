@@ -172,8 +172,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Components\GuiPanelKeyboard.h" />
+    <ClInclude Include="GUI\Components\GuiPanelHeader.h" />
+    <ClInclude Include="GUI\Components\GuiPanelMaster.h" />
+    <ClInclude Include="GUI\Components\GuiPanelModulations.h" />
     <ClInclude Include="GUI\Components\GuiKeyboard.h" />
-    <ClInclude Include="Utils\console.h" />
+    <ClInclude Include="GUI\Components\GuiPanelEg.h" />
+    <ClInclude Include="GUI\Components\GuiPanelFilter.h" />
+    <ClInclude Include="GUI\Components\GuiPanelLfo.h" />
+    <ClInclude Include="GUI\Sprites\buttons.h" />
     <ClInclude Include="Utils\GEvent.h" />
     <ClInclude Include="GUI\Components\GuiButton.h" />
     <ClInclude Include="GUI\Components\GuiLabel.h" />
@@ -204,8 +211,15 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Components\GuiPanelKeyboard.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelHeader.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelMaster.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelModulations.cpp" />
     <ClCompile Include="GUI\Components\GuiKeyboard.cpp" />
-    <ClCompile Include="Utils\console.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelEg.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelFilter.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelLfo.cpp" />
+    <ClCompile Include="GUI\Sprites\buttons.cpp" />
     <ClCompile Include="Utils\GEvent.cpp" />
     <ClCompile Include="GUI\Components\GuiButton.cpp" />
     <ClCompile Include="GUI\Components\GuiLabel.cpp" />
@@ -246,6 +260,7 @@
     <None Include="resources\vstxsynth.vstxml" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="buttons\buttons.png" />
     <Image Include="keyboard\keyboard_overlay.png" />
     <Image Include="knobs\knobSurround.png" />
     <Image Include="knobs\knob_bi.png" />
@@ -258,6 +273,7 @@
     <Image Include="knobs\textures.png" />
     <Image Include="panels\header.png" />
     <Image Include="panels\panel_main.png" />
+    <Image Include="resources\buttons\buttons.png" />
     <Image Include="resources\font8.png" />
     <Image Include="resources\keyboard\keyboard_overlay.png" />
     <Image Include="resources\knobs\knobsurround.png" />

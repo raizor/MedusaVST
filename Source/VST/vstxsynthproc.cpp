@@ -82,92 +82,102 @@ void VstXSynth::initProcess ()
 		a *= k;
 	}
 }
-//
-////-----------------------------------------------------------------------------------------
-//void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
-//{
-//	float* out1 = outputs[0];
-//	float* out2 = outputs[1];
-//
-//	synth->RenderFloat(out1, out2, sampleFrames);
-//
-//	/*
-//	if (currentDelta > 0)
-//	{
-//		if (currentDelta >= sampleFrames)	// future
-//		{
-//			currentDelta -= sampleFrames;
-//			return;
-//		}
-//		memset (out1, 0, currentDelta * sizeof (float));
-//		memset (out2, 0, currentDelta * sizeof (float));
-//		out1 += currentDelta;
-//		out2 += currentDelta;
-//		sampleFrames -= currentDelta;
-//		currentDelta = 0;
-//	}*/
-//
-//	/*
-//	int sd = 0;
-//
-//	//synth->RenderFloat(out1, out2, sampleFrames);
-//	for(int i=0; i<sampleFrames; i++)
-//	{
-//		float vv = msys_frand(&sd);
-//		out1[i] = vv;
-//		out2[i] = vv;
-//	}*/
-//
-//	/*
-//	if (noteIsOn)
-//	{
-//		float baseFreq = freqtab[currentNote & 0x7f] * fScaler;
-//		float freq1 = baseFreq + fFreq1;	// not really linear...
-//		float freq2 = baseFreq + fFreq2;
-//		float* wave1 = (fWaveform1 < .5) ? sawtooth : pulse;
-//		float* wave2 = (fWaveform2 < .5) ? sawtooth : pulse;
-//		float wsf = (float)kWaveSize;
-//		float vol = (float)(fVolume * (double)currentVelocity * midiScaler);
-//		VstInt32 mask = kWaveSize - 1;
-//		
-//		if (currentDelta > 0)
-//		{
-//			if (currentDelta >= sampleFrames)	// future
-//			{
-//				currentDelta -= sampleFrames;
-//				return;
-//			}
-//			memset (out1, 0, currentDelta * sizeof (float));
-//			memset (out2, 0, currentDelta * sizeof (float));
-//			out1 += currentDelta;
-//			out2 += currentDelta;
-//			sampleFrames -= currentDelta;
-//			currentDelta = 0;
-//		}
-//
-//		// loop
-//		while (--sampleFrames >= 0)
-//		{
-//			// this is all very raw, there is no means of interpolation,
-//			// and we will certainly get aliasing due to non-bandlimited
-//			// waveforms. don't use this for serious projects...
-//			(*out1++) = wave1[(VstInt32)fPhase1 & mask] * fVolume1 * vol;
-//			(*out2++) = wave2[(VstInt32)fPhase2 & mask] * fVolume2 * vol;
-//			fPhase1 += freq1;
-//			fPhase2 += freq2;
-//		}
-//	}						
-//	else
-//	{
-//		memset (out1, 0, sampleFrames * sizeof (float));
-//		memset (out2, 0, sampleFrames * sizeof (float));
-//	}
-//	*/
-//}
 
 static int xx = 0;
-
 static double tv = 0;
+
+
+//-----------------------------------------------------------------------------------------
+VstInt32 VstXSynth::processEvents (VstEvents* ev)
+{
+	for (VstInt32 i = 0; i < ev->numEvents; i++)
+	{
+		if ((ev->events[i])->type != kVstMidiType)
+			continue;
+
+		VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
+		int cmd = event->midiData[0] & 0xF0;
+
+		if (cmd == 0x90)
+		{
+			// note on
+			int chanNum = event->midiData[0] & 0x0F;
+			int noteId = event->midiData[1];
+			MidiEvent* evt = new MidiEvent();
+			evt->deltaTime = event->deltaFrames;
+			evt->type = kPlayerEventTypeNoteOn;
+			evt->note = noteId;
+			Synth::midiQueue->AddEvent(evt);
+		}
+		else if (cmd == 0x80)
+		{
+			int chanNum = event->midiData[0] & 0x0F;
+			int noteId = event->midiData[1];
+			MidiEvent* evt = new MidiEvent();
+			evt->deltaTime = event->deltaFrames;
+			evt->type = kPlayerEventTypeNoteOff;
+			evt->note = noteId;
+			Synth::midiQueue->AddEvent(evt);
+		}
+
+		//VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
+		//char* midiData = event->midiData;
+		//VstInt32 status = midiData[0] & 0xf0;	// ignoring channel
+		//if (status == 0x90 || status == 0x80)	// we only look at notes
+		//{
+		//	VstInt32 note = midiData[1] & 0x7f;
+		//	VstInt32 velocity = midiData[2] & 0x7f;
+		//	if (status == 0x80)
+		//	{
+
+
+		//	}
+		//	if (!velocity && (note == currentNote))
+		//	{
+		//		velocity = 0;	// note off by velocity 0
+		//		MidiEvent* evt = new MidiEvent();
+		//		evt->deltaTime = event->deltaFrames;
+		//		evt->type = kPlayerEventTypeNoteOff;
+		//		evt->note = note;
+		//		Synth::midiQueue->AddEvent(evt);
+		//		//VoicePool::Pool->Stop(0, note);
+		//		/*
+		//		//noteOff ();
+		//		MidiEvent* evt = new MidiEvent();
+		//		evt->deltaTime = event->deltaFrames;
+		//		evt->type = kPlayerEventTypeNoteOff;
+		//		evt->note = note;
+		//		Synth::midiQueue->AddEvent(evt);
+		//		//	VoicePool::Pool->Stop(0, note);*/
+
+		//	}
+		//	else
+		//	{
+		//		MidiEvent* evt = new MidiEvent();
+		//		evt->deltaTime = event->deltaFrames;
+		//		evt->type = kPlayerEventTypeNoteOn;
+		//		evt->note = note;
+		//		Synth::midiQueue->AddEvent(evt);
+		//		//Synth::midiQueue->events[Synth::midiQueue->writeOffset] = evt;
+		//		//VoicePool::Pool->GetVoiceAndPlayNote(0, note, PatchList::list->CurrentPatch);
+		//		currentNote = note;
+		//		//noteOn (note, velocity, event->deltaFrames);
+		//	}
+		//}
+		//else if (status == 0xb0)
+		//{
+		//	if (midiData[1] == 0x7e || midiData[1] == 0x7b)	// all notes off
+		//	{
+		//		// todo: add midi event for this
+		//		//noteOff ();
+		//		VoicePool::Pool->StopAllVoices();
+		//		Synth::midiQueue->Clear();
+		//	}
+		//}
+		event++;
+	}
+	return 1;
+}
 
 //-----------------------------------------------------------------------------------------
 void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
@@ -185,6 +195,7 @@ void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 samp
 	float vol = (float)(fVolume * (double)currentVelocity * midiScaler);
 	VstInt32 mask = kWaveSize - 1;
 		
+	/*
 	if (currentDelta > 0)
 	{
 		if (currentDelta >= sampleFrames)	// future
@@ -198,82 +209,40 @@ void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 samp
 		out2 += currentDelta;
 		sampleFrames -= currentDelta;
 		currentDelta = 0;
-	}
+	}*/
 
 	// loop
-	synth->RenderFloat(out1, out2, sampleFrames);
-	out1+=sampleFrames;
-	out2+=sampleFrames;
+
+	int blocksize = 1;
+
+	for(int i=0; i<sampleFrames; i+=blocksize)
+	{
+		for(int j=0; j<Synth::midiQueue->writeOffset; j++)
+		{
+			MidiEvent* me = Synth::midiQueue->events[j];
+			if (!me->handled)
+			{
+				if (me->deltaTime >= i && me->deltaTime <=i+blocksize)
+				{
+					if (me->type == kPlayerEventTypeNoteOn)
+					{
+						me->handled = true;
+						VoicePool::Pool->GetVoiceAndPlayNote(0, me->note, PatchList::list->CurrentPatch);
+					}
+
+					if (me->type == kPlayerEventTypeNoteOff)
+					{
+						me->handled = true;
+						VoicePool::Pool->Stop(0, me->note);
+					}
+				}
+			}
+		}
+		synth->RenderFloat(out1, out2, blocksize);
+		out1+=blocksize;
+		out2+=blocksize;
+	}
 
 	runtime+=sampleFrames;
 	
-}
-
-//-----------------------------------------------------------------------------------------
-VstInt32 VstXSynth::processEvents (VstEvents* ev)
-{
-	for (VstInt32 i = 0; i < ev->numEvents; i++)
-	{
-		if ((ev->events[i])->type != kVstMidiType)
-			continue;
-
-		VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
-		char* midiData = event->midiData;
-		VstInt32 status = midiData[0] & 0xf0;	// ignoring channel
-		if (status == 0x90 || status == 0x80)	// we only look at notes
-		{
-			VstInt32 note = midiData[1] & 0x7f;
-			VstInt32 velocity = midiData[2] & 0x7f;
-			if (status == 0x80)
-			{
-				velocity = 0;	// note off by velocity 0
-				//VoicePool::Pool->Stop(0, note);
-
-			}
-			if (!velocity && (note == currentNote))
-			{
-				//noteOff ();
-			//	VoicePool::Pool->Stop(0, note);
-
-			}
-			else
-			{
-				MidiEvent* evt = new MidiEvent();
-				evt->time = event->deltaFrames - runtime;
-
-				//Synth::midiQueue->events[Synth::midiQueue->writeOffset] = evt;
-				//VoicePool::Pool->GetVoiceAndPlayNote(0, note, PatchList::list->CurrentPatch);
-				currentNote = note;
-				//noteOn (note, velocity, event->deltaFrames);
-			}
-		}
-		else if (status == 0xb0)
-		{
-			if (midiData[1] == 0x7e || midiData[1] == 0x7b)	// all notes off
-			{
-				//noteOff ();
-				VoicePool::Pool->StopAllVoices();
-				Synth::midiQueue->readOffset = 0;
-				Synth::midiQueue->writeOffset = 0;
-			}
-		}
-		event++;
-	}
-	return 1;
-}
-
-//-----------------------------------------------------------------------------------------
-void VstXSynth::noteOn (VstInt32 note, VstInt32 velocity, VstInt32 delta)
-{
-	currentNote = note;
-	currentVelocity = velocity;
-	currentDelta = delta;
-	noteIsOn = true;
-	fPhase1 = fPhase2 = 0;
-}
-
-//-----------------------------------------------------------------------------------------
-void VstXSynth::noteOff ()
-{
-	noteIsOn = false;
 }

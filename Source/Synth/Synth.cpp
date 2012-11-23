@@ -9,6 +9,9 @@
 #include "Items/Processors/Adsr.h"
 
 MidiEventQueue* Synth::midiQueue = 0;
+ZDebugConsole* Synth::console = 0;
+
+double Synth::renderTime = 0;
 
 Synth::Synth(void)
 {
@@ -18,6 +21,9 @@ Synth::Synth(void)
 void Synth::Synth_Init()
 {
 	rendering = false;
+	renderTime = 0;
+	console = new ZDebugConsole();
+	DebugPrintLine("INIT");
 	midiQueue = new MidiEventQueue(10000);
 	Constants::instance = new Constants();
 	PowerOfTwoTable::instance = new PowerOfTwoTable();
@@ -44,6 +50,7 @@ void Synth::Synth_Init()
 	eg->enabled  = true; // no needed
 	
 	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+	PatchList::list->patches[0]->polyphony = 4;
 	
 	
 	p->items[p->numItems++] = osc;
@@ -134,7 +141,7 @@ void Synth::RenderFloat(float* bufferLeft, float* bufferRight, int numSamples)
 
 	zt_memset(bufferLeft, 0, numSamples * sizeof(float));
 	zt_memset(bufferRight, 0, numSamples * sizeof(float));
-
+	
 	for(int i=0; i<Constants_Polyphony; i++)
 	{
 		Voice* voice = VoicePool::Pool->Voices[i];

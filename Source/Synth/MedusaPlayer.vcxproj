@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="Items\ItemProcessor.h" />
     <ClInclude Include="Items\Item.h" />
     <ClInclude Include="Items\Processors\Adsr.h" />
     <ClInclude Include="Items\Processors\Osc.h" />
+    <ClInclude Include="Utils\console.h" />
     <ClInclude Include="Utils\Midi.h" />
     <ClInclude Include="Utils\Params\Modulation\ModulationMatrix.h" />
     <ClInclude Include="Utils\PadSynth\PadSynth.h" />
@@ -51,6 +53,7 @@
     <ClCompile Include="Items\Item.cpp" />
     <ClCompile Include="Items\Processors\Adsr.cpp" />
     <ClCompile Include="Items\Processors\Osc.cpp" />
+    <ClCompile Include="Utils\console.cpp" />
     <ClCompile Include="Utils\Midi.cpp" />
     <ClCompile Include="Utils\Params\Modulation\ModulationMatrix.cpp" />
     <ClCompile Include="Utils\PadSynth\PadSynth.cpp" />

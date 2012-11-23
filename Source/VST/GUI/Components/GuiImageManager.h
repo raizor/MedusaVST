@@ -4,10 +4,10 @@
 class GuiImageManager
 {
 public:
+	static GuiImageManager* instance;
 	GuiImageManager(void);
 	~GuiImageManager(void);
 	GuiImage* GetImageById(int id);
-	static GuiImageManager* instance;
 	static void InitInstance();
 private:
 	imageStack* glImages;

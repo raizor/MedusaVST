@@ -13,9 +13,9 @@ GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int 
 	this->height = height;
 	this->offsetX = offsetX;
 	this->offsetY = offsetY;
-	subComponents = new objectStack(1000);
 	hasImage = imageId !=0;
 	type = kGuiComponentTypeGeneric;
+	parent = NULL;
 	if (hasImage)
 	{
 		image = GuiImageManager::instance->GetImageById(imageId);
@@ -37,44 +37,80 @@ bool GuiComponent::SetImage(int imageId)
 
 void GuiComponent::draw()
 {
+	glPushMatrix();
+	glTranslatef(offsetX, offsetY, 0);
+
 	if (hasImage)
 	{
 		//if (!dirty) return; // doesn't need drawing
 
 		image->bind();
+		
 		//glColor4f(1,1,1,1);
 		glBegin(GL_QUADS);
 
 		glTexCoord2f(0,0);
-		glVertex2i(offsetX,offsetY);
+		glVertex2i(0,0);
 
 		glTexCoord2f(0,1);
-		glVertex2i(offsetX,offsetY+height);
+		glVertex2i(0, 0+height);
 
 		glTexCoord2f(1,1);
-		glVertex2i(offsetX+width,offsetY+height);
+		glVertex2i(0+width, 0+height);
 
 		glTexCoord2f(1,0);
-		glVertex2i(offsetX+width,offsetY);
+		glVertex2i(0+width, 0);
 
 		glEnd();
+	}else{
+		
+		glDisable(GL_TEXTURE_2D);
+		glColor4f(1,0,1,0.2f);
+		glBegin(GL_QUADS);
+
+		glVertex2i(0,0);
+
+		glVertex2i(0, 0+height);
+
+		glVertex2i(0+width, 0+height);
+
+		glVertex2i(0+width, 0);
+		glEnd();
+		glEnable(GL_TEXTURE_2D);
+		glColor4f(1,1,1,1);
 	}
 
 	// draw sub components last as they likely appear on top of this component
-	for(int i=0; i<subComponents->count; i++)
+	for(int i=0; i<this->SubComponentCount(); i++)
 	{
-		GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+		GuiComponent* gc = GetComponent(i);
 		gc->dirty = dirty; // mark children as dirty as we're dirty, dirty children!!
 		gc->draw();
 	}
+	glPopMatrix();
 
 	dirty = false;
 
 }
 
-void GuiComponent::AddComponent(GuiComponent* component)
+int GuiComponent::GetOffsetX()
 {
-	subComponents->push(component);
+	int val = this->offsetX;	
+	if (parent != NULL)
+	{
+		val+=parent->GetOffsetX();
+	}
+	return val;
+}
+
+int GuiComponent::GetOffsetY()
+{
+	int val = this->offsetY;	
+	if (parent != NULL)
+	{
+		val+=parent->GetOffsetY();
+	}
+	return val;
 }
 
 void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
@@ -91,13 +127,13 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<subComponents.size(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= offsetX &&  evt->pos.x <= offsetX + width) && (evt->pos.y >= offsetY &&  evt->pos.y <= offsetY + height))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
 			{
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
@@ -128,13 +164,13 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<subComponents.size(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
 				gc->HandleEvent(evt, true);	
 			}
 
-			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= offsetX &&  evt->pos.x <= offsetX + width) && (evt->pos.y >= offsetY &&  evt->pos.y <= offsetY + height))
+			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
 			{
 				GuiMainWindow::dragComponent = this;
 				GuiMainWindow::dragPoint->x = evt->pos.x;
@@ -162,9 +198,9 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<subComponents.size(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
 				gc->HandleEvent(evt, true);
 			}
 
@@ -177,9 +213,9 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 		}
 	default:
 		{
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<subComponents.size(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
 				if (!evt->isHandled)
 					gc->HandleEvent(evt, true);
 			}
@@ -187,3 +223,24 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 		}
 	}
 }
+
+ void GuiComponent::Clicked()
+ {
+	 
+ }
+
+ void GuiComponent::AddSubComponent(GuiComponent* component)
+ {
+	 subComponents.push_back(component);
+	 component->parent = this;
+ }
+
+ int GuiComponent::SubComponentCount()
+ {
+	 return subComponents.size();
+ }
+
+ GuiComponent* GuiComponent::GetComponent(int index)
+ {
+	 return subComponents.at(index);
+ }

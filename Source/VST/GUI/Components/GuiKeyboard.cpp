@@ -84,13 +84,13 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= offsetX &&  evt->pos.x <= offsetX + width) && (evt->pos.y >= offsetY &&  evt->pos.y <= offsetY + height))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetX() + height))
 			{
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
@@ -108,14 +108,14 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				gc->HandleEvent(evt, true);
 				break;				
 			}
 
-			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= offsetX &&  evt->pos.x <= offsetX + width) && (evt->pos.y >= offsetY &&  evt->pos.y <= offsetY + height))
+			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
 			{
 				GuiMainWindow::dragComponent = this;
 				GuiMainWindow::dragPoint->x = evt->pos.x;
@@ -144,9 +144,9 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				gc->HandleEvent(evt, true);
 				break;				
 			}
@@ -164,9 +164,9 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 		}
 	default:
 		{
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				if (!evt->isHandled)
 					gc->HandleEvent(evt, true);
 			}

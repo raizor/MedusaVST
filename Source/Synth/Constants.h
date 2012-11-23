@@ -272,7 +272,8 @@ enum ModulationCurve
 
 enum PlayerEventType
 {
-	kPlayerEventTypeNoteOn = 0,
+	kPlayerEventTypeNone = 0,
+	kPlayerEventTypeNoteOn,
 	kPlayerEventTypeNoteOff,
 	kPlayerEventTypeProgramChange
 };

@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Globals.h"
 #include "Constants.h"
 #include "Utils/PitchUtils.h"
 #include "Utils/Patch.h"
 #include "Utils/midi.h"
+#include "Utils/console.h"
 #include "Utils/SampleBufferFloat.h"
 //
 
@@ -11,6 +13,8 @@ class Synth
 {
 public:
 	bool rendering;
+	static ZDebugConsole* console;
+	static double renderTime;
 	static MidiEventQueue* midiQueue;
 	Synth(void);
 	SampleBufferFloat* MixBuffer;

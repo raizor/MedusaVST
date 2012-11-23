@@ -23,8 +23,10 @@ public:
 	GuiButton* butMode;
 	GuiButton* butMod;
 	
-	GuiButton** butOscs;
+	std::vector<GuiButton*> butOscs;
 
+	GuiButtonStrip* butStripOscs;
+	
 	GuiPanelOsc(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelOsc(void);
 };

@@ -23,7 +23,6 @@
 
 #include "Editor.h"
 #include "../../includes.h"
-#include "../Utils/console.h"
 #include "Components/GuiImageManager.h"
 
 // init statics
@@ -94,7 +93,8 @@ void Editor::guiOpen()
 	if (!_initDone)
 	{	
 		GuiImageManager::InitInstance();
-		_mainWindow = new GuiMainWindow(920, 696, 0, 167, IDB_PNG_PANEL_MAIN);
+		GuiImageManager::instance->GetImageById(IDB_BUTTONSTRIP)->SetSpriteSheet(new SpritesButtonsSprites());
+		_mainWindow = new GuiMainWindow(920, 863, 0, 0, IDB_PNG_PANEL_MAIN);
 
 		//MessageBoxEx(NULL, "", "", NULL, NULL);
 		//_initDone = true;
@@ -126,45 +126,6 @@ void Editor::draw()
 	glEnable(GL_DEPTH_TEST);
 
 	GlHelpers::ViewPerspective();
-	/*
-	GLuint textureId;
-	glGenTextures(1, &textureId);
-
-	
-	glTranslatef(0.0f, 0.0f, -6.0f);
-	glRotatef(thing, 1.0f, 1.0f, 1.0f);
-	thing += 2.0f;
-
-	glBegin(GL_TRIANGLES);
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f( 0.0f, 1.0f, 0.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(-1.0f,-1.0f, 1.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f( 1.0f,-1.0f, 1.0f);
-
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f( 0.0f, 1.0f, 0.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f( 1.0f,-1.0f, 1.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f( 1.0f,-1.0f, -1.0f);
-
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f( 0.0f, 1.0f, 0.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f( 1.0f,-1.0f, -1.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(-1.0f,-1.0f, -1.0f);
-
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f( 0.0f, 1.0f, 0.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(-1.0f,-1.0f,-1.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(-1.0f,-1.0f, 1.0f);
-	glEnd();
-	*/
 	
 }
 

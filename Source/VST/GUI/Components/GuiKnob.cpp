@@ -20,12 +20,16 @@ GuiKnob::~GuiKnob(void)
 
 void GuiKnob::draw()
 {
+	glPushMatrix();
+	glTranslatef(offsetX, offsetY, 0);
+
 	if (hasImage)
 	{
 		//if (!dirty) return; // doesn't need drawing
 
 		image->bind();
 		//glColor4f(1,1,1,1);
+		
 		glBegin(GL_QUADS);
 		
 		float knobVal = value;
@@ -53,29 +57,30 @@ void GuiKnob::draw()
 				
 		
 		glTexCoord2f(x, y);
-		glVertex2i(offsetX, offsetY);
+		glVertex2i(0, 0);
 
 		glTexCoord2f(x, y+knobSizeY);
-		glVertex2i(offsetX, offsetY+46);
+		glVertex2i(0, 0+46);
 
 		glTexCoord2f(x+knobSizeX, y+knobSizeY);
-		glVertex2i(offsetX+46, offsetY+46);
+		glVertex2i(0+46, 0+46);
 
 		glTexCoord2f(x+knobSizeX, y);
-		glVertex2i(offsetX+46, offsetY);
+		glVertex2i(0+46, 0);
 		
 		glEnd();
 	}
 
 	// draw sub components last as they likely appear on top of this component
-	for(int i=0; i<subComponents->count; i++)
+	for(int i=0; i<this->SubComponentCount(); i++)
 	{
-		GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+		GuiComponent* gc = GetComponent(i);
 		gc->dirty = dirty; // mark children as dirty as we're dirty, dirty children!!
 		gc->draw();
 	}
 
 	dirty = false;
+	glPopMatrix();
 }
 
 void GuiKnob::HandleDrag(GEvent* evt)
@@ -117,13 +122,13 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= offsetX &&  evt->pos.x <= offsetX + width) && (evt->pos.y >= offsetY &&  evt->pos.y <= offsetY + height))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
 			{
 				if (GuiMainWindow::hotComponent  != this)
 				{
@@ -146,14 +151,14 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				gc->HandleEvent(evt, true);
 				break;				
 			}
 
-			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= offsetX &&  evt->pos.x <= offsetX + width) && (evt->pos.y >= offsetY &&  evt->pos.y <= offsetY + height))
+			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
 			{
 				//DebugPrintLine("START DRAG KNOB");
 				GuiMainWindow::dragComponent = this;
@@ -172,9 +177,9 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 		}
 	default:
 		{
-			for(int i=0; i<subComponents->count; i++)
+			for(int i=0; i<this->SubComponentCount(); i++)
 			{
-				GuiComponent* gc = (GuiComponent*)subComponents->items[i];
+				GuiComponent* gc = GetComponent(i);
 				if (!evt->isHandled)
 					gc->HandleEvent(evt, true);
 			}

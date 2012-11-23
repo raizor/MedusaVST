@@ -365,3 +365,36 @@ GColor GGradient::GetColorAt(const double pos)
 	return colors.back();
 }
 
+// sprite
+
+GSprite::GSprite()
+{
+
+}
+
+GSprite::GSprite(const GCoord x, const GCoord y, const GCoord width, const GCoord height, const int spriteId)
+{
+	this->posX = x;
+	this->posY = y;
+	this->height = height;
+	this->width = width;
+	this->spriteId = spriteId;
+}
+
+// sprite collection
+
+GSpriteCollection::GSpriteCollection()
+{
+
+}
+
+void GSpriteCollection::AddSprite(GSprite* sprite)
+{
+	sprite->spriteCollection = this;
+	sprites.push_back(sprite);	
+}
+
+GSprite* GSpriteCollection::GetSprite(int spriteId)
+{
+	return sprites[spriteId];
+}

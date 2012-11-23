@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Globals.h"
 #include "VoiceNoteState.h"
 #include "../Constants.h"
 #include "../Items/Item.h"
