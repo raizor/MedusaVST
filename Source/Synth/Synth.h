@@ -9,11 +9,17 @@
 #include "Utils/SampleBufferFloat.h"
 //
 
+#define NUMBER_START_OSC 0
+#define NUMBER_START_EG Constants_NumOscillators
+#define NUMBER_START_LFO NUMBER_START_EG + Constants_NumEnvelopes
+
 class Synth
 {
 public:
 	bool rendering;
+#if ENABLE_CONSOLE
 	static ZDebugConsole* console;
+#endif
 	static double renderTime;
 	static MidiEventQueue* midiQueue;
 	Synth(void);

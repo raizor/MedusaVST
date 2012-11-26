@@ -1,5 +1,6 @@
 #include "GuiButton.h"
 #include "GuiMainWindow.h"
+#include "Utils/Patch.h"
 
 // strip
 
@@ -14,13 +15,18 @@ GuiButtonStrip::~GuiButtonStrip(void)
 
 // button
 
-GuiButton::GuiButton(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton buttonOff, SpritesButton buttonOn, SpritesButton buttonHotOn, SpritesButton buttonHotOff) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiButton::GuiButton(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton buttonOff, SpritesButton buttonOn, SpritesButton buttonHotOff, SpritesButton buttonHotOn) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
+	hottable = true;
+	this->itemNumber = 0;
+	this->buttonType  = kButtonTypeEnabledSwitch;
 	this->hottable = buttonHotOn != kSpritesButtons_None;
 	this->buttonOff = buttonOff;
 	this->buttonOn = buttonOn;
 	this->buttonOnHot = buttonHotOn;
 	this->buttonOffHot = buttonHotOff;
+	this->synthItem = 0;
+	this->lit = false;
 	state = kButtonStateOff;
 }
 
@@ -42,12 +48,101 @@ void GuiButton::draw()
 		image->bind();
 		GSprite* sprite;
 		
-		if (state == kButtonStateOn)
+		// state
+		if (synthItem)
 		{
-			sprite = image->spriteCollection->GetSprite((int)buttonOn);
-		}else{
-			sprite = image->spriteCollection->GetSprite((int)buttonOff);
+			switch(buttonType)
+			{
+			case(kButtonTypeEnabledSwitch):
+				{
+					state = PatchList::list->CurrentPatch->items[NUMBER_START_OSC+GuiMainWindow::currentOscNumber]->enabled ? kButtonStateOn : kButtonStateOff;
+					break;
+				}
+			case(kButtonTypeOscNumber):
+				{
+					state = GuiMainWindow::currentOscNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
+					break;
+				}
+			case(kButtonTypeEgNumber):
+				{
+					state = GuiMainWindow::currentEgNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
+					break;
+				}
+			default:
+				{
+					state = kButtonStateOff;
+				}
+			}
+		}	
+
+		// hot
+		switch(buttonType)
+		{			
+		case(kButtonTypeOscNumber):
+		{
+			if (state == kButtonStateOn)
+			{
+				if (synthItem && synthItem->item->enabled && buttonOnHot)
+				{
+					sprite = image->spriteCollection->GetSprite((int)buttonOnHot);
+				}else{
+					sprite = image->spriteCollection->GetSprite((int)buttonOn);
+				}
+
+			}else{
+				if (synthItem && synthItem->item->enabled && buttonOffHot)
+				{
+					sprite = image->spriteCollection->GetSprite((int)buttonOffHot);
+				}else{
+					sprite = image->spriteCollection->GetSprite((int)buttonOff);
+				}
+			}
+			break;
 		}
+		case(kButtonTypeEgNumber):
+			{
+				if (state == kButtonStateOn)
+				{
+					if (synthItem && synthItem->item->enabled && buttonOnHot)
+					{
+						sprite = image->spriteCollection->GetSprite((int)buttonOnHot);
+					}else{
+						sprite = image->spriteCollection->GetSprite((int)buttonOn);
+					}
+
+				}else{
+					if (synthItem && synthItem->item->enabled && buttonOffHot)
+					{
+						sprite = image->spriteCollection->GetSprite((int)buttonOffHot);
+					}else{
+						sprite = image->spriteCollection->GetSprite((int)buttonOff);
+					}
+				}
+				break;
+			}
+		default:
+			{
+				if (state == kButtonStateOn)
+				{
+					if (synthItem && synthItem->item->enabled && buttonOnHot)
+					{
+						sprite = image->spriteCollection->GetSprite((int)buttonOnHot);
+					}else{
+						sprite = image->spriteCollection->GetSprite((int)buttonOn);
+					}
+
+				}else{
+					if (synthItem && synthItem->item->enabled && buttonOnHot)
+					{
+						sprite = image->spriteCollection->GetSprite((int)buttonOffHot);
+					}else{
+						sprite = image->spriteCollection->GetSprite((int)buttonOff);
+					}
+				}
+				break;
+			}
+		}
+
 
 
 		//glColor4f(1,1,1,1);
@@ -93,10 +188,41 @@ void GuiButton::draw()
 
 void GuiButton::HandleEvent(GEvent* evt, bool recursing) 
 {
-	GuiComponent::HandleEvent(evt, recursing);
+	GuiComponent::HandleEvent(evt, false);
 }
 
-void GuiButton::Clicked()
+void GuiButton::Clicked(GEvent* evt)
 {
-	synthItem->enabled = !synthItem->enabled;
+	void* xx = this;
+	if (synthItem)
+	{
+		switch(buttonType)
+		{
+		case(kButtonTypeEnabledSwitch):
+			{
+				//synthItem->item->enabled = !synthItem->item->enabled;
+				PatchList::list->CurrentPatch->items[NUMBER_START_OSC+GuiMainWindow::currentOscNumber]->enabled = !PatchList::list->CurrentPatch->items[NUMBER_START_OSC+GuiMainWindow::currentOscNumber]->enabled;
+				break;
+			}
+		case(kButtonTypeOscNumber):
+			{
+				GuiMainWindow::currentOscNumber = this->itemNumber;
+				//synthItem->item->enabled = !synthItem->item->enabled;
+				break;
+			}
+		case(kButtonTypeEgNumber):
+			{
+				GuiMainWindow::currentEgNumber = this->itemNumber;
+				//synthItem->item->enabled = !synthItem->item->enabled;
+				break;
+			}
+		default:
+			{
+
+			}
+
+		}
+	}
+
+	
 }

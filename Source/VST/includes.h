@@ -1,7 +1,5 @@
 #pragma once
 
-#define ENABLE_CONSOLE
-
 #include <windows.h>
 #include <cstdio>
 #include <GL/gl.h>

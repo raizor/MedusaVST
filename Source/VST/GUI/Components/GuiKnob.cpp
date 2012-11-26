@@ -103,6 +103,7 @@ void GuiKnob::HandleDrag(GEvent* evt)
 
 void GuiKnob::HandleEvent(GEvent* evt, bool recursing) 
 {
+	GuiComponent::HandleEvent(evt);
 	switch(evt->type)
 	{
 	case(kGEventMouseMoved):
@@ -128,7 +129,7 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && IsHot(evt->pos))
 			{
 				if (GuiMainWindow::hotComponent  != this)
 				{
@@ -158,13 +159,14 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 				break;				
 			}
 
-			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
+			if (!evt->isHandled && IsHot(evt->pos))
 			{
 				//DebugPrintLine("START DRAG KNOB");
 				GuiMainWindow::dragComponent = this;
 				GuiMainWindow::dragPoint->x = evt->pos.x;
 				GuiMainWindow::dragPoint->y = evt->pos.y;
 				evt->isHandled = true;
+				Clicked(evt);
 				return;
 			}
 			break;

@@ -18,7 +18,7 @@
         <key>dpi</key>
         <uint>72</uint>
         <key>allowFreeSize</key>
-        <true/>
+        <false/>
         <key>dataFormat</key>
         <string>cpp</string>
         <key>textureFileName</key>
@@ -181,6 +181,11 @@
             <filename>../Source/VST/resources/buttons/but_amp_on_lit.png</filename>
             <filename>../Source/VST/resources/buttons/but_filterLink_off.png</filename>
             <filename>../Source/VST/resources/buttons/but_filterLink_on.png</filename>
+            <filename>../Source/VST/resources/sliders/slider.png</filename>
+            <filename>../Source/VST/resources/sliders/slider_2.png</filename>
+            <filename>../Source/VST/resources/sliders/slider_focus.png</filename>
+            <filename>../Source/VST/resources/sliders/slider_focus_2.png</filename>
+            <filename>../Source/VST/resources/keyboard/keyboard_overlay.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -2,6 +2,10 @@
 
 #include "Utils/console.h"
 
-#define ENABLE_CONSOLE
-#define DebugPrint(txt) printf("%s", txt);
-#define DebugPrintLine(txt) printf("%s\n", txt);
+#if ENABLE_CONSOLE
+	#define DebugPrint(txt) printf("%s", txt);
+	#define DebugPrintLine(txt) printf("%s\n", txt);
+#else
+	#define DebugPrint(txt) 
+	#define DebugPrintLine(txt) 
+#endif

@@ -22,7 +22,7 @@ public:
 	GuiKnob* knobReleaseTime;
 	GuiKnob* knobReleaseLevel;
 
-	GuiSlider* sliderFilter;
+	GuiSlider* sliderAmount;
 	
 	GuiButton* butEnabled;
 

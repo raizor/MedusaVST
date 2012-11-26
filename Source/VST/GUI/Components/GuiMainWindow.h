@@ -9,6 +9,9 @@
 #include "GuiPanelMaster.h"
 #include "GuiKeyboard.h"
 
+#define NUMBER_EG_AMP 6
+#define NUMBER_EG_PITCH 7
+
 class GuiMainWindow : public GuiComponent
 {
 public:
@@ -23,6 +26,11 @@ public:
 	GuiPanelModulations* panelModulations;
 	GuiKeyboard* keyboard;
 	GuiComponent *panelMaster;
+
+	static int currentOscNumber;
+	static int currentEgNumber;
+	static int currentLfoNumber;
+
 	GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiMainWindow(void);
 	void draw();

@@ -6,9 +6,10 @@
 enum ParamType
 {
 	kParamTypeDefault = 1,
-	kParamTypeFloat = 2,
-	kParamTypeInt = 3,
-	kParamTypeBool = 4
+	kParamTypeFloat,
+	kParamTypeInt,
+	kParamTypeBool,
+	kParamTypeEnabled
 };
 
 class Param

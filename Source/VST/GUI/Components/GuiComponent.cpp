@@ -2,11 +2,12 @@
 #include "GuiMainWindow.h"
 #include "GuiKnob.h"
 
-GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int imageId, bool scrollable)
+GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int imageId, int spriteId, bool scrollable)
 {
 	dirty = true;
 	scrollable = scrollable;
 	scrolloffset = 0;
+	this->spriteId = spriteId;
 	enabled = true;
 	hottable = false;
 	this->width = width;
@@ -49,18 +50,26 @@ void GuiComponent::draw()
 		//glColor4f(1,1,1,1);
 		glBegin(GL_QUADS);
 
-		glTexCoord2f(0,0);
-		glVertex2i(0,0);
+		if (spriteId !=0)
+		{
+			// draw sprite
+			GSprite* sprite = image->spriteCollection->GetSprite((int)spriteId);
+			image->drawSprite(sprite, 0, 0);
 
-		glTexCoord2f(0,1);
-		glVertex2i(0, 0+height);
+		}else{
+			// draw whole image
+			glTexCoord2f(0,0);
+			glVertex2i(0,0);
 
-		glTexCoord2f(1,1);
-		glVertex2i(0+width, 0+height);
+			glTexCoord2f(0,1);
+			glVertex2i(0, 0+height);
 
-		glTexCoord2f(1,0);
-		glVertex2i(0+width, 0);
+			glTexCoord2f(1,1);
+			glVertex2i(0+width, 0+height);
 
+			glTexCoord2f(1,0);
+			glVertex2i(0+width, 0);
+		}
 		glEnd();
 	}else{
 		
@@ -130,6 +139,8 @@ int GuiComponent::GetOffsetY()
 
 void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 {
+	if (evt->isHandled) return;
+
 	switch(evt->type)
 	{
 	case(kGEventMouseMoved):
@@ -148,7 +159,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && IsHot(evt->pos))
 			{
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
@@ -171,6 +182,9 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 		}
 	case(kGEventMouseDown):
 		{
+
+			void* xx = this;
+
 			if (!recursing)
 			{
 				char msg[255];
@@ -183,14 +197,16 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			{
 				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
 				gc->HandleEvent(evt, true);	
+
 			}
 
-			if (!evt->isHandled && hottable && width > 0 && height > 0 && (evt->pos.x >= GetOffsetX() &&  evt->pos.x <= GetOffsetX() + width) && (evt->pos.y >= GetOffsetY() &&  evt->pos.y <= GetOffsetY() + height))
+			if (!evt->isHandled && IsHot(evt->pos))
 			{
 				GuiMainWindow::dragComponent = this;
 				GuiMainWindow::dragPoint->x = evt->pos.x;
 				GuiMainWindow::dragPoint->y = evt->pos.y;
 				evt->isHandled = true;
+				Clicked(evt);
 				return;
 			}
 
@@ -239,7 +255,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 	}
 }
 
- void GuiComponent::Clicked()
+ void GuiComponent::Clicked(GEvent* evt)
  {
 	 
  }
@@ -258,4 +274,11 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
  GuiComponent* GuiComponent::GetComponent(int index)
  {
 	 return subComponents.at(index);
+ }
+
+ bool GuiComponent::IsHot(GPoint pos, bool onlyCheckY)
+ {
+	 float offX = GetOffsetX();
+	 float offY = GetOffsetY();
+	 return (width > 0 && height > 0) && ((pos.x >= offX &&  pos.x <= offX + width) || onlyCheckY) && (pos.y >= offY &&  pos.y <= offY + height);
  }

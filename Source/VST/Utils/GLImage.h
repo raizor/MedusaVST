@@ -19,7 +19,8 @@ public:
 	GuiImage(int pngId);
 	~GuiImage(void);
 	void SetSpriteSheet(GSpriteCollection* sprites);
-	
+	bool HasSprites();
 	void bind();
+	void drawSprite(GSprite* sprite, int x, int y);
 };
 

@@ -25,7 +25,9 @@
     <ClInclude Include="Items\Item.h" />
     <ClInclude Include="Items\Processors\Adsr.h" />
     <ClInclude Include="Items\Processors\Osc.h" />
-    <ClInclude Include="Utils\console.h" />
+    <ClInclude Include="Utils\console.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Player - Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Utils\Midi.h" />
     <ClInclude Include="Utils\Params\Modulation\ModulationMatrix.h" />
     <ClInclude Include="Utils\PadSynth\PadSynth.h" />
@@ -53,7 +55,9 @@
     <ClCompile Include="Items\Item.cpp" />
     <ClCompile Include="Items\Processors\Adsr.cpp" />
     <ClCompile Include="Items\Processors\Osc.cpp" />
-    <ClCompile Include="Utils\console.cpp" />
+    <ClCompile Include="Utils\console.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Player - Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Utils\Midi.cpp" />
     <ClCompile Include="Utils\Params\Modulation\ModulationMatrix.cpp" />
     <ClCompile Include="Utils\PadSynth\PadSynth.cpp" />
@@ -110,7 +114,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -130,35 +134,35 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>%(SolutionDir)ZynthPlayer;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)Bin\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir);$(SolutionDir)Bin;$(LibraryPath)</LibraryPath>
-    <IntDir>$(SolutionDir)Bin\Build\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Player - Debug|Win32'">
     <IncludePath>%(SolutionDir)ZynthPlayer;$(IncludePath)</IncludePath>
-    <OutDir>..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir);$(SolutionDir)Bin;$(LibraryPath)</LibraryPath>
-    <IntDir>Bin\Build\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RlsDebug|Win32'">
     <IncludePath>%(SolutionDir)ZynthPlayer;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <LibraryPath>$(SolutionDir);$(SolutionDir)Bin;$(LibraryPath)</LibraryPath>
-    <IntDir>Bin\Build\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Player - Release|Win32'">
-    <OutDir>..\..\bin\$(Configuration)\</OutDir>
-    <LibraryPath>$(SolutionDir);$(SolutionDir)Bin;$(LibraryPath)</LibraryPath>
-    <IntDir>Bin\Build\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <LibraryPath>$(SolutionDir);$(SolutionDir)\Bin\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS ;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;ENABLE_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(SolutionDir)$(Configuration)\$(ProjectName).pdb</ProgramDataBaseFileName>
@@ -287,7 +291,7 @@
     </Link>
     <Lib>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>dsound.lib;kernel32.lib;user32.lib;gdi32.lib;MSVCRT_VS6.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;dsound.lib;kernel32.lib;user32.lib;gdi32.lib;MSVCRT_VS6.LIB;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>

@@ -4,6 +4,9 @@ GuiComponent* GuiMainWindow::hotComponent = NULL;
 GuiComponent* GuiMainWindow::dragComponent = NULL;
 GPoint* GuiMainWindow::dragPoint = NULL;
 GPoint* GuiMainWindow::movePoint = NULL;
+int GuiMainWindow::currentOscNumber = 0;
+int GuiMainWindow::currentEgNumber = 0;
+int GuiMainWindow::currentLfoNumber = 0;
 
 GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {		
@@ -11,6 +14,10 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	currentPatch = NULL;
 	dragPoint = new GPoint(0,0);
 	movePoint = new GPoint(0,0);
+
+	currentOscNumber = 0;
+	currentEgNumber = NUMBER_EG_AMP;
+	currentLfoNumber = 0;
 
 	// container panels for main gui
 	panelOsc = new GuiPanelOsc( 460, 217, 0, 170, 0);
@@ -20,7 +27,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelModulations = new GuiPanelModulations(630, 205, 0, 594, 0); 
 	panelMaster = new GuiPanelMaster(279, 202, 640, 594, 0); 
 
-	keyboard = new GuiKeyboard(0, 0, 14, 634, IDB_KEYBOARD_OVERLAYS);
+	keyboard = new GuiKeyboard(858, 58, 13, 801, IDB_KEYBOARD_OVERLAYS);
 
 	AddSubComponent(panelOsc);
 	AddSubComponent(panelEg);

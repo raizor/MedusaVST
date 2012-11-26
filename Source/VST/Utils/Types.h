@@ -101,6 +101,7 @@ public:
 	GSprite(const GCoord x, const GCoord y, const GCoord width, const GCoord height, const int spriteId);
 	GCoord posX, posY, width, height;
 	GSpriteCollection* spriteCollection;
+	void draw(int x, int y);
 	int spriteId;
 };
 

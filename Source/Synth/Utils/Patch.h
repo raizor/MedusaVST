@@ -13,6 +13,7 @@ class Patch
 public:
 	Item** items;
 	Adsr* egAmp;
+	Adsr* egPitch;
 	int numItems;
 	int number;
 	int polyphony;

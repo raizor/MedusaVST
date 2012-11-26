@@ -13,6 +13,6 @@ public:
 	GuiKnob(int width, int height, int offsetX, int offsetY, int imageId, bool biDirectional);
 	~GuiKnob(void);
 	void draw();
-	void HandleEvent(GEvent* evt, bool recursing = false);
+	virtual void HandleEvent(GEvent* evt, bool recursing = false);
 };
 

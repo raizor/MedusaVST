@@ -45,7 +45,6 @@ Global
 		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Player - Debug|x64.ActiveCfg = Debug|x64
 		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Player - Debug|x64.Build.0 = Debug|x64
 		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Player - Release|Win32.ActiveCfg = Release|Win32
-		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Player - Release|Win32.Build.0 = Release|Win32
 		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Player - Release|x64.ActiveCfg = Release|x64
 		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Player - Release|x64.Build.0 = Release|x64
 		{863D9E7E-5322-49C8-89BA-A761DC0EE438}.Release|Win32.ActiveCfg = Release|Win32
@@ -65,7 +64,6 @@ Global
 		{D36A7267-C114-4C52-8299-18BD15D0D690}.Player - Debug|x64.ActiveCfg = Debug|x64
 		{D36A7267-C114-4C52-8299-18BD15D0D690}.Player - Debug|x64.Build.0 = Debug|x64
 		{D36A7267-C114-4C52-8299-18BD15D0D690}.Player - Release|Win32.ActiveCfg = Release|Win32
-		{D36A7267-C114-4C52-8299-18BD15D0D690}.Player - Release|Win32.Build.0 = Release|Win32
 		{D36A7267-C114-4C52-8299-18BD15D0D690}.Player - Release|x64.ActiveCfg = Release|x64
 		{D36A7267-C114-4C52-8299-18BD15D0D690}.Player - Release|x64.Build.0 = Release|x64
 		{D36A7267-C114-4C52-8299-18BD15D0D690}.Release|Win32.ActiveCfg = Release|Win32

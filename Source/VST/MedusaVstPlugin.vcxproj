@@ -67,10 +67,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Bin\</OutDir>
-    <IntDir>$(SolutionDir)Bin\Build\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../Synth;../vstsdk2.4;vstsdk2.4\public.sdk\source\vst2.x;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)/Bin;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)/Bin/$(Configuration)/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
-    <IntDir>$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>../Synth;../vstsdk2.4;..\vstsdk2.4\public.sdk\source\vst2.x;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/Bin;$(LibraryPath)</LibraryPath>
@@ -182,6 +182,7 @@
     <ClInclude Include="GUI\Components\GuiPanelFilter.h" />
     <ClInclude Include="GUI\Components\GuiPanelLfo.h" />
     <ClInclude Include="GUI\Sprites\buttons.h" />
+    <ClInclude Include="Utils\LinkedSynthItem.h" />
     <ClInclude Include="Utils\GEvent.h" />
     <ClInclude Include="GUI\Components\GuiButton.h" />
     <ClInclude Include="GUI\Components\GuiLabel.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="GUI\Components\GuiPanelFilter.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelLfo.cpp" />
     <ClCompile Include="GUI\Sprites\buttons.cpp" />
+    <ClCompile Include="Utils\LinkedSynthItem.cpp" />
     <ClCompile Include="Utils\GEvent.cpp" />
     <ClCompile Include="GUI\Components\GuiButton.cpp" />
     <ClCompile Include="GUI\Components\GuiLabel.cpp" />

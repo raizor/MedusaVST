@@ -9,7 +9,9 @@
 #include "Items/Processors/Adsr.h"
 
 MidiEventQueue* Synth::midiQueue = 0;
-ZDebugConsole* Synth::console = 0;
+#if ENABLE_CONSOLE
+	ZDebugConsole* Synth::console = 0;
+#endif
 
 double Synth::renderTime = 0;
 
@@ -22,7 +24,9 @@ void Synth::Synth_Init()
 {
 	rendering = false;
 	renderTime = 0;
+#if ENABLE_CONSOLE
 	console = new ZDebugConsole();
+#endif
 	DebugPrintLine("INIT");
 	midiQueue = new MidiEventQueue(10000);
 	Constants::instance = new Constants();
@@ -43,19 +47,47 @@ void Synth::Synth_Init()
 	//double* d = PadSynth::PadSynthBuildWaveTable(kPadSynthTypeChoir, 10.0, 10.0, 10, 10, 5000, false);
 
 	// setup test patch
-	Osc* osc = new Osc();
-	osc->enabled = true;
 	
-	Adsr* eg = new Adsr(kEgTypeAmp);
-	eg->enabled  = true; // no needed
-	
+
 	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
 	PatchList::list->patches[0]->polyphony = 4;
-	
-	
-	p->items[p->numItems++] = osc;
 
+	// OSCS
+	for(int i=0; i<Constants_NumOscillators; i++)
+	{
+		Osc* osc = new Osc();
+		osc->enabled = i == 0;
+
+		/*
+		Osc* prev = i > 0 ? &patch->Oscs[i-1] : &patch->Oscs[Constants_NumOscillators-1];
+		Osc* next = i < Constants_NumOscillators - 1 ? &patch->Oscs[i+1] : &patch->Oscs[0];
+		patch->Oscs[i].OscPrevious = prev; 
+		patch->Oscs[i].OscNext = next;*/
+
+		p->items[p->numItems++] = osc;
+	}
+
+	// EGs
+
+	Adsr* eg = new Adsr(kEgTypeAmp);
+	eg->enabled  = true; // no needed
 	p->egAmp = eg;
+
+	eg = new Adsr(kEgTypePitch);
+	eg->enabled  = false; // no needed
+	p->egPitch = eg;
+
+	for(int i=0; i<Constants_NumEnvelopes; i++)
+	{
+		Adsr* adsr = new Adsr(kEgTypeStandard);
+		adsr->enabled = false;
+		p->items[p->numItems++] = adsr;
+	}
+
+	// LFOs
+
+	// all voices
+	//Lfo* 
 
 
 
