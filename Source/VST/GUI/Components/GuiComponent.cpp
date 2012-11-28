@@ -2,9 +2,16 @@
 #include "GuiMainWindow.h"
 #include "GuiKnob.h"
 
-GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int imageId, int spriteId, bool scrollable)
+GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int imageId, int spriteId, bool scrollable, char* name)
 {
+	fp = 0;
+	hasName = name;
+	if (name)
+	{
+		sprintf(this->name, name);
+	}
 	dirty = true;
+	synthItem = 0;
 	scrollable = scrollable;
 	scrolloffset = 0;
 	this->spriteId = spriteId;
@@ -22,7 +29,6 @@ GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int 
 		image = GuiImageManager::instance->GetImageById(imageId);
 		if (width == 0) this->width = image->width;
 		if (height == 0) this->height = image->height;
-		int xx = 1;
 	}
 }
 
@@ -41,7 +47,7 @@ void GuiComponent::draw()
 	glPushMatrix();
 	glTranslatef(offsetX, offsetY, 0);
 
-	if (hasImage)
+	if (hasImage && enabled)
 	{
 		//if (!dirty) return; // doesn't need drawing
 
@@ -72,7 +78,7 @@ void GuiComponent::draw()
 		}
 		glEnd();
 	}else{
-		
+#ifdef DRAW_OVERLAYS
 		glDisable(GL_TEXTURE_2D);
 		switch (type)
 		{
@@ -102,6 +108,7 @@ void GuiComponent::draw()
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 		glColor4f(1,1,1,1);
+#endif
 	}
 
 	// draw sub components last as they likely appear on top of this component
@@ -159,8 +166,9 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && IsHot(evt->pos))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && IsHot(evt->pos) && enabled)
 			{
+				// handle event
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
 				return;
@@ -200,13 +208,21 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 
 			}
 
-			if (!evt->isHandled && IsHot(evt->pos))
+			if (!evt->isHandled && IsHot(evt->pos) && enabled)
 			{
+				// handle event
 				GuiMainWindow::dragComponent = this;
 				GuiMainWindow::dragPoint->x = evt->pos.x;
 				GuiMainWindow::dragPoint->y = evt->pos.y;
 				evt->isHandled = true;
 				Clicked(evt);
+
+				if (fp != NULL)
+				{
+					(this->*fp)();
+					// call clicked handler
+					//this->HandlerClicked(this);
+				}
 				return;
 			}
 
@@ -255,6 +271,11 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 	}
 }
 
+void GuiComponent::ftest()
+{
+	DebugPrintLine("FTEST");
+}
+
  void GuiComponent::Clicked(GEvent* evt)
  {
 	 
@@ -281,4 +302,10 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 	 float offX = GetOffsetX();
 	 float offY = GetOffsetY();
 	 return (width > 0 && height > 0) && ((pos.x >= offX &&  pos.x <= offX + width) || onlyCheckY) && (pos.y >= offY &&  pos.y <= offY + height);
+ }
+
+ void GuiComponent::SetStackItem(Item* item)
+ {
+	 synthItem = new LinkedSynthItem();
+	 synthItem->item = item;
  }

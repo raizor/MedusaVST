@@ -64,6 +64,11 @@ float ParamFloat::Value()
 	return *val;
 }
 
+float ParamFloat::ValueAsInt()
+{
+	return _intValue;
+}
+
 
 float ParamFloat::ModValue(float* value, float modValue, ModulationCurve* curve)
 {

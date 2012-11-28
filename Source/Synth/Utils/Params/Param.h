@@ -9,7 +9,7 @@ enum ParamType
 	kParamTypeFloat,
 	kParamTypeInt,
 	kParamTypeBool,
-	kParamTypeEnabled
+	kParamTypeEnabled,
 };
 
 class Param

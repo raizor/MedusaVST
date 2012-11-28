@@ -186,6 +186,7 @@
             <filename>../Source/VST/resources/sliders/slider_focus.png</filename>
             <filename>../Source/VST/resources/sliders/slider_focus_2.png</filename>
             <filename>../Source/VST/resources/keyboard/keyboard_overlay.png</filename>
+            <filename>../../../../GitRepo/VstC_VS2012/csSynth1_WINFORMS_NET4_C/VstNetMidiPlugin1/Resources/panels/overlay_adsr_other.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

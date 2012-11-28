@@ -50,10 +50,12 @@ enum SpritesButton
 	kSpritesButtons_But_pitch_on,
 	kSpritesButtons_But_pitch_on_lit,
 	kSpritesButtons_Keyboard_overlay,
+	kSpritesButtons_Overlay_adsr_other,
 	kSpritesButtons_Slider,
 	kSpritesButtons_Slider_2,
 	kSpritesButtons_Slider_focus,
 	kSpritesButtons_Slider_focus_2,
+
 
 };
 

@@ -13,7 +13,9 @@ class LinkedSynthItem
 {
 public:
 	Item* item;
+	StackItemType itemType;
 	ParamType paramType;
+	ParamValueTypeFloat valueType;
 	void* param;
 	LinkedSynthItem(void);
 	~LinkedSynthItem(void);

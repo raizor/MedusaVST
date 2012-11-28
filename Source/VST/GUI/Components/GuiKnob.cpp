@@ -1,8 +1,15 @@
 #include "GuiKnob.h"
 #include "GuiMainWindow.h"
 
-GuiKnob::GuiKnob(int width, int height, int offsetX, int offsetY, int imageId, bool biDirectional) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiKnob::GuiKnob(int width, int height, int offsetX, int offsetY, int imageId, int min, int max, bool biDirectional, char* name ) : GuiComponent(width, height, offsetX, offsetY, imageId, false)
 {
+	if (name)
+	{
+		hasName = true;
+		sprintf(this->name, name);
+	}	
+	this->min = min;
+	this->max = max;
 	this->width = 46;
 	this->height = 46;
 	value = 0;
@@ -34,6 +41,13 @@ void GuiKnob::draw()
 		
 		float knobVal = value;
 
+		if (synthItem)
+		{
+			ParamFloat* p  = (ParamFloat*)synthItem->param;
+			float mult = 127.0 / max;
+			knobVal = p->ValueAsInt();
+		}
+
 		// todo: precalc knob rotation positions
 
 		lit = GuiMainWindow::hotComponent == this || GuiMainWindow::dragComponent == this;
@@ -41,6 +55,32 @@ void GuiKnob::draw()
 		if (lit)
 		{
 			knobVal += 128;
+
+			// set item name
+			if (hasName)
+			{
+				GuiMainWindow::panelMaster->SetParamName(&this->name[0]);
+			}
+			
+			// set item value
+			if (synthItem)
+			{
+				ParamFloat* p  = (ParamFloat*)synthItem->param;
+				switch(p->ValueType)
+				{
+				case(kParamValueTypeTime):
+					sprintf(GuiMainWindow::labelText, "%0.3f secs", p->TargetValue);
+					break;
+
+				case(kParamValueTypeZeroToOneUni):
+					// todo percent not working
+					sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+					break;
+				}			
+				GuiMainWindow::panelMaster->SetParamValue(&GuiMainWindow::labelText[0]);
+			}
+
+			
 		}
 
 		float pixelSizeX = 1.0f / image->height;
@@ -85,17 +125,32 @@ void GuiKnob::draw()
 
 void GuiKnob::HandleDrag(GEvent* evt)
 {
-	float distance = (evt->pos.y  -GuiMainWindow::dragPoint->y) * 0.75f;
+	float distance = (evt->pos.y  -GuiMainWindow::dragPoint->y) * 1.00f;
 	char msg[255];
 	sprintf(&msg[0], "drag y: %d", (int)distance);
-	DebugPrintLine(msg);
+	//DebugPrintLine(msg);
 
 	// set value
 	float newVal = value - distance;
-	if (newVal < 0) newVal = 0;
-	if (newVal > 127) newVal = 127;
+
+	if (synthItem)
+	{
+		ParamFloat* p  = (ParamFloat*)synthItem->param;
+		newVal = p->ValueAsInt() - distance;;
+	}
+
+	if (newVal < min) newVal = 0;
+	if (newVal > max) newVal = max;
 
 	value = newVal;
+
+	if (synthItem)
+	{
+		ParamFloat* p  = (ParamFloat*)synthItem->param;
+		p->SetValueWithInt((int)newVal);
+		sprintf(&msg[0], "knob val: %d", (int)newVal);
+		DebugPrintLine(msg);
+	}
 
 	GuiMainWindow::dragPoint->y = evt->pos.y;
 
@@ -134,10 +189,10 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 				if (GuiMainWindow::hotComponent  != this)
 				{
 					//DebugPrintLine("HOT KNOB");
-
 				}
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
+
 				return;
 			}
 			break;

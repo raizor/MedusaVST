@@ -73,6 +73,7 @@
 class VSTGLEditor : public AEffEditor
 {
   public:
+
 	///	Enum containing various flags to set certain properties of the window.
 	typedef enum
 	{

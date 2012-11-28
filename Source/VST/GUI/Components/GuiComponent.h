@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define xDRAW_OVERLAYS
+
 enum GuiComponentType
 {
 	kGuiComponentTypeGeneric = 0,
@@ -15,17 +17,24 @@ enum GuiComponentType
 	kGuiComponentTypeKeyboard
 };
 
+class GuiComponent;
+
+typedef void (GuiComponent::*MyFuncPtrType)();
+
 class GuiComponent
 {
 private:
 	vector<GuiComponent*> subComponents;
 
 public:
+	char name[100];
+	bool hasName;
 	int width, height;
 	int offsetX, offsetY;
 	LinkedSynthItem* synthItem;
 	GuiComponentType type;
 	GuiComponent* parent;
+	MyFuncPtrType fp;
 	bool dirty;
 	bool hottable;
 	bool enabled;
@@ -34,7 +43,7 @@ public:
 	bool hasImage;
 	int spriteId;
 	GuiImage* image;	
-	GuiComponent(int width, int height, int offsetX, int offsetY, int imageId = 0, int spriteId = 0, bool scrollable = false);
+	GuiComponent(int width, int height, int offsetX, int offsetY, int imageId = 0, int spriteId = 0, bool scrollable = false, char* name = NULL);
 	bool SetImage(int imageId);
 	~GuiComponent(void);
 
@@ -42,10 +51,12 @@ public:
 	virtual int SubComponentCount();
 	virtual GuiComponent* GetComponent(int index);
 	virtual void draw();
+	void ftest();
 	virtual void HandleEvent(GEvent* evt, bool recursing = false);
 	virtual void Clicked(GEvent* evt);
 	virtual int GetOffsetX();
 	virtual int GetOffsetY();
 	virtual bool IsHot(GPoint pos, bool onlyCheckY = false);
+	virtual void SetStackItem(Item* item);
 };
 

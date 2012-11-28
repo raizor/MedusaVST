@@ -3,15 +3,15 @@
 
 GuiPanelFilter::GuiPanelFilter(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
-	knobCutoff1 = new GuiKnob(0, 0, 263, 70, IDB_KNOBS_BI, true);
-	knobResonance1 = new GuiKnob(0, 0, 303, 38, IDB_KNOBS_BI, true);	
-	knobPan1 = new GuiKnob(0, 0, 359, 38, IDB_KNOBS_BI, true);	
-	knobLevel1 = new GuiKnob(0, 0, 400, 70, IDB_KNOBS_BI, true);
+	knobCutoff1 = new GuiKnob(0, 0, 263, 70, IDB_KNOBS_UNI, 0, 127, true);
+	knobResonance1 = new GuiKnob(0, 0, 303, 38, IDB_KNOBS_UNI, 0, 127, true);	
+	knobPan1 = new GuiKnob(0, 0, 359, 38, IDB_KNOBS_BI, 0, 127, true);	
+	knobLevel1 = new GuiKnob(0, 0, 400, 70, IDB_KNOBS_UNI, 0, 127, true);
 	
-	knobCutoff2 = new GuiKnob(0, 0, 263, 130, IDB_KNOBS_BI, true);
-	knobResonance2 = new GuiKnob(0, 0, 303, 164, IDB_KNOBS_BI, true);
-	knobPan2 = new GuiKnob(0, 0, 359, 164, IDB_KNOBS_BI, true);
-	knobLevel2 = new GuiKnob(0, 0, 400, 130, IDB_KNOBS_BI, true);
+	knobCutoff2 = new GuiKnob(0, 0, 263, 130, IDB_KNOBS_UNI, 0, 127, true);
+	knobResonance2 = new GuiKnob(0, 0, 303, 164, IDB_KNOBS_UNI, 0, 127, true);
+	knobPan2 = new GuiKnob(0, 0, 359, 164, IDB_KNOBS_BI, 0, 127, true);
+	knobLevel2 = new GuiKnob(0, 0, 400, 130, IDB_KNOBS_UNI, 0, 127, true);
 
 	AddSubComponent(knobCutoff1);
 	AddSubComponent(knobResonance1);
@@ -28,6 +28,32 @@ GuiPanelFilter::GuiPanelFilter(int width, int height, int offsetX, int offsetY, 
 
 	butLink = new GuiButton(28, 31, 233, 110, IDB_BUTTONSTRIP, kSpritesButtons_But_filterLink_off, kSpritesButtons_But_filterLink_on, kSpritesButtons_None);
 	AddSubComponent(butLink);
+	
+	int lineSpacing = 13;
+	int textStartY = 43;
+	int textStartX = 86;
+
+	// labels
+	labFilter1Type = new GuiLabel(72, 12, textStartX, textStartY+0, "Off");
+	AddSubComponent(labFilter1Type);
+
+	labFilter1Limiter = new GuiLabel(72, 12, textStartX, textStartY+19, "Off");
+	AddSubComponent(labFilter1Limiter);
+
+	labFilter1ResoBoost = new GuiLabel(72, 12, textStartX, textStartY+38, "Off");
+	AddSubComponent(labFilter1ResoBoost);
+
+	textStartY+=90;
+
+	labFilter2Type = new GuiLabel(72, 12, textStartX, textStartY+0, "Off");
+	AddSubComponent(labFilter2Type);
+
+	labFilter2Limiter = new GuiLabel(72, 12, textStartX, textStartY+19, "Off");
+	AddSubComponent(labFilter2Limiter);
+
+	labFilter2ResoBoost = new GuiLabel(72, 12, textStartX, textStartY+38, "Off");
+	AddSubComponent(labFilter2ResoBoost);
+
 }
 
 

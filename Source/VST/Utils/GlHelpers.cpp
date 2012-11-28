@@ -56,7 +56,7 @@ GLbyte* GlHelpers::LoadPNG(int resourceId, GLint *iWidth, GLint *iHeight, GLint 
 	return pixels;
 }
 
-bool GlHelpers::GetTexture(int resourceId, GLuint* textureId, GLint* width, GLint* height)
+bool GlHelpers::GetTexture(int resourceId, GLuint* textureId, GLint* width, GLint* height, bool genMipmaps, int minFilter, int magFilter, int wrapS, int wrapT)
 {
 	GLint icomps;
 	GLenum eFormat;
@@ -64,11 +64,35 @@ bool GlHelpers::GetTexture(int resourceId, GLuint* textureId, GLint* width, GLin
 	glGenTextures(1, textureId);
 	glBindTexture(GL_TEXTURE_2D, *textureId);
 	glTexImage2D(GL_TEXTURE_2D, 0, icomps, *width, *height, 0, eFormat, GL_UNSIGNED_BYTE, pixels );
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // Linear Filtering
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // Linear Filtering
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Linear Filtering
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Linear Filtering
 
 	free(pixels);
+
+	/*
+	GLint icomps;
+	GLenum eFormat;
+	GLbyte *pixels = LoadPNG(resourceId, width, height, &icomps, &eFormat );
+	glGenTextures(1, textureId);
+	glBindTexture(GL_TEXTURE_2D, *textureId);
+	glTexImage2D(GL_TEXTURE_2D, 0, icomps, *width, *height, 0, eFormat, GL_UNSIGNED_BYTE, pixels );
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, minFilter); // Linear Filtering
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, magFilter); // Linear Filtering
+	if (genMipmaps)
+	{
+		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); 
+	}else{
+		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE); 
+	}
+
+	free(pixels);*/
+
+
+
+
 	return true;
 }

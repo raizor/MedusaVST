@@ -24,6 +24,7 @@
 #include "Editor.h"
 #include "../../includes.h"
 #include "Components/GuiImageManager.h"
+//#include "Text/FontManager.h"
 
 // init statics
 int Editor::_winWidth = 0;
@@ -92,9 +93,15 @@ void Editor::guiOpen()
 	glEnable(GL_TEXTURE_2D);
 	if (!_initDone)
 	{	
+		// Setup font manager
+		//if (!g_pFontManager)	
+
 		GuiImageManager::InitInstance();
 		GuiImageManager::instance->GetImageById(IDB_BUTTONSTRIP)->SetSpriteSheet(new SpritesButtonsSprites());
 		_mainWindow = new GuiMainWindow(920, 863, 0, 0, IDB_PNG_PANEL_MAIN);
+		int* ii = new int();
+		delete(ii);
+		TextWriter::writer = new TextWriter();
 
 		//MessageBoxEx(NULL, "", "", NULL, NULL);
 		//_initDone = true;

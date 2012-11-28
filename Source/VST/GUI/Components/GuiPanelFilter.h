@@ -27,6 +27,14 @@ public:
 	GuiButton* butMode; // parallel/dual
 	GuiButton* butLink; // parallel/dual
 
+	GuiLabel* labFilter1Type;
+	GuiLabel* labFilter1Limiter;
+	GuiLabel* labFilter1ResoBoost;
+
+	GuiLabel* labFilter2Type;
+	GuiLabel* labFilter2Limiter;
+	GuiLabel* labFilter2ResoBoost;
+
 	GuiPanelFilter(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelFilter(void);
 };

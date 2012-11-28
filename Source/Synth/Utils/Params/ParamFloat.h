@@ -22,6 +22,7 @@ public:
 	void SetValueWithInt(float value);
 	void SetValue(int value);
 	float Value();
+	float ValueAsInt();
 
 	float GetModValue(Voice* voice, int bufferIndex);
 	float GetModdedValue(Voice* voice, int bufferIndex);

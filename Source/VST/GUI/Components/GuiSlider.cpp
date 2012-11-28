@@ -180,7 +180,7 @@ bar pos matches Y pos within slider bounds
 GuiSlider::GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	hottable = true;
-	this->knob = new GuiSliderKnob(38, 33, 0, height, imageId, sliderOn, sliderOff);
+	this->knob = new GuiSliderKnob(38, 33, -2, height, imageId, sliderOn, sliderOff);
 	AddSubComponent(this->knob);
 	type = kGuiComponentTypeSlider;
 }
@@ -198,6 +198,7 @@ void GuiSlider::draw()
 	glTranslatef(offsetX, offsetY, 0);
 	
 	// draw slider background (for testing)
+#ifdef DRAW_OVERLAYS
 	glColor4f(0, 0, 0, 0.5);
 	glDisable(GL_TEXTURE_2D);
 	glBegin(GL_QUADS);
@@ -210,6 +211,7 @@ void GuiSlider::draw()
 	glEnd();
 	glEnable(GL_TEXTURE_2D);
 	glColor4f(1, 1, 1, 1);
+#endif
 
 	// draw sub components last as they likely appear on top of this component
 	for(int i=0; i<SubComponentCount(); i++)

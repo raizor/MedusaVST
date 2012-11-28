@@ -1,4 +1,6 @@
 #include "GuiMainWindow.h"
+#include "../Text/TextWriter.h"
+#include "GuiPanelMaster.h"
 
 GuiComponent* GuiMainWindow::hotComponent = NULL;
 GuiComponent* GuiMainWindow::dragComponent = NULL;
@@ -7,6 +9,14 @@ GPoint* GuiMainWindow::movePoint = NULL;
 int GuiMainWindow::currentOscNumber = 0;
 int GuiMainWindow::currentEgNumber = 0;
 int GuiMainWindow::currentLfoNumber = 0;
+GuiPanelMaster* GuiMainWindow::panelMaster = 0;
+GuiPanelOsc* GuiMainWindow::panelOsc = 0;
+GuiPanelEg* GuiMainWindow::panelEg = 0;
+GuiPanelLfo* GuiMainWindow::panelLfo = 0;
+GuiPanelModulations* GuiMainWindow::panelModulations = 0;
+GuiPanelFilter* GuiMainWindow::panelFilter = 0;
+GuiKeyboard* GuiMainWindow::keyboard = 0;
+char GuiMainWindow::labelText[100];
 
 GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {		
@@ -28,6 +38,9 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelMaster = new GuiPanelMaster(279, 202, 640, 594, 0); 
 
 	keyboard = new GuiKeyboard(858, 58, 13, 801, IDB_KEYBOARD_OVERLAYS);
+
+	//surface = new GSurface(400, 400);
+	
 
 	AddSubComponent(panelOsc);
 	AddSubComponent(panelEg);
@@ -82,7 +95,7 @@ void GuiMainWindow::draw()
 
 	float x1 = panelSize*panelNumber;
 	float x2 = x1 + panelSize;
-
+	
 	glTexCoord2f(x1,0);
 	glVertex2i(0, 0);
 
@@ -95,6 +108,12 @@ void GuiMainWindow::draw()
 	glTexCoord2f(x2,0);
 	glVertex2i(0+width, 0);
 
+	glDisable(GL_TEXTURE_2D);
+	//GPoint* gp = new GPoint(0,0);
+	//GColor* gc = new GColor(0, 0, 0);
+	//FontManager::manager->DrawText(kFontFaceLucidaGrande, "HELLO THIS IS A BUNCH OF TEXT FOR YOU TO LOOK AT", *gp, *gc, 20.0, 0);
+	glEnable(GL_TEXTURE_2D);
+
 	glEnd();
 
 
@@ -105,6 +124,9 @@ void GuiMainWindow::draw()
 		gc->dirty = dirty; // mark children as dirty as we're dirty, dirty children!!
 		gc->draw();
 	}
+
+	//TextWriter::writer->Lucida->SetColor(250,250,55,254);
+	//TextWriter::writer->Lucida->PrintCenter(240,"This is another font.");
 
 
 	glPopMatrix();

@@ -11,6 +11,11 @@ public:
 	static void ViewPerspective();
 
 	static GLbyte* LoadPNG(int resourceId, GLint *iWidth, GLint *iHeight, GLint *iComponents, GLenum *eFormat);
-	static bool GetTexture(int resourceId, GLuint* textureId, GLint* width, GLint* height);
+
+	static bool GetTexture(int resourceId, GLuint* textureId, GLint* width, GLint* height, 
+		bool genMipmaps = false,
+		int minFilter = GL_LINEAR,
+		int magFilter = GL_LINEAR,
+		int wrapS = GL_CLAMP_TO_EDGE, int wrapT = GL_CLAMP_TO_EDGE);
 };
 

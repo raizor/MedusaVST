@@ -31,6 +31,8 @@
 //This is the instance of the application, set in the main source file.
 extern void* hInstance;
 
+RECT rc;
+
 //Used to check/setup Vertical Sync.
 typedef void (APIENTRY *PFNWGLEXTSWAPCONTROLPROC) (int);
 typedef int (*PFNWGLEXTGETSWAPINTERVALPROC) (void);
@@ -252,8 +254,7 @@ void VSTGLEditor::createWindow()
 							  NULL);				//pointer to window-creation data
 
 	/* Variables */
-	RECT rc;
-
+	
 	/* If Parent Window Is Set As Null, Get The Desktop Window */
 	if(parentHWnd == NULL)
 	{

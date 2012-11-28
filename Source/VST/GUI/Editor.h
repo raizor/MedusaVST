@@ -26,6 +26,7 @@
 
 #include "VSTGL/VSTGLEditor.h"
 #include "VSTGL/VSTGLTimer.h"
+#include "Text/TextWriter.h"
 #include "Components/GuiMainWindow.h"
 #include <iostream>
 
