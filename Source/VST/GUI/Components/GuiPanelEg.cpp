@@ -6,18 +6,18 @@
 GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	knobDelayTime = new GuiKnob(0, 0, 14, 148, IDB_KNOBS_UNI, 0, 127, true, "DELAY TIME");
-	knobStartLevel = new GuiKnob(0, 0, 304, 198, IDB_KNOBS_UNI, 0, 127, false, "START LEVEL");
+	knobStartLevel = new GuiKnob(0, 0, 304, 148, IDB_KNOBS_UNI, 0, 127, false, "START LEVEL");
 	knobAttackTime = new GuiKnob(0, 0, 72, 148, IDB_KNOBS_UNI, 0, 127, false, "ATTACK TIME");
-	knobAttackLevel = new GuiKnob(0, 0, 74, 198, IDB_KNOBS_UNI, 0, 127, false, "ATTACK LEVEL");
+	knobAttackLevel = new GuiKnob(0, 0, 188, 148, IDB_KNOBS_UNI, 0, 127, false, "ATTACK LEVEL");
 	knobDecayTime = new GuiKnob(0, 0, 130, 148, IDB_KNOBS_UNI, 0, 127, false, "DECAY TIME");
 	knobDecayLevel = new GuiKnob(0, 0, 188, 148, IDB_KNOBS_UNI, 0, 127, false, "DECAY LEVEL");
 	knobSustainTime = new GuiKnob(0, 0, 246, 148, IDB_KNOBS_UNI, 0, 127, false, "SUSTAIN TIME");
 	knobSustainLevel = new GuiKnob(0, 0, 304, 148, IDB_KNOBS_UNI, 0, 127, false, "SUSTAIN LEVEL");
 	knobReleaseTime = new GuiKnob(0, 0, 362, 148, IDB_KNOBS_UNI, 0, 127, false, "RELEASE TIME");
-	knobReleaseLevel = new GuiKnob(0, 0, 363, 198, IDB_KNOBS_UNI, 0, 127, false, "RELEASE LEVEL");
+	knobReleaseLevel = new GuiKnob(0, 0, 363, 148, IDB_KNOBS_UNI, 0, 127, false, "RELEASE LEVEL");
 
 	// overlay panel
-	panelOverlay = new GuiComponent(406, 66, 0, 0, IDB_BUTTONSTRIP, kSpritesButtons_Overlay_adsr_other, false, 0);
+	panelOverlay = new GuiComponent(406, 66, 6, 142, IDB_BUTTONSTRIP, kSpritesButtons_Overlay_adsr_other, false, 0);
 	panelOverlay->enabled = false;
 	AddSubComponent(panelOverlay);	
 	
@@ -64,8 +64,7 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
 	AddSubComponent(butEg);
-
-
+	
 	// eg 1
 	butEg = new GuiButton(26, 27, 118+amt, 8, IDB_BUTTONSTRIP, kSpritesButtons_But_1_off, kSpritesButtons_But_1_on, kSpritesButtons_But_1_off_lit, kSpritesButtons_But_1_on_lit);
 	butEgs.push_back(butEg);
@@ -149,6 +148,8 @@ GuiPanelEg::~GuiPanelEg(void)
 void GuiPanelEg::SetStackItem(Adsr* item)
 {
 	panelOverlay->enabled = item->type == kEgTypePitch;
+
+	bool isPitch = item->type == kEgTypePitch;
 
 	// root
 	this->synthItem = new LinkedSynthItem();
@@ -246,4 +247,100 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobReleaseLevel->synthItem = si;
+
+	/*
+
+	AMP:
+		DELAY TIME
+		ATTACK TIME
+		DECAY TIME
+		DECAY LEVEL
+		SUSTAIN TIME
+		SUSTAIN LEVEL
+		RELEASE TIME
+
+	PITCH:
+		DELAY TIME
+		START LEVEL
+		ATTACK TIME
+		ATTACK LEVEL
+		DECAY TIME
+		RELEASE TIME
+		RELEASE LEVEL
+
+
+	*/
+
+	if (isPitch)
+	{
+		// pitch eg
+
+		/*
+		knobStartLevel->enabled = true;		
+		knobAttackLevel->enabled = true;
+		knobReleaseLevel->enabled = true;
+		knobDecayLevel->enabled = false;
+		knobSustainTime->enabled = false;		
+		knobSustainLevel->enabled = false;
+		*/
+
+		knobAttackTime->enabled = true;	
+		knobAttackTime->SetOffset(130, 148);
+
+		knobDecayTime->enabled = true;
+		knobDecayTime->SetOffset(246, 148);
+		
+		knobReleaseTime->enabled = true;
+		knobReleaseTime->SetOffset(304, 148);
+
+		knobStartLevel->enabled = true;		
+		knobStartLevel->SetOffset(72, 148);
+
+		knobAttackLevel->enabled = true;
+		knobAttackLevel->SetOffset(188, 148);
+
+		knobReleaseLevel->enabled = true;
+		knobReleaseLevel->SetOffset(362, 148);
+
+		knobDecayLevel->enabled = false;
+		knobSustainTime->enabled = false;		
+		knobSustainLevel->enabled = false;
+		
+	}else{
+		// other eg
+
+		/*
+		knobStartLevel->enabled = false;		
+		knobAttackLevel->enabled = false;
+		knobReleaseLevel->enabled = false;
+		knobDecayLevel->enabled = true;
+		knobSustainTime->enabled = true;		
+		knobSustainLevel->enabled = true;
+		*/
+
+		knobAttackTime->enabled = true;	
+		knobAttackTime->SetOffset(72, 148);
+
+		knobDecayTime->enabled = true;
+		knobDecayTime->SetOffset(130, 148);
+
+		knobReleaseTime->enabled = true;
+		knobReleaseTime->SetOffset(362, 148);
+
+		knobDecayLevel->enabled = true;
+		knobDecayLevel->SetOffset(188, 148);
+
+		knobSustainTime->enabled = true;		
+		knobSustainTime->SetOffset(246, 148);
+
+		knobSustainLevel->enabled = true;
+		knobSustainLevel->SetOffset(304, 148);
+
+		knobStartLevel->enabled = false;		
+		knobAttackLevel->enabled = false;
+		knobReleaseLevel->enabled = false;
+		
+		
+		
+	}
 }

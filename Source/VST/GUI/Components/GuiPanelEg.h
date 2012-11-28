@@ -11,6 +11,7 @@ class GuiPanelEg : public GuiComponent
 {
 public:
 	GuiKnob* knobLevelAmount;
+
 	GuiKnob* knobDelayTime;
 	GuiKnob* knobStartLevel; // pitch eg only
 	GuiKnob* knobAttackTime;

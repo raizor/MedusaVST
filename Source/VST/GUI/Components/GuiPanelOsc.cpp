@@ -150,7 +150,7 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	si->param = item->paramsFloat[OSC_PARAM_PHASE];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
-	knobFinetune->synthItem = si;
+	knobPhase->synthItem = si;
 
 	// level
 	si = new LinkedSynthItem();
@@ -159,5 +159,5 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	si->param = item->paramsFloat[OSC_PARAM_VOLUME];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
-	knobFinetune->synthItem = si;
+	knobLevel->synthItem = si;
 }

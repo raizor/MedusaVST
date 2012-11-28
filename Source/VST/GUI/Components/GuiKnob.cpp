@@ -30,7 +30,7 @@ void GuiKnob::draw()
 	glPushMatrix();
 	glTranslatef(offsetX, offsetY, 0);
 
-	if (hasImage)
+	if (hasImage && enabled)
 	{
 		//if (!dirty) return; // doesn't need drawing
 
@@ -40,15 +40,16 @@ void GuiKnob::draw()
 		glBegin(GL_QUADS);
 		
 		float knobVal = value;
-
+		
 		if (synthItem)
 		{
 			ParamFloat* p  = (ParamFloat*)synthItem->param;
 			float mult = 127.0 / max;
-			knobVal = p->ValueAsInt();
+			knobVal = p->ValueAsInt() * mult;
 		}
 
 		// todo: precalc knob rotation positions
+
 
 		lit = GuiMainWindow::hotComponent == this || GuiMainWindow::dragComponent == this;
 
@@ -75,6 +76,20 @@ void GuiKnob::draw()
 				case(kParamValueTypeZeroToOneUni):
 					// todo percent not working
 					sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+					break;
+
+				case(kParamValueTypeZeroToOneBi):
+					// todo percent not working
+					sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+					break;
+
+				case(kParamValueTypeCents):
+					// todo percent not working
+					sprintf(GuiMainWindow::labelText, "%d cents", (int)p->TargetValue);
+					break;
+
+				default:
+					sprintf(GuiMainWindow::labelText, " MISS %0.3f%% ", p->TargetValue);
 					break;
 				}			
 				GuiMainWindow::panelMaster->SetParamValue(&GuiMainWindow::labelText[0]);
@@ -125,6 +140,8 @@ void GuiKnob::draw()
 
 void GuiKnob::HandleDrag(GEvent* evt)
 {
+	if (!enabled) return;
+
 	float distance = (evt->pos.y  -GuiMainWindow::dragPoint->y) * 1.00f;
 	char msg[255];
 	sprintf(&msg[0], "drag y: %d", (int)distance);
@@ -136,7 +153,7 @@ void GuiKnob::HandleDrag(GEvent* evt)
 	if (synthItem)
 	{
 		ParamFloat* p  = (ParamFloat*)synthItem->param;
-		newVal = p->ValueAsInt() - distance;;
+		newVal = p->ValueAsInt() - distance;
 	}
 
 	if (newVal < min) newVal = 0;
@@ -184,11 +201,11 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 				gc->HandleEvent(evt, true);		
 			}
 
-			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && IsHot(evt->pos))
+			if (!evt->isHandled && GuiMainWindow::dragComponent == NULL && IsHot(evt->pos) && enabled)
 			{
 				if (GuiMainWindow::hotComponent  != this)
 				{
-					//DebugPrintLine("HOT KNOB");
+					DebugPrintLine("HOT KNOB");
 				}
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
@@ -214,7 +231,7 @@ void GuiKnob::HandleEvent(GEvent* evt, bool recursing)
 				break;				
 			}
 
-			if (!evt->isHandled && IsHot(evt->pos))
+			if (!evt->isHandled && IsHot(evt->pos) && enabled)
 			{
 				//DebugPrintLine("START DRAG KNOB");
 				GuiMainWindow::dragComponent = this;

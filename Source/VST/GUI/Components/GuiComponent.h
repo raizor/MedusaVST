@@ -58,5 +58,6 @@ public:
 	virtual int GetOffsetY();
 	virtual bool IsHot(GPoint pos, bool onlyCheckY = false);
 	virtual void SetStackItem(Item* item);
+	virtual void SetOffset(int x, int y);
 };
 

@@ -11,7 +11,7 @@
 
 #define NUMBER_START_OSC 0
 #define NUMBER_START_EG Constants_NumOscillators
-#define NUMBER_START_LFO NUMBER_START_EG + Constants_NumEnvelopes
+#define NUMBER_START_LFO NUMBER_START_EG + Constants_NumEnvelopes + 2 // extra 2 for amp and pitch eg 
 
 class Synth
 {

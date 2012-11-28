@@ -84,6 +84,9 @@ void Synth::Synth_Init()
 		p->items[p->numItems++] = adsr;
 	}
 
+	p->items[p->numItems++] = p->egAmp;
+	p->items[p->numItems++] = p->egPitch;
+
 	// LFOs
 
 	// all voices

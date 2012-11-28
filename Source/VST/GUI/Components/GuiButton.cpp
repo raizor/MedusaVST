@@ -213,6 +213,7 @@ void GuiButton::Clicked(GEvent* evt)
 		case(kButtonTypeEgNumber):
 			{
 				GuiMainWindow::currentEgNumber = this->itemNumber;
+				GuiMainWindow::panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->items[NUMBER_START_EG+GuiMainWindow::currentEgNumber]);
 				//synthItem->item->enabled = !synthItem->item->enabled;
 				break;
 			}

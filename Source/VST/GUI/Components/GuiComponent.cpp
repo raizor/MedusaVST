@@ -175,7 +175,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// no hot component
-			if (!recursing)
+			if (!recursing && enabled)
 			{
 				if (!evt->isHandled && GuiMainWindow::dragComponent == NULL)
 				{
@@ -227,7 +227,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// no hot component
-			if (!recursing && !evt->isHandled)
+			if (!recursing && !evt->isHandled && enabled)
 			{
 				GuiMainWindow::dragComponent = NULL;
 				//DebugPrintLine("STOP DRAG");
@@ -252,7 +252,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// no hot component
-			if (!recursing && !evt->isHandled)
+			if (!recursing && !evt->isHandled && enabled)
 			{
 				GuiMainWindow::dragComponent = NULL;
 			}	
@@ -301,11 +301,17 @@ void GuiComponent::ftest()
  {
 	 float offX = GetOffsetX();
 	 float offY = GetOffsetY();
-	 return (width > 0 && height > 0) && ((pos.x >= offX &&  pos.x <= offX + width) || onlyCheckY) && (pos.y >= offY &&  pos.y <= offY + height);
+	 return hottable && (width > 0 && height > 0) && ((pos.x >= offX &&  pos.x <= offX + width) || onlyCheckY) && (pos.y >= offY &&  pos.y <= offY + height);
  }
 
  void GuiComponent::SetStackItem(Item* item)
  {
 	 synthItem = new LinkedSynthItem();
 	 synthItem->item = item;
+ }
+
+ void GuiComponent::SetOffset(int x, int y)
+ {
+	 offsetX = x;
+	 offsetY = y;
  }
