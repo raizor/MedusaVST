@@ -2,6 +2,10 @@
 #include "WaveFormGen.h"
 #include "PadSynth/PadSynth.h" 
 
+#ifndef REPLAYER
+	#include <stdio.h>
+#endif
+
 // WAVE TABLE
 
 // WAVE TABLE INDEX
@@ -213,7 +217,9 @@ WaveTable* WaveTableGen::GenerateWaveTable(WaveForm waveForm, char* name)
 	wt = new WaveTable(phaseLen + 1, 0);
 	wt->Tables[0].Frequency = fr;
 	wt->Form = waveForm;
-	//sprintf(wt->TableName, name);
+#ifndef REPLAYER
+	sprintf(wt->TableName, name);
+#endif
 	for (int i = 0; i < wt->Tables[0].FloatBuffer->Size - 2; i++)
 	{
 		float v = 0;

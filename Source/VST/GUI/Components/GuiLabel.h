@@ -18,6 +18,7 @@ public:
 	GuiLabel(int width, int height, int offsetX, int offsetY, char* text, bool center = false, GuiLabelSize size = kGuiLabelSizeSmall);
 	~GuiLabel(void);
 	virtual void draw();
+	virtual void SetText(char* txt);
 
 };
 

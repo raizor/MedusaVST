@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <windows.h>		// Header File For Windows
+#include <cmath>
 
 typedef double GCoord;
 

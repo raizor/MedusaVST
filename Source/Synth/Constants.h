@@ -55,6 +55,7 @@ typedef double            sF64;
 #define Constants_MaxModulations 16 
 #define Constants_ModValueInc 0.001f
 #define Constants_TimeIncrement 1.0f / Constants_SamplesPerSec
+#define Constants_BlockSize 32
 
 // filters
 #define fcdcoffset 3.814697265625e-6f // 2^-18
@@ -120,118 +121,131 @@ void Constants_Init();
 enum StackItemType
 {
 	kStackItemTypeWfOsc = 0,
-	kStackItemTypeSimpleFilter = 1,
-	kStackItemTypeEnvAdsr = 2,
-	kStackItemTypeLfoAllVoices = 3,
-	kStackItemTypeMixer = 4,
-	kStackItemTypeAmpEg = 5,
-	kStackItemTypePitchEg = 6,
-	kStackItemTypeLfoPerVoice = 7,
-	kStackItemTypePitchBender = 8,
-	kStackItemTypeDistortion = 9,
-	kStackItemTypeModDelay = 20,
-	kStackItemTypeGlobalReverb = 21,
-	kStackItemTypeCompressor = 22,
-	kStackItemTypeBoost = 23,
-	kStackItemTypePatchSettings = 24
+	kStackItemTypeSimpleFilter,
+	kStackItemTypeEnvAdsr,
+	kStackItemTypeLfoAllVoices,
+	kStackItemTypeMixer,
+	kStackItemTypeAmpEg,
+	kStackItemTypePitchEg ,
+	kStackItemTypeLfoPerVoice,
+	kStackItemTypePitchBender,
+	kStackItemTypeDistortion,
+	kStackItemTypeModDelay,
+	kStackItemTypeGlobalReverb,
+	kStackItemTypeCompressor,
+	kStackItemTypeBoost,
+	kStackItemTypePatchSettings,
+	kStackItemTypeItemCount
 };
 
 enum LfoType
 {
-	LfoTypeAllVoices = 3,
-	LfoTypePerVoice  =7
+	LfoTypeAllVoices = 1,
+	LfoTypePerVoice,
+	LfoTypeItemCount
 };
 
 enum OscMode
 {
 	kOscModeNormalSync = 0,
-	kOscModInvertedSync = 1,
-	kOscModeNormalFree = 2,
-	kOscModeInvertedFree = 3,
-	kOscModeFixedSync = 4,
-	kOscModeFixedFree = 5
+	kOscModInvertedSync,
+	kOscModeNormalFree,
+	kOscModeInvertedFree,
+	kOscModeFixedSync,
+	kOscModeFixedFree,
+	kOscModeItemCount
 };
 
 enum OscModMode
 {
 	kOscModModeAdd = 0,
-	kOscModModeRing = 1,
-	kOscModModeSync = 2,
-	kOscModModePM = 3,
-	kOscModModeFM = 4
+	kOscModModeRing,
+	kOscModModeSync,
+	kOscModModePM,
+	kOscModModeFM,
+	kOscModModeItemCount
 };
 
 enum EgType
 {
 	kEgTypeStandard = 0,
-	kEgTypeAmp  = 1,
-	kEgTypePitch  =2,
+	kEgTypeAmp,
+	kEgTypePitch,
+	kEgTypeItemCount
 };
 
 enum FilterMode
 {
-	kFilterModeParallel = 1,
-	kFilterModeDual = 2
+	kFilterModeParallel = 0,
+	kFilterModeDual,
+	kFilterModeItemCount
 };
 
 enum FilterType
 {
-	kFilterTypeOff = -1,
-	kFilterTypeLowPass = 0,
-	kFilterTypeHighPass = 1,
-	kFilterTypeBandPass = 2,
-	kFilterTypeNotch = 3,
-	kFilterTypeAll = 4,
-	kFilterTypeMoogLow = 5,
-	kFilterTypeMoogHigh = 6
+	kFilterTypeOff = 0,
+	kFilterTypeLowPass,
+	kFilterTypeHighPass,
+	kFilterTypeBandPass,
+	kFilterTypeNotch,
+	kFilterTypeAll,
+	kFilterTypeMoogLow,
+	kFilterTypeMoogHigh,
+	kFilterTypeItemCount
 };
 
 enum BufferAction
 {
 	kBufferActionReplace = 0,
-	kBufferActionMultiply = 1
+	kBufferActionMultiply,
+	kBufferActionItemCount
 };
 
 enum WaveForm
 {
-	kWaveFormOff = -1,
-	kWaveFormSin = 0,
-	kWaveFormSquare = 1,
-	kWaveFormSaw = 2,
-	kWaveFormTriangle = 3,
-	kWaveFormNoise = 4,	
-	kWaveFormPadSynthChoir = 5,
-	kWaveFormPadSynthEnsemble = 6,
-	kWaveFormPadSynthExtended = 7,
-	kWaveFormCustom = 25,
+	kWaveFormOff = 0,
+	kWaveFormSin,
+	kWaveFormSquare,
+	kWaveFormSaw,
+	kWaveFormTriangle,
+	kWaveFormNoise,	
+	kWaveFormPadSynthChoir,
+	kWaveFormPadSynthEnsemble,
+	kWaveFormPadSynthExtended,
+	kWaveFormCustom,
+	kWaveFormItemCount
 	
 };
 
 enum VoiceState
 {
 	kVoiceStateOff = 0,
-	kVoiceStateOn = 1,
-	kVoiceStateStopping = 2
+	kVoiceStateOn,
+	kVoiceStateStopping,
+	kVoiceStateItemCount
 };
 
 enum NoteState
 {
 	kNoteStateOn = 0,
-	kNoteStateOff = 1
+	kNoteStateOff,
+	kNoteStateItemCOunt
 };
 
 enum Polarity
 {
 	kPolarityPositive = 0,
-	kPolarityNegative = 1,
-	kPolarityBoth = 2
+	kPolarityNegative,
+	kPolarityBoth,
+	kPolarityItemCount
 }; 
 
 enum PadSynthType
 {
 	kPadSynthTypeChoir = 0,
-	kPadSynthTypeEnsemble = 1,
-	kPadSynthTypeExtended = 2
+	kPadSynthTypeEnsemble,
+	kPadSynthTypeExtended,
+	kPadSynthTypeItemCount
 };
 
 struct FloatStereoSample
@@ -248,26 +262,28 @@ struct ShortStereoSample
 
 enum ParamValueTypeFloat
 {
-	kParamValueTypeTime = 1,
-	kParamValueTypeZeroToOneUni = 2,
-	kParamValueTypeZeroToOneBi = 3,
-	kParamValueTypeCents = 4,
-	kParamValueTypeIntUni = 5,
-	kParamValueTypeIntBi = 6,
-	kParamValueTypePan = 7
+	kParamValueTypeTime = 0,
+	kParamValueTypeZeroToOneUni,
+	kParamValueTypeZeroToOneBi,
+	kParamValueTypeCents,
+	kParamValueTypeIntUni,
+	kParamValueTypeIntBi,
+	kParamValueTypePan,
+	kParamValueTypeItemCount
 };
 
 // modulation
 enum ModulationCurve
 {
 	kModulationCurveAddBipolarPlus = 0,
-	kModulationCurveAddBipolarMinus = 1,
-	kkModulationCurveAddUnipolarPlus = 2,
-	kModulationCurveAddUnipolarMinus = 3,
-	kModulationCurveMultBipolarPlus = 4,
-	kModulationCurveMultBipolarMinus = 5,
-	kModulationCurveMultUnipolarPlus = 6,
-	kModulationCurveMultUnipolarMinus = 7
+	kModulationCurveAddBipolarMinus,
+	kkModulationCurveAddUnipolarPlus,
+	kModulationCurveAddUnipolarMinus,
+	kModulationCurveMultBipolarPlus,
+	kModulationCurveMultBipolarMinus,
+	kModulationCurveMultUnipolarPlus,
+	kModulationCurveMultUnipolarMinus,
+	kModulationCurveItemCount
 };
 
 enum PlayerEventType
@@ -275,7 +291,8 @@ enum PlayerEventType
 	kPlayerEventTypeNone = 0,
 	kPlayerEventTypeNoteOn,
 	kPlayerEventTypeNoteOff,
-	kPlayerEventTypeProgramChange
+	kPlayerEventTypeProgramChange,
+	kPlayerEventTypeItemCount
 };
 
 enum EgStage
@@ -285,7 +302,8 @@ enum EgStage
 	kStageAttack,
 	kStageDecay,
 	kStageSustain,
-	kStageRelease
+	kStageRelease,
+	kStageItemCount
 };
 
 

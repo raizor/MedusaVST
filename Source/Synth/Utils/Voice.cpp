@@ -114,7 +114,7 @@ void Voice::StopDead()
 	StopPos = 0;
 	
 	// clear any associated wavetable indexes
-	CurrentPatch->ResetForVoice(this);	
+	//CurrentPatch->ResetForVoice(this);	
 }
 
 

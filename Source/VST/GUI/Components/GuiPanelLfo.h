@@ -5,6 +5,8 @@
 #include "GuiButton.h"
 #include "GuiLabel.h"
 
+class Lfo;
+
 class GuiPanelLfo : public GuiComponent
 {
 public:
@@ -12,7 +14,9 @@ public:
 	GuiKnob* knobDelay;
 	GuiKnob* knobFadeIn;
 
-	GuiSlider* sliderFilter;
+	GuiSlider* sliderMorph;
+	GuiSlider* sliderSpeed;
+	GuiSlider* sliderAmount;
 	
 	GuiButton* butEnabled;
 
@@ -27,5 +31,7 @@ public:
 
 	GuiPanelLfo(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelLfo(void);
+
+	virtual void SetStackItem(Lfo* item);
 };
 

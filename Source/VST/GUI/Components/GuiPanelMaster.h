@@ -16,6 +16,8 @@ public:
 	GuiLabel* labParamName;
 	GuiLabel* labParamValue;
 
+	GuiSlider* sliderLevel;
+
 	GuiButton* butLimit;
 	GuiPanelMaster(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelMaster(void);

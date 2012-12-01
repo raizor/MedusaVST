@@ -31,7 +31,8 @@ public:
 	MidiEventQueue(int queueSize);
 	~MidiEventQueue(void);
 	void AddEvent(MidiEvent* evt);
-	MidiEvent* GetEvent();
+	MidiEvent* CurrentEvent();
+	bool NextEvent();
 	void Clear();
 };
 

@@ -172,6 +172,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Utils\ContextMenus.h" />
+    <ClInclude Include="GUI\Components\GuiModMatrix.h" />
     <ClInclude Include="GUI\Components\GuiVizualizer.h" />
     <ClInclude Include="GUI\Components\GuiPanelKeyboard.h" />
     <ClInclude Include="GUI\Components\GuiPanelHeader.h" />
@@ -217,6 +219,8 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Utils\ContextMenus.cpp" />
+    <ClCompile Include="GUI\Components\GuiModMatrix.cpp" />
     <ClCompile Include="GUI\Components\GuiVizualizer.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelKeyboard.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelHeader.cpp" />

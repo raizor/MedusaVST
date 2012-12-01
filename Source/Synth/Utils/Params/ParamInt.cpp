@@ -16,3 +16,8 @@ int ParamInt::Value()
 {
 	return *(int*)_value;
 }
+
+void ParamInt::SetValue(int value)
+{
+	*(int*)_value = value;
+}

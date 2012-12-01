@@ -34,7 +34,9 @@ public:
 
 	WaveTableSubTable* Tables;
 	int TablesPerOctave;
+#ifndef REPLAYER
 	char TableName[100];
+#endif
 	WaveForm Form;
 	
 	// stuff to re-gen

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define xDRAW_OVERLAYS
+#define DRAW_OVERLAYS
 
 enum GuiComponentType
 {
@@ -19,7 +19,7 @@ enum GuiComponentType
 
 class GuiComponent;
 
-typedef void (GuiComponent::*MyFuncPtrType)();
+typedef void (GuiComponent::*FpClickedCallback)(void* component, GEvent* evt);
 
 class GuiComponent
 {
@@ -34,7 +34,7 @@ public:
 	LinkedSynthItem* synthItem;
 	GuiComponentType type;
 	GuiComponent* parent;
-	MyFuncPtrType fp;
+	FpClickedCallback ClickedHandler;
 	bool dirty;
 	bool hottable;
 	bool enabled;
@@ -51,7 +51,6 @@ public:
 	virtual int SubComponentCount();
 	virtual GuiComponent* GetComponent(int index);
 	virtual void draw();
-	void ftest();
 	virtual void HandleEvent(GEvent* evt, bool recursing = false);
 	virtual void Clicked(GEvent* evt);
 	virtual int GetOffsetX();
@@ -59,5 +58,8 @@ public:
 	virtual bool IsHot(GPoint pos, bool onlyCheckY = false);
 	virtual void SetStackItem(Item* item);
 	virtual void SetOffset(int x, int y);
+	
+
+	virtual void CallbackVoid();
 };
 

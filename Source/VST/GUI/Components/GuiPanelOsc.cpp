@@ -1,6 +1,7 @@
 #include "GuiPanelOsc.h"
 #include "Items/Processors/Osc.h"
-
+#include "Utils/WaveTableGen.h"
+#include "../../GUI/Components/GuiMainWindow.h"
 
 GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
@@ -16,7 +17,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	AddSubComponent(knobPhase);
 	AddSubComponent(knobLevel);
 
-	sliderFilter = new GuiSlider(30, 128, 419, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider);
+	sliderFilter = new GuiSlider(30, 128, 419, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, "LEVEL");
 	AddSubComponent(sliderFilter);
 
 	butEnabled = new GuiButton(26, 26, 62, 118, IDB_BUTTONSTRIP, kSpritesButtons_But_osc_power_off, kSpritesButtons_But_osc_power_on, kSpritesButtons_None);
@@ -25,9 +26,10 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_OSC];
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeEnabled;
+	butEnabled->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	butEnabled->synthItem = si;
 	AddSubComponent(butEnabled);
-
+	
 	// osc numbers
 
 	GuiButton* butOsc;
@@ -40,6 +42,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si->paramType = kParamTypeEnabled;
 	butOsc->buttonType = kButtonTypeOscNumber;
 	butOscs.push_back(butOsc);
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	AddSubComponent(butOsc);
 
 	butOsc = new GuiButton(26, 27, 125+206, 8, IDB_BUTTONSTRIP, kSpritesButtons_But_2_off, kSpritesButtons_But_2_on, kSpritesButtons_But_2_off_lit, kSpritesButtons_But_2_on_lit);
@@ -50,6 +53,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeEnabled;
 	butOsc->buttonType = kButtonTypeOscNumber;
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	butOsc->synthItem = si;
 	AddSubComponent(butOsc);
 
@@ -61,6 +65,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeEnabled;
 	butOsc->buttonType = kButtonTypeOscNumber;
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	butOsc->synthItem = si;
 	AddSubComponent(butOsc);
 
@@ -72,6 +77,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeEnabled;
 	butOsc->buttonType = kButtonTypeOscNumber;
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	butOsc->synthItem = si;
 	AddSubComponent(butOsc);
 
@@ -82,6 +88,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_OSC+4];
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeEnabled;
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	butOsc->buttonType = kButtonTypeOscNumber;
 	butOsc->synthItem = si;
 	AddSubComponent(butOsc);
@@ -92,6 +99,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	si = new LinkedSynthItem();
 	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_OSC+5];
 	si->param = &si->item->enabled;
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	si->paramType = kParamTypeEnabled;
 	butOsc->buttonType = kButtonTypeOscNumber;
 	butOsc->synthItem = si;
@@ -100,6 +108,31 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	int lineSpacing = 13;
 	int textStartY = 43;
 	int textStartX = 68;
+
+	butLabWaveType = new GuiButton(50, 12, 13, 47, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabWaveType->buttonType = kButtonTypeOscParam;
+	butLabWaveType->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
+	AddSubComponent(butLabWaveType);
+
+	butLabTranspose = new GuiButton(50, 12, 13, 59, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabTranspose->buttonType = kButtonTypeOscParam;
+	butLabTranspose->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
+	AddSubComponent(butLabTranspose);
+
+	butLabOctave = new GuiButton(50, 12, 13, 72, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabOctave->buttonType = kButtonTypeOscParam;
+	butLabOctave->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
+	AddSubComponent(butLabOctave);
+
+	butLabMode = new GuiButton(50, 12, 13, 85, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabMode->buttonType = kButtonTypeOscParam;
+	butLabMode->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
+	AddSubComponent(butLabMode);
+
+	butLabModMode = new GuiButton(50, 12, 13, 99, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabModMode->buttonType = kButtonTypeOscParam;
+	butLabModMode->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
+	AddSubComponent(butLabModMode);
 
 	// labels
 	labWaveType = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*0), "Sine");
@@ -137,8 +170,8 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	// fine tune
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
-	si->itemType = kStackItemTypeWfOsc;
-	si->param = item->paramsFloat[OSC_PARAM_DETUNE_FINE];
+	si->itemType = item->itemType;
+	si->param = item->paramsFloat[OSC_PARAM_FLOAT_DETUNE_FINE];
 	si->valueType = kParamValueTypeIntBi;
 	si->paramType = kParamTypeFloat;
 	knobFinetune->synthItem = si;
@@ -146,8 +179,8 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	// phase
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
-	si->itemType = kStackItemTypeWfOsc;
-	si->param = item->paramsFloat[OSC_PARAM_PHASE];
+	si->itemType = item->itemType;
+	si->param = item->paramsFloat[OSC_PARAM_FLOAT_PHASE];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobPhase->synthItem = si;
@@ -155,9 +188,130 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	// level
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
-	si->itemType = kStackItemTypeWfOsc;
-	si->param = item->paramsFloat[OSC_PARAM_VOLUME];
+	si->itemType = item->itemType;
+	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobLevel->synthItem = si;
+}
+
+void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
+{
+	char msg[100];
+	for (int i=0; i<GuiMainWindow::panelOsc->butOscs.size(); i++)
+	{
+		if (data == GuiMainWindow::panelOsc->butOscs[i])
+		{
+			sprintf(&msg[0], "osc %d", i);
+			DebugPrintLine(msg);
+			Osc* osc = (Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC+i];
+			GuiMainWindow::panelOsc->SetStackItem(osc);
+			return;
+		}
+
+		if (data == GuiMainWindow::panelOsc->butEnabled)
+		{
+			DebugPrintLine("EN");
+			return;
+		}		
+	}
+
+	// wave type
+	if (data == GuiMainWindow::panelOsc->butLabWaveType || data == GuiMainWindow::panelOsc->labWaveType)
+	{
+		DebugPrintLine("WT");
+		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;			
+		int numWaveTables = WaveTable::NumWaveTables;
+		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
+		int currentIndex = param->Value();
+		if (currentIndex < numWaveTables-1)
+		{
+			currentIndex++;
+		}else{
+			currentIndex = 0;
+		}
+		param->SetValue(currentIndex);
+		osc->WaveChanged();
+		sprintf(GuiMainWindow::panelOsc->labWaveType->text, osc->waveTableIdx->Table->TableName);
+		return;
+	}
+
+	// transpose
+	if (data == GuiMainWindow::panelOsc->butLabTranspose || data == GuiMainWindow::panelOsc->labTranspose)
+	{
+		DebugPrintLine("TR");
+		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+		ParamFloat *param = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_SEMI];
+		int currentIndex = param->ValueAsInt();
+		if (currentIndex < 12) // +/- 12 semitones (1 octave)
+		{
+			currentIndex++;
+		}else{
+			currentIndex = -12;
+		}
+		param->SetValueWithInt(currentIndex);
+		char txt [100];
+		sprintf(txt, "%d", currentIndex);
+		GuiMainWindow::panelOsc->labTranspose->SetText(&txt[0]);
+	}
+
+	// octave detune
+	if (data == GuiMainWindow::panelOsc->butLabOctave || data == GuiMainWindow::panelOsc->labOctave )
+	{
+		DebugPrintLine("OCT");
+		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+		ParamFloat *param = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_OCT];
+		int currentIndex = param->ValueAsInt();
+		if (currentIndex < 5) // +/- 5 octaves
+		{
+			currentIndex++;
+		}else{
+			currentIndex = -5;
+		}
+		param->SetValueWithInt(currentIndex);
+		char txt [100];
+		sprintf(txt, "%d", currentIndex);
+		GuiMainWindow::panelOsc->labOctave->SetText(&txt[0]);
+	}
+
+	// mode
+	if (data == GuiMainWindow::panelOsc->butLabMode || data == GuiMainWindow::panelOsc->labMode )
+	{
+		DebugPrintLine("mode");
+		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MODE];
+		int currentIndex = param->Value();
+		if (currentIndex < kOscModeItemCount) // +/- 5 octaves
+		{
+			currentIndex++;
+		}else{
+			currentIndex = 0;
+		}
+		param->SetValue(currentIndex);
+		char txt [100];
+		sprintf(txt, "%d", currentIndex);
+		GuiMainWindow::panelOsc->labMode->SetText(OscModeToString(currentIndex));
+	}
+}
+
+char* GuiPanelOsc::OscModeToString(int val) 
+{ 
+	if (val == kOscModModeAdd) return "Add"; 
+	if (val == kOscModModeFM) return "Freq. Mod"; 
+	if (val == kOscModModeRing) return "Ring Mod."; 
+	if (val == kOscModModeSync) return "Sync."; 
+	if (val == kOscModModePM) return "PM"; 
+	return "???";
+}
+
+char* GuiPanelOsc::OscModModeToString(int val) 
+{ 
+	if (val == kOscModeNormalSync) return "Sync"; 
+	if (val == kOscModInvertedSync) return "Inv. Sync"; 
+	if (val == kOscModeFixedFree) return "Fixed Free"; 
+	if (val == kOscModeFixedSync) return "Fixed Sync"; 
+	if (val == kOscModeInvertedFree) return "Inv. Free"; 
+	if (val == kOscModeNormalFree) return "Free"; 
+	
+	return "???";
 }

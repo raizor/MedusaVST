@@ -224,7 +224,7 @@ void VoicePool::MixVoicesToBuffer(SampleBufferFloat* bufferOut, int numSamples)
 
 Voice* VoicePool::GetVoiceAndPlayNote(int channel, int noteId, Patch* patch)
 {
-	printf("NOTE ON: chan %d, note %d, patch %d\n", channel, noteId, patch->number);
+	printf("\n\nNOTE ON: chan %d, note %d, patch %d\n", channel, noteId, patch->number);
 	// TODO
 	int patchMaxPoly = patch->polyphony;
 

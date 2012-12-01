@@ -94,16 +94,16 @@ void Adsr::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Vo
 					{
 DelayCase:
 						//envelopeAdsr->Value[voice->Number] = 0;
-						value[voice->Number] = paramsFloat[ADSR_PARAM_START_LEVEL]->TargetValue;
-						if (voice->Time >= paramsFloat[ADSR_PARAM_DELAY_TIME]->TargetValue)
+						value[voice->Number] = paramsFloat[ADSR_PARAM_FLOAT_START_LEVEL]->TargetValue;
+						if (voice->Time >= paramsFloat[ADSR_PARAM_FLOAT_DELAY_TIME]->TargetValue)
 						{
-							if (paramsFloat[ADSR_PARAM_ATTACK_TIME]->TargetValue > 0)
+							if (paramsFloat[ADSR_PARAM_FLOAT_ATTACK_TIME]->TargetValue > 0)
 							{
 								// prepare for attack
 								value[voice->Number] = 0.0f;
 								stage[voice->Number] = kStageAttack;								
 								//envelopeAdsr->StageAmount[voice->Number] = 1.0f / envelopeAdsr->Attack->TargetValue / Constants_SamplesPerSec;
-								stageAmount[voice->Number] = (1.0f - paramsFloat[ADSR_PARAM_START_LEVEL]->TargetValue) / paramsFloat[ADSR_PARAM_ATTACK_TIME]->TargetValue / Constants_SamplesPerSec;
+								stageAmount[voice->Number] = (1.0f - paramsFloat[ADSR_PARAM_FLOAT_START_LEVEL]->TargetValue) / paramsFloat[ADSR_PARAM_FLOAT_ATTACK_TIME]->TargetValue / Constants_SamplesPerSec;
 								//envelopeAdsr->StageAmount[voice->Number] = (1.0f - envelopeAdsr->StartLevel->TargetValue) / (envelopeAdsr->Attack->TargetValue / Constants_SamplesPerSec);
 							}else{
 								goto prepareDecay;
@@ -119,11 +119,11 @@ DelayCase:
 						{
 							// prepare for decay
 prepareDecay:
-							if (paramsFloat[ADSR_PARAM_DECAY_TIME]->TargetValue > 0)
+							if (paramsFloat[ADSR_PARAM_FLOAT_DECAY_TIME]->TargetValue > 0)
 							{
 								value[voice->Number] = 1.0f;
 								stage[voice->Number] = kStageDecay;								
-								stageAmount[voice->Number] = (1.0f - paramsFloat[ADSR_PARAM_DECAY_LEVEL]->TargetValue) / paramsFloat[ADSR_PARAM_DECAY_TIME]->TargetValue / Constants_SamplesPerSec;
+								stageAmount[voice->Number] = (1.0f - paramsFloat[ADSR_PARAM_FLOAT_DECAY_LEVEL]->TargetValue) / paramsFloat[ADSR_PARAM_FLOAT_DECAY_TIME]->TargetValue / Constants_SamplesPerSec;
 							}else{
 								goto prepareSustain;
 							}
@@ -136,19 +136,19 @@ prepareDecay:
 					{
 						value[voice->Number] -= stageAmount[voice->Number];
 
-						if (value[voice->Number] <= paramsFloat[ADSR_PARAM_DECAY_LEVEL]->TargetValue)
+						if (value[voice->Number] <= paramsFloat[ADSR_PARAM_FLOAT_DECAY_LEVEL]->TargetValue)
 						{
 prepareSustain:
 							// prepare for sustain
 							//envelopeAdsr->Value[voice->Number] = FloatStackItemParam_Value(envelopeAdsr->Sustain);
-							if (paramsFloat[ADSR_PARAM_SUSTAIN_TIME]->TargetValue > 0)
+							if (paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_TIME]->TargetValue > 0)
 							{
 								stage[voice->Number] = kStageSustain;
-								if (value[voice->Number] > paramsFloat[ADSR_PARAM_SUSTAIN_LEVEL]->TargetValue)
+								if (value[voice->Number] > paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_LEVEL]->TargetValue)
 								{
-									stageAmount[voice->Number] = (value[voice->Number] - paramsFloat[ADSR_PARAM_SUSTAIN_LEVEL]->TargetValue) / paramsFloat[ADSR_PARAM_SUSTAIN_TIME]->TargetValue / Constants_SamplesPerSec;
+									stageAmount[voice->Number] = (value[voice->Number] - paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_LEVEL]->TargetValue) / paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_TIME]->TargetValue / Constants_SamplesPerSec;
 								}else{
-									stageAmount[voice->Number] = (paramsFloat[ADSR_PARAM_SUSTAIN_LEVEL]->TargetValue - value[voice->Number]) / paramsFloat[ADSR_PARAM_SUSTAIN_TIME]->TargetValue / Constants_SamplesPerSec;
+									stageAmount[voice->Number] = (paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_LEVEL]->TargetValue - value[voice->Number]) / paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_TIME]->TargetValue / Constants_SamplesPerSec;
 								}
 								//float v = envelopeAdsr->StageAmount[voice->Number];
 							}else{
@@ -166,10 +166,10 @@ prepareSustain:
 
 				case (kStageSustain):
 					{
-						if (value[voice->Number] > paramsFloat[ADSR_PARAM_SUSTAIN_LEVEL]->TargetValue)
+						if (value[voice->Number] > paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_LEVEL]->TargetValue)
 						{
 							value[voice->Number] -= stageAmount[voice->Number];
-						}else if (value[voice->Number] < paramsFloat[ADSR_PARAM_SUSTAIN_LEVEL]->TargetValue)
+						}else if (value[voice->Number] < paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_LEVEL]->TargetValue)
 						{
 							value[voice->Number] += stageAmount[voice->Number];
 						}
@@ -202,7 +202,9 @@ RELEASE:
 						{
 							// this is an amp env, turn off the voice 
 							voice->StopDead();
-							Reset(); // reset this eg
+							stage[voice->Number] = kStageNone;
+							value[voice->Number] = 0;
+							//Reset(); // reset this eg
 							//voice->StopPos = idx;
 						}else{
 							//StackItem_Reset(envelopeAdsr->_item, voice);
@@ -216,14 +218,14 @@ RELEASE:
 					// switch to release state set amount per sample for release
 					// TODO: need to only fade to release level!
 prepareRelease:
-					stageAmount[voice->Number] = value[voice->Number] / paramsFloat[ADSR_PARAM_RELEASE_TIME]->TargetValue / Constants_SamplesPerSec;
+					stageAmount[voice->Number] = value[voice->Number] / paramsFloat[ADSR_PARAM_FLOAT_RELEASE_TIME]->TargetValue / Constants_SamplesPerSec;
 					stage[voice->Number] = kStageRelease;
 					break;
 				}
 			}
 		}
 
-		float amt = paramsFloat[ADSR_PARAM_AMOUNT_LEVEL]->Value();
+		float amt = paramsFloat[PROC_PARAM_FLOAT_LEVEL]->Value();
 		amt *= value[voice->Number];
 
 		for (int j = 0; j < Constants_NumAudioChannels; j++)

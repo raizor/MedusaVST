@@ -3,6 +3,8 @@
 
 // processor item - processes a buffer
 
+#define PROC_PARAM_FLOAT_LEVEL         0
+
 class Voice;
 
 class ItemProcessor : public Item

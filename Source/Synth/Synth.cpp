@@ -77,6 +77,9 @@ void Synth::Synth_Init()
 	eg->enabled  = false; // no needed
 	p->egPitch = eg;
 
+	p->items[p->numItems++] = p->egAmp;
+	p->items[p->numItems++] = p->egPitch;
+
 	for(int i=0; i<Constants_NumEnvelopes; i++)
 	{
 		Adsr* adsr = new Adsr(kEgTypeStandard);
@@ -84,17 +87,12 @@ void Synth::Synth_Init()
 		p->items[p->numItems++] = adsr;
 	}
 
-	p->items[p->numItems++] = p->egAmp;
-	p->items[p->numItems++] = p->egPitch;
-
 	// LFOs
 
 	// all voices
 	//Lfo* 
 
-
-
-	//VoicePool::Pool->GetVoiceAndPlayNote(0, 69, patch);
+	//VoicePool::Pool->GetVoiceAndPlayNote(0, 69, p);
 }
 
 void Synth::MixTest(SampleBufferFloat* bufferOut, int numSamples)

@@ -10,5 +10,6 @@ public:
 	ParamInt(int value);
 	~ParamInt(void);
 	int Value();
+	void SetValue(int value);
 };
 

@@ -4,7 +4,7 @@
 
 Osc::Osc(void) : ItemProcessor(kStackItemTypeWfOsc, true)
 {
-	AddIntParam(0); // waveform type
+	AddIntParam(new ParamInt(kWaveFormSin)); // waveform type
 
 	AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // volume
 	AddFloatParam(new ParamFloat(0.0f, true, 1, 0.5f, kParamValueTypeIntBi)); // detune octaves
@@ -39,18 +39,18 @@ float Osc::GetFrequency(Voice* voice, int bufferIndex, bool haveFreqMod)
 {
 	//float freq = voice->Frequency;
 	float freq = voice->PitchBending ? voice->PitchBendBuffer->Buffer[bufferIndex].ch[0] : voice->Frequency;
-	float dtOct = paramsFloat[OSC_PARAM_DETUNE_OCT]->Value();
+	float dtOct = paramsFloat[OSC_PARAM_FLOAT_DETUNE_OCT]->Value();
 
 	//dtOct-=4;
 
-	float dtSemi = paramsFloat[OSC_PARAM_DETUNE_SEMI]->Value();
-	float dtFine = paramsFloat[OSC_PARAM_DETUNE_FINE]->Value();
+	float dtSemi = paramsFloat[OSC_PARAM_FLOAT_DETUNE_SEMI]->Value();
+	float dtFine = paramsFloat[OSC_PARAM_FLOAT_DETUNE_FINE]->Value();
 
 	float v  = PowerOfTwoTable::instance->GetPower(2.0f);
 	//int xx = 1;
 
 
-	paramsFloat[OSC_PARAM_PITCH_MOD]->Value();
+	paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->Value();
 
 	// float mv = FloatStackItemParam_ModValue(osc->PitchModifier, voice, bufferIndex);
 	float mv = 0;//FloatStackItemParam_ModValue(osc->PitchModifier, voice, bufferIndex);
@@ -154,8 +154,8 @@ float Osc::GetFrequency(Voice* voice, int bufferIndex, bool haveFreqMod)
 
 void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples)
 {
-	bool haveFreqMod = paramsFloat[OSC_PARAM_PITCH_MOD]->ModList->Count > 0;
-	bool haveAmpMod = paramsFloat[OSC_PARAM_VOLUME]->ModList->Count > 0;
+	bool haveFreqMod = paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->ModList->Count > 0;
+	bool haveAmpMod = paramsFloat[PROC_PARAM_FLOAT_LEVEL]->ModList->Count > 0;
 
 	//float freq = voice.Frequency;
 
@@ -166,8 +166,8 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 	//int amplitude = (int)(Constants.ClipLimit * _volume.Value);
 		
 	// todo
-	//float vol = Volume->ModdedValue(voice, 0);
-	//float vol = Constants_MasterVolume * FloatStackItemParam_Value(osc->Volume);
+	//float vol = paramsFloat[OSC_PARAM_VOLUME]->GetModdedValue(voice, );
+	//float vol = Constants::instance->MasterVolume * ParamFloat[OSC_PARAM_VOLUME].Value();
 
 	//float v1[50];
 	//float v2[50];
@@ -195,7 +195,7 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 	{
 		int idx = i%Constants_MixBufferSizeFloat;
 		// todo
-		//vol = Volume->ModdedValue(voice, i);
+		float volume = paramsFloat[PROC_PARAM_FLOAT_LEVEL]->GetModdedValue(voice, i);
 		float f = GetFrequency(voice, idx, haveFreqMod);
 		bool syncHit = false;
 
@@ -214,7 +214,7 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 			f = f + (OscPrevious->buffer->Buffer[idx].ch[0] * 10000);
 		}
 		
-		float v = WaveTableIdx->Sample(voice, f, &syncHit);
+		float v = waveTableIdx->Sample(voice, f, &syncHit);
 
 		if (invert)
 		{
@@ -226,10 +226,9 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 			SyncPositions[voice->Number][SyncPositionsCount[voice->Number]++] = i;
 		}
 
-		float volume = 1.0f;
 		if (haveAmpMod)
 		{
-			volume *= paramsFloat[OSC_PARAM_VOLUME]->GetModValue(voice, idx);
+			volume *= paramsFloat[PROC_PARAM_FLOAT_LEVEL]->GetModValue(voice, idx);
 		}	
 
 		//if (ix < 50)
@@ -253,9 +252,9 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 			// write val to output buffer
 			if (ringMod)
 			{
-				bufferOut->Buffer[idx].ch[j] *= val;
+				bufferOut->Buffer[idx].ch[j] *= val * volume;
 			}else{
-				bufferOut->Buffer[idx].ch[j] += val;
+				bufferOut->Buffer[idx].ch[j] += val * volume;
 			}
 			
 			
@@ -271,4 +270,8 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 
 void Osc::WaveChanged()
 {
+	WaveTable* table;
+	int wf = paramsInt[OSC_PARAM_INT_WAVEFORM]->Value();
+	table = WaveTable::Wavetables[wf];
+	waveTableIdx->SetWaveTable(table);
 }

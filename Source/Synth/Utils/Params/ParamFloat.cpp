@@ -140,7 +140,7 @@ float ParamFloat::GetModValue(Voice* voice, int bufferIndex)
 		}
 		return modValue;	
 	}else{
-		return 0.0f;
+		return 1.0f;
 	}
 }
 

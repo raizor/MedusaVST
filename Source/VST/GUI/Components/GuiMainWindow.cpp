@@ -13,8 +13,10 @@ GuiPanelMaster* GuiMainWindow::panelMaster = 0;
 GuiPanelOsc* GuiMainWindow::panelOsc = 0;
 GuiPanelEg* GuiMainWindow::panelEg = 0;
 GuiPanelLfo* GuiMainWindow::panelLfo = 0;
-GuiPanelModulations* GuiMainWindow::panelModulations = 0;
+GuiModMatrix* GuiMainWindow::panelModMatrix = 0;
+//GuiPanelModulations* GuiMainWindow::panelModulations = 0;
 GuiPanelFilter* GuiMainWindow::panelFilter = 0;
+void* GuiMainWindow::hWindow = 0;
 GuiKeyboard* GuiMainWindow::keyboard = 0;
 char GuiMainWindow::labelText[100];
 
@@ -34,8 +36,9 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelFilter = new GuiPanelFilter(460, 217, 460, 170, 0);
 	panelEg = new GuiPanelEg(460, 217, 0, 384, 0);
 	panelLfo = new GuiPanelLfo(460, 217, 460, 384, 0); 
-	panelModulations = new GuiPanelModulations(630, 205, 0, 594, 0); 
+	//panelModulations = new GuiPanelModulations(630, 205, 0, 594, 0); 
 	panelMaster = new GuiPanelMaster(279, 202, 640, 594, 0); 
+	panelModMatrix = new GuiModMatrix(635, 205, 0, 597, 0); 
 
 	keyboard = new GuiKeyboard(858, 58, 13, 801, IDB_KEYBOARD_OVERLAYS);
 
@@ -46,17 +49,9 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	AddSubComponent(panelEg);
 	AddSubComponent(panelFilter);
 	AddSubComponent(panelLfo);
-	AddSubComponent(panelModulations);
-	AddSubComponent(panelMaster);
+	AddSubComponent(panelMaster);	
 	AddSubComponent(keyboard);
-	/*
-	subComponents->push(panelFilter);
-	subComponents->push(panelEg);
-	subComponents->push(panelLfo);
-	subComponents->push(panelMod);
-	subComponents->push(panelMaster);*/
-
-	//subComponents->push(new GuiStackItem(0,0,0,0,IDB_PNG_ITEM_PANEL));
+	AddSubComponent(panelModMatrix);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)

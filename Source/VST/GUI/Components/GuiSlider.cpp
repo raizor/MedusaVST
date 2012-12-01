@@ -3,8 +3,13 @@
 
 // knob
 
-GuiSliderKnob::GuiSliderKnob(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiSliderKnob::GuiSliderKnob(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, char* name) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
+	if (name)
+	{
+		this->hasName = true;
+		sprintf(this->name, name);
+	}	
 	type = kGuiComponentTypeSliderKnob;
 	hottable = true;
 	value = 0;
@@ -32,8 +37,54 @@ void GuiSliderKnob::draw()
 			sprite = image->spriteCollection->GetSprite((int)spriteOff);
 		}
 		
+		bool lit = GuiMainWindow::hotComponent == this || GuiMainWindow::dragComponent == this;
+
 		//glColor4f(1,1,1,1);
 		glBegin(GL_QUADS);
+
+		if (synthItem)
+		{
+			ParamFloat* p  = (ParamFloat*)synthItem->param;
+			//float mult = 127.0 / max;
+			value = p->ValueAsInt();
+
+			// set item value
+			switch(p->ValueType)
+			{
+			case(kParamValueTypeTime):
+				sprintf(GuiMainWindow::labelText, "%0.3f secs", p->TargetValue);
+				break;
+
+			case(kParamValueTypeZeroToOneUni):
+				// todo percent not working
+				sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+				break;
+
+			case(kParamValueTypeZeroToOneBi):
+				// todo percent not working
+				sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+				break;
+
+			case(kParamValueTypeCents):
+				// todo percent not working
+				sprintf(GuiMainWindow::labelText, "%d cents", (int)p->TargetValue);
+				break;
+
+			default:
+				sprintf(GuiMainWindow::labelText, " MISS %0.3f%% ", p->TargetValue);
+				break;
+			}		
+
+			if (lit)
+			{
+				GuiMainWindow::panelMaster->SetParamValue(&GuiMainWindow::labelText[0]);
+				// set item name
+				if (hasName)
+				{
+					GuiMainWindow::panelMaster->SetParamName(&this->name[0]);
+				}
+			}		
+		}
 
 		image->drawSprite(sprite, 0, -16-value);
 
@@ -58,6 +109,7 @@ void GuiSliderKnob::HandleDrag(GEvent* evt)
 {
 	float distance = (evt->pos.y - GuiMainWindow::dragPoint->y);
 	char msg[255];
+	
 	if (IsHot(evt->pos.Plus(0, value), true))
 	{		
 		// set value
@@ -66,6 +118,14 @@ void GuiSliderKnob::HandleDrag(GEvent* evt)
 		if (newVal > 127) newVal = 127;
 
 		value = newVal;
+
+		if (synthItem)
+		{
+			ParamFloat* p  = (ParamFloat*)synthItem->param;
+			p->SetValueWithInt((int)newVal);
+			sprintf(&msg[0], "knob val: %d", (int)newVal);
+			DebugPrintLine(msg);
+		}
 
 		sprintf(&msg[0], "drag y: %d, %d", (int)distance, value);
 
@@ -108,7 +168,7 @@ void GuiSliderKnob::HandleEvent(GEvent* evt, bool recursing)
 			{
 				if (GuiMainWindow::hotComponent  != this)
 				{
-					DebugPrintLine("HOT SLIDER");
+					//DebugPrintLine("HOT SLIDER");
 				}
 				GuiMainWindow::hotComponent = this;
 				evt->isHandled = true;
@@ -177,10 +237,15 @@ bar pos matches Y pos within slider bounds
 
 */
 
-GuiSlider::GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiSlider::GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, char* name) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	hottable = true;
-	this->knob = new GuiSliderKnob(38, 33, -2, height, imageId, sliderOn, sliderOff);
+	this->knob = new GuiSliderKnob(38, 33, -2, height, imageId, sliderOn, sliderOff, name);
+	if (name)
+	{
+		this->hasName = true;
+		sprintf(this->name, name);
+	}	
 	AddSubComponent(this->knob);
 	type = kGuiComponentTypeSlider;
 }

@@ -23,7 +23,7 @@ public:
 	int numParamsFloat;
 	int numParamsBool;
 	int numParamsInt;
-	WaveTableIndex* WaveTableIdx;
+	WaveTableIndex* waveTableIdx;
 
 	Item(bool hasBuffer, StackItemType type, bool hasWaveTable = false);
 	~Item(void);

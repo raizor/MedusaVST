@@ -13,7 +13,7 @@ private:
 	void HandleDrag(GEvent* evt);
 public:
 	int value;
-	GuiSliderKnob(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff);
+	GuiSliderKnob(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, char* name = NULL);
 	~GuiSliderKnob(void);
 	SpritesButton spriteOn, spriteOff;
 	virtual void draw();
@@ -26,7 +26,7 @@ class GuiSlider : public GuiComponent
 public:
 	GuiSliderKnob* knob;
 	
-	GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff);
+	GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, char* name = NULL);
 	~GuiSlider(void);
 	virtual void draw();
 	

@@ -4,7 +4,7 @@
 
 GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int imageId, int spriteId, bool scrollable, char* name)
 {
-	fp = 0;
+	ClickedHandler = 0;
 	hasName = name;
 	if (name)
 	{
@@ -217,9 +217,9 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 				evt->isHandled = true;
 				Clicked(evt);
 
-				if (fp != NULL)
+				if (ClickedHandler != NULL)
 				{
-					(this->*fp)();
+					(this->*ClickedHandler)(this, evt);
 					// call clicked handler
 					//this->HandlerClicked(this);
 				}
@@ -271,11 +271,6 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 	}
 }
 
-void GuiComponent::ftest()
-{
-	DebugPrintLine("FTEST");
-}
-
  void GuiComponent::Clicked(GEvent* evt)
  {
 	 
@@ -301,7 +296,7 @@ void GuiComponent::ftest()
  {
 	 float offX = GetOffsetX();
 	 float offY = GetOffsetY();
-	 return hottable && (width > 0 && height > 0) && ((pos.x >= offX &&  pos.x <= offX + width) || onlyCheckY) && (pos.y >= offY &&  pos.y <= offY + height);
+	 return (width > 0 && height > 0) && ((pos.x >= offX &&  pos.x <= offX + width) || onlyCheckY) && (pos.y >= offY &&  pos.y <= offY + height);
  }
 
  void GuiComponent::SetStackItem(Item* item)
@@ -314,4 +309,8 @@ void GuiComponent::ftest()
  {
 	 offsetX = x;
 	 offsetY = y;
+ }
+
+ void GuiComponent::CallbackVoid()
+ {
  }

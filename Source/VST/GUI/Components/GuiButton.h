@@ -20,6 +20,7 @@ enum ButtonType
 	kButtonTypeEgNumber,
 	kButtonTypeEgAmp,
 	kButtonTypeEgPitch,
+	kButtonTypeOscParam,
 
 };
 
@@ -50,5 +51,6 @@ public:
 	virtual void HandleEvent(GEvent* evt, bool recursing);
 	void Clicked(GEvent* evt);
 	virtual void draw();
+	virtual void CallbackVoid();
 };
 

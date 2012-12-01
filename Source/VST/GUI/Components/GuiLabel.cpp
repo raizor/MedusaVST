@@ -44,3 +44,8 @@ void GuiLabel::draw()
 	
 	glPopMatrix();
 }
+
+void GuiLabel::SetText(char* txt)
+{
+	sprintf(text, txt);
+}

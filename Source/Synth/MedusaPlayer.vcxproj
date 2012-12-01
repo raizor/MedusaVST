@@ -25,6 +25,7 @@
     <ClInclude Include="Items\Item.h" />
     <ClInclude Include="Items\Processors\Adsr.h" />
     <ClInclude Include="Items\Processors\Osc.h" />
+    <ClInclude Include="Items\Processors\Lfo.h" />
     <ClInclude Include="Utils\console.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Player - Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -55,6 +56,7 @@
     <ClCompile Include="Items\Item.cpp" />
     <ClCompile Include="Items\Processors\Adsr.cpp" />
     <ClCompile Include="Items\Processors\Osc.cpp" />
+    <ClCompile Include="Items\Processors\Lfo.cpp" />
     <ClCompile Include="Utils\console.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Player - Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>

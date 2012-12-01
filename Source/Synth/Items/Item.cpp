@@ -18,7 +18,7 @@ Item::Item(bool hasBuffer, StackItemType type, bool hasWaveTable)
 
 	if (hasWaveTable)
 	{
-		WaveTableIdx = new WaveTableIndex(WaveTable::WaveTableSine);
+		waveTableIdx = new WaveTableIndex(WaveTable::WaveTableSine);
 		//item->WaveTableIdx = WaveTableIndex_Create(WaveTables_Tables->WaveTableSquare);
 	}
 }

@@ -8,6 +8,7 @@
 #include "GuiPanelFilter.h"
 #include "GuiPanelMaster.h"
 #include "GuiKeyboard.h"
+#include "GuiModMatrix.h"
 
 #define NUMBER_EG_AMP 6
 #define NUMBER_EG_PITCH 7
@@ -17,6 +18,7 @@ class GuiPanelMaster;
 class GuiMainWindow : public GuiComponent
 {
 public:
+	static void* hWindow;
 	static char labelText[100];
 	static GuiComponent *hotComponent, *dragComponent;
 	static GPoint *dragPoint, *movePoint;
@@ -27,7 +29,8 @@ public:
 	static GuiPanelEg* panelEg;
 	static GuiPanelFilter* panelFilter;
 	static GuiPanelLfo* panelLfo;
-	static GuiPanelModulations* panelModulations;
+	static GuiModMatrix* panelModMatrix;
+	//static GuiPanelModulations* panelModulations;
 	static GuiKeyboard* keyboard;
 	static GuiPanelMaster *panelMaster;
 

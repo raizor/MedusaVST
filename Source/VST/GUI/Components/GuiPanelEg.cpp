@@ -49,8 +49,9 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;	
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
-	butEg->fp = &GuiPanelEg::ftest;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	//butEg->HandlerClicked = (void*)&EgChanged;
+	butAmpEg = butEg;
 	AddSubComponent(butEg);
 
 	// pitch eg
@@ -63,6 +64,8 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
+	butPitchEg = butEg;
 	AddSubComponent(butEg);
 	
 	// eg 1
@@ -75,6 +78,7 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	AddSubComponent(butEg);
 
 	// eg 2
@@ -87,6 +91,7 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	AddSubComponent(butEg);
 
 	// eg 3
@@ -99,6 +104,7 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	AddSubComponent(butEg);
 
 	// eg 4
@@ -111,6 +117,7 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	AddSubComponent(butEg);
 
 	// eg 5
@@ -123,6 +130,7 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
 	butEg->synthItem = si;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	AddSubComponent(butEg);
 
 	// eg 6
@@ -134,12 +142,12 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	si->item = PatchList::list->patches[0]->items[NUMBER_START_EG+5];
 	si->param = &si->item->enabled;
 	si->paramType = kParamTypeDefault;
+	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	butEg->synthItem = si;
 	AddSubComponent(butEg);
 
 	SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
 }
-
 
 GuiPanelEg::~GuiPanelEg(void)
 {
@@ -158,11 +166,23 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	// controls
 	LinkedSynthItem* si;
 
+	// amount slider
+	si = new LinkedSynthItem();
+	si->item = (Item*)item;
+	si->itemType = kStackItemTypeEnvAdsr;
+	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	sliderAmount->synthItem = si;
+	sliderAmount->knob->synthItem = si;
+
+	// knobs
+
 	// delay time
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_DELAY_TIME];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_DELAY_TIME];
 	si->valueType = kParamValueTypeTime;
 	si->paramType = kParamTypeFloat;
 	knobDelayTime->synthItem = si;
@@ -171,7 +191,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_START_LEVEL];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_START_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobStartLevel->synthItem = si;
@@ -180,7 +200,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_ATTACK_TIME];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_ATTACK_TIME];
 	si->valueType = kParamValueTypeTime;
 	si->paramType = kParamTypeFloat;
 	knobAttackTime->synthItem = si;
@@ -189,7 +209,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_ATTACK_LEVEL];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_ATTACK_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobAttackLevel->synthItem = si;
@@ -198,7 +218,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_DECAY_TIME];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_DECAY_TIME];
 	si->valueType = kParamValueTypeTime;
 	si->paramType = kParamTypeFloat;
 	knobDecayTime->synthItem = si;
@@ -207,7 +227,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_DECAY_LEVEL];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_DECAY_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobDecayLevel->synthItem = si;
@@ -216,7 +236,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_SUSTAIN_TIME];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_TIME];
 	si->valueType = kParamValueTypeTime;
 	si->paramType = kParamTypeFloat;
 	knobSustainTime->synthItem = si;
@@ -225,7 +245,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_SUSTAIN_LEVEL];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_SUSTAIN_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobSustainLevel->synthItem = si;
@@ -234,7 +254,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_RELEASE_TIME];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_RELEASE_TIME];
 	si->valueType = kParamValueTypeTime;
 	si->paramType = kParamTypeFloat;
 	knobReleaseTime->synthItem = si;
@@ -243,7 +263,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 	si = new LinkedSynthItem();
 	si->item = (Item*)item;
 	si->itemType = kStackItemTypeEnvAdsr;
-	si->param = item->paramsFloat[ADSR_PARAM_RELEASE_LEVEL];
+	si->param = item->paramsFloat[ADSR_PARAM_FLOAT_RELEASE_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobReleaseLevel->synthItem = si;
@@ -342,5 +362,22 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 		
 		
 		
+	}
+}
+
+
+void GuiPanelEg::CallbackClicked(void* data, GEvent* evt)
+{
+	char msg[100];
+	for (int i=0; i<GuiMainWindow::panelEg->butEgs.size(); i++)
+	{
+		if (data == GuiMainWindow::panelEg->butEgs[i])
+		{
+			DebugPrintLine("XX");
+			sprintf(&msg[0], "eg %d", i);
+			DebugPrintLine(msg);
+			Adsr* eg = (Adsr*)PatchList::list->CurrentPatch->items[NUMBER_START_EG+i];
+			GuiMainWindow::panelEg->SetStackItem(eg);
+		}
 	}
 }

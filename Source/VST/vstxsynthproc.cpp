@@ -104,77 +104,23 @@ VstInt32 VstXSynth::processEvents (VstEvents* ev)
 			int chanNum = event->midiData[0] & 0x0F;
 			int noteId = event->midiData[1];
 			MidiEvent* evt = new MidiEvent();
-			evt->deltaTime = event->deltaFrames;
+			evt->deltaTime = event->deltaFrames+runtime;
 			evt->type = kPlayerEventTypeNoteOn;
 			evt->note = noteId;
 			Synth::midiQueue->AddEvent(evt);
+			DebugPrintLine("NOTE ON");
 		}
 		else if (cmd == 0x80)
 		{
 			int chanNum = event->midiData[0] & 0x0F;
 			int noteId = event->midiData[1];
 			MidiEvent* evt = new MidiEvent();
-			evt->deltaTime = event->deltaFrames;
+			evt->deltaTime = event->deltaFrames+runtime;
 			evt->type = kPlayerEventTypeNoteOff;
 			evt->note = noteId;
 			Synth::midiQueue->AddEvent(evt);
+			DebugPrintLine("NOTE OFF");
 		}
-
-		//VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
-		//char* midiData = event->midiData;
-		//VstInt32 status = midiData[0] & 0xf0;	// ignoring channel
-		//if (status == 0x90 || status == 0x80)	// we only look at notes
-		//{
-		//	VstInt32 note = midiData[1] & 0x7f;
-		//	VstInt32 velocity = midiData[2] & 0x7f;
-		//	if (status == 0x80)
-		//	{
-
-
-		//	}
-		//	if (!velocity && (note == currentNote))
-		//	{
-		//		velocity = 0;	// note off by velocity 0
-		//		MidiEvent* evt = new MidiEvent();
-		//		evt->deltaTime = event->deltaFrames;
-		//		evt->type = kPlayerEventTypeNoteOff;
-		//		evt->note = note;
-		//		Synth::midiQueue->AddEvent(evt);
-		//		//VoicePool::Pool->Stop(0, note);
-		//		/*
-		//		//noteOff ();
-		//		MidiEvent* evt = new MidiEvent();
-		//		evt->deltaTime = event->deltaFrames;
-		//		evt->type = kPlayerEventTypeNoteOff;
-		//		evt->note = note;
-		//		Synth::midiQueue->AddEvent(evt);
-		//		//	VoicePool::Pool->Stop(0, note);*/
-
-		//	}
-		//	else
-		//	{
-		//		MidiEvent* evt = new MidiEvent();
-		//		evt->deltaTime = event->deltaFrames;
-		//		evt->type = kPlayerEventTypeNoteOn;
-		//		evt->note = note;
-		//		Synth::midiQueue->AddEvent(evt);
-		//		//Synth::midiQueue->events[Synth::midiQueue->writeOffset] = evt;
-		//		//VoicePool::Pool->GetVoiceAndPlayNote(0, note, PatchList::list->CurrentPatch);
-		//		currentNote = note;
-		//		//noteOn (note, velocity, event->deltaFrames);
-		//	}
-		//}
-		//else if (status == 0xb0)
-		//{
-		//	if (midiData[1] == 0x7e || midiData[1] == 0x7b)	// all notes off
-		//	{
-		//		// todo: add midi event for this
-		//		//noteOff ();
-		//		VoicePool::Pool->StopAllVoices();
-		//		Synth::midiQueue->Clear();
-		//	}
-		//}
-		event++;
 	}
 	return 1;
 }
@@ -213,36 +159,92 @@ void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 samp
 
 	// loop
 
+	
+	int samplesPerChunk = 8;
+
+	for(int i=0; i<sampleFrames+(sampleFrames%samplesPerChunk); i+=samplesPerChunk)
+	{
+		int chunkSize = samplesPerChunk;
+		if (i+samplesPerChunk>=sampleFrames)
+		{
+			chunkSize = sampleFrames - i;
+		}
+		// get next unhandled event
+		while (Synth::midiQueue->CurrentEvent() && Synth::midiQueue->CurrentEvent()->handled)
+		{
+			// event handled
+			Synth::midiQueue->NextEvent();
+		}
+
+		while(Synth::midiQueue->CurrentEvent() && !Synth::midiQueue->CurrentEvent()->handled)
+		{
+			MidiEvent* evt = Synth::midiQueue->CurrentEvent();
+			if (evt->deltaTime >= runtime && evt->deltaTime <=runtime+chunkSize)
+			{
+				// handle
+				evt->handled = true;
+				switch (evt->type)
+				{
+				case kPlayerEventTypeNoteOn:
+					VoicePool::Pool->GetVoiceAndPlayNote(0, evt->note, PatchList::list->CurrentPatch);
+					break;
+				case kPlayerEventTypeNoteOff:
+					VoicePool::Pool->Stop(0, evt->note);
+					break;
+				default:
+					break;
+				}
+			}else{
+				// future event
+				break;
+			}
+		}
+
+		synth->RenderFloat(out1+i, out2+i, chunkSize);
+		runtime+=chunkSize;
+	}
+
+
+
+	/*
 	int blocksize = 1;
 
-	for(int i=0; i<sampleFrames; i+=blocksize)
+	for(int i=0; i<sampleFrames; i+=blockSize)
 	{
-		for(int j=0; j<Synth::midiQueue->writeOffset; j++)
-		{
-			MidiEvent* me = Synth::midiQueue->events[j];
-			if (!me->handled)
-			{
-				if (me->deltaTime >= i && me->deltaTime <=i+blocksize)
-				{
-					if (me->type == kPlayerEventTypeNoteOn)
-					{
-						me->handled = true;
-						VoicePool::Pool->GetVoiceAndPlayNote(0, me->note, PatchList::list->CurrentPatch);
-					}
 
-					if (me->type == kPlayerEventTypeNoteOff)
-					{
-						me->handled = true;
-						VoicePool::Pool->Stop(0, me->note);
-					}
+		// get next unhandled event
+		while (Synth::midiQueue->CurrentEvent() && Synth::midiQueue->CurrentEvent()->handled)
+		{
+			// event handled
+			Synth::midiQueue->NextEvent();
+		}
+
+		while(Synth::midiQueue->CurrentEvent() && !Synth::midiQueue->CurrentEvent()->handled)
+		{
+
+			MidiEvent* evt = Synth::midiQueue->CurrentEvent();
+			if (evt->deltaTime >= runtime+i && evt->deltaTime <runtime+i+blockSize)
+			{
+				// handle
+				evt->handled = true;
+				switch (evt->type)
+				{
+				case kPlayerEventTypeNoteOn:
+					VoicePool::Pool->GetVoiceAndPlayNote(0, evt->note, PatchList::list->CurrentPatch);
+					break;
+				case kPlayerEventTypeNoteOff:
+					VoicePool::Pool->Stop(0, evt->note);
+					break;
+				default:
+					break;
 				}
 			}
 		}
+
 		synth->RenderFloat(out1, out2, blocksize);
 		out1+=blocksize;
 		out2+=blocksize;
 	}
-
 	runtime+=sampleFrames;
-	
+	*/
 }

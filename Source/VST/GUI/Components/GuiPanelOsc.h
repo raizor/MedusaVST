@@ -10,6 +10,8 @@ class Osc;
 class GuiPanelOsc : public GuiComponent
 {
 public:
+	char waveTableName [100];
+
 	GuiKnob* knobFinetune;
 	GuiKnob* knobPhase;
 	GuiKnob* knobLevel;
@@ -25,6 +27,12 @@ public:
 	GuiButton* butMode;
 	GuiButton* butMod;
 
+	GuiButton* butLabWaveType;
+	GuiButton* butLabTranspose;
+	GuiButton* butLabOctave;
+	GuiButton* butLabMode;
+	GuiButton* butLabModMode;
+
 	GuiLabel* labWaveType;
 	GuiLabel* labTranspose;
 	GuiLabel* labOctave;
@@ -38,5 +46,8 @@ public:
 	GuiPanelOsc(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelOsc(void);
 	virtual void SetStackItem(Osc* item);
+	void CallbackClicked(void* data, GEvent* evt);
+	char* OscModModeToString(int val);
+	char* OscModeToString(int val);
 };
 

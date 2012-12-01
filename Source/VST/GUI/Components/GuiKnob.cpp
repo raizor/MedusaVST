@@ -50,7 +50,6 @@ void GuiKnob::draw()
 
 		// todo: precalc knob rotation positions
 
-
 		lit = GuiMainWindow::hotComponent == this || GuiMainWindow::dragComponent == this;
 
 		if (lit)

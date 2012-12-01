@@ -99,6 +99,7 @@ void Editor::guiOpen()
 		GuiImageManager::InitInstance();
 		GuiImageManager::instance->GetImageById(IDB_BUTTONSTRIP)->SetSpriteSheet(new SpritesButtonsSprites());
 		_mainWindow = new GuiMainWindow(920, 863, 0, 0, IDB_PNG_PANEL_MAIN);
+		_mainWindow->hWindow = systemWindow;
 		int* ii = new int();
 		delete(ii);
 		TextWriter::writer = new TextWriter();

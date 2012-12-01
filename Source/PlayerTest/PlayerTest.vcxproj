@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Player - Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\Projects\Juce_2\extras\audio plugin demo Weener\Source;$(IncludePath)</IncludePath>
+    <IncludePath>../Synth;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/Bin;$(SolutionDir);$(SolutionDir)Bin\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\build\$(ProjectName)\$(Configuration)\</IntDir>

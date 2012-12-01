@@ -35,10 +35,13 @@ public:
 	GuiButton* butMod;
 
 
+	GuiButton* butAmpEg;
+	GuiButton* butPitchEg;
 	std::vector<GuiButton*> butEgs;
 
 	GuiPanelEg(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelEg(void);
 	virtual void GuiPanelEg::SetStackItem(Adsr* item);
+	void CallbackClicked(void* data, GEvent* evt);
 };
 

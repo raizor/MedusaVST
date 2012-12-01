@@ -1,11 +1,21 @@
 #include "Midi.h"
 
+// event
+
 MidiEvent::MidiEvent()
 {
 	handled = false;
 	deltaTime = 0;
 	
 }
+
+// queue
+
+MidiEvent* MidiEventQueue::CurrentEvent()
+{
+	return readOffset < writeOffset ? events[readOffset] : 0;
+}
+
 
 MidiEventQueue::MidiEventQueue(int queueSize)
 {
@@ -25,9 +35,15 @@ void MidiEventQueue::AddEvent(MidiEvent* evt)
 	events[writeOffset < size ? writeOffset++ : 0] = evt;
 }
 
-MidiEvent* MidiEventQueue::GetEvent()
+bool MidiEventQueue::NextEvent()
 {
-	return events[readOffset < size ? readOffset++ : 0];
+	if (readOffset < writeOffset)
+	{
+		readOffset++;
+		return true;
+	}else{
+		return false;
+	}
 }
 
 void MidiEventQueue::Clear()
