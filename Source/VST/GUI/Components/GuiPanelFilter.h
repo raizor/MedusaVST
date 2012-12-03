@@ -5,9 +5,12 @@
 #include "GuiButton.h"
 #include "GuiLabel.h"
 
+class SimpleFilter;
+
 class GuiPanelFilter : public GuiComponent
 {
 public:
+	LinkedSynthItem* synthItem2; 
 	GuiKnob* knobCutoff1;
 	GuiKnob* knobCutoff2;
 
@@ -37,5 +40,8 @@ public:
 
 	GuiPanelFilter(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelFilter(void);
+	virtual void SetStackItem(SimpleFilter* item1, SimpleFilter* item2);
+	void CallbackClicked(void* data, GEvent* evt);
+	char* FilterTypeToString(int val);
 };
 

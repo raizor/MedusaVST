@@ -1,13 +1,14 @@
 #include "GuiKnob.h"
 #include "GuiMainWindow.h"
 
-GuiKnob::GuiKnob(int width, int height, int offsetX, int offsetY, int imageId, int min, int max, bool biDirectional, char* name ) : GuiComponent(width, height, offsetX, offsetY, imageId, false)
+GuiKnob::GuiKnob(int width, int height, int offsetX, int offsetY, int imageId, int min, int max, bool biDirectional, KnobType knobType, char* name ) : GuiComponent(width, height, offsetX, offsetY, imageId, false)
 {
 	if (name)
 	{
 		hasName = true;
 		sprintf(this->name, name);
 	}	
+	this->knobType = knobType;
 	this->min = min;
 	this->max = max;
 	this->width = 46;
@@ -66,23 +67,27 @@ void GuiKnob::draw()
 			if (synthItem)
 			{
 				ParamFloat* p  = (ParamFloat*)synthItem->param;
-				switch(p->ValueType)
+				switch(knobType)
 				{
-				case(kParamValueTypeTime):
+				case(kKnobTypeSeconds):
 					sprintf(GuiMainWindow::labelText, "%0.3f secs", p->TargetValue);
 					break;
 
-				case(kParamValueTypeZeroToOneUni):
+				case(kKnobTypeDecimalTwoPlaces):
 					// todo percent not working
-					sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+					sprintf(GuiMainWindow::labelText, "%0.2f%% ", p->TargetValue);
 					break;
 
-				case(kParamValueTypeZeroToOneBi):
+				case(kKnobTypeDecimalOnePlace):
 					// todo percent not working
-					sprintf(GuiMainWindow::labelText, "%0.3f%% ", p->TargetValue);
+					sprintf(GuiMainWindow::labelText, "%0.1f%% ", p->TargetValue);
 					break;
 
-				case(kParamValueTypeCents):
+				case(kKnobTypePan):
+					sprintf(GuiMainWindow::labelText, "%0.1f :  %0.1f", 1.0f - p->TargetValue, p->TargetValue);
+					break;
+
+				case(kKnobTypeCents):
 					// todo percent not working
 					sprintf(GuiMainWindow::labelText, "%d cents", (int)p->TargetValue);
 					break;

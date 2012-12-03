@@ -10,8 +10,14 @@
 //
 
 #define NUMBER_START_OSC 0
+
 #define NUMBER_START_EG Constants_NumOscillators
-#define NUMBER_START_LFO NUMBER_START_EG + Constants_NumEnvelopes + 2 // extra 2 for amp and pitch eg 
+
+#define NUMBER_START_FILTER NUMBER_START_EG + Constants_NumEnvelopes + 2 // extra 2 for amp and pitch eg 
+
+#define NUMBER_START_LFO_AV NUMBER_START_FILTER + Constants_NumFilters 
+
+#define NUMBER_START_LFO_PV NUMBER_START_LFO_AV + Constants_NumLfoAllVoices
 
 class Synth
 {

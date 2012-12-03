@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Items\Processors\SimpleFilter.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Items\ItemProcessor.h" />
     <ClInclude Include="Items\Item.h" />
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp" />
+    <ClCompile Include="Items\Processors\SimpleFilter.cpp" />
     <ClCompile Include="Items\ItemProcessor.cpp" />
     <ClCompile Include="Items\Item.cpp" />
     <ClCompile Include="Items\Processors\Adsr.cpp" />

@@ -19,8 +19,6 @@ Adsr::Adsr(EgType type) : ItemProcessor(kStackItemTypeAmpEg, true)
 	// TODO: optimize
 	if (this->type == kEgTypePitch)
 	{
-		// pitch eg
-		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // amount level
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // delay time
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // start level
 
@@ -36,13 +34,6 @@ Adsr::Adsr(EgType type) : ItemProcessor(kStackItemTypeAmpEg, true)
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // release time
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // release level
 	}else{
-		if (type == kEgTypeAmp)
-		{
-			AddFloatParam(new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // amount level
-		}else{
-			AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // amount level
-		}
-
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // delay time
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // start level
 

@@ -3,7 +3,7 @@
 
 
 Item::Item(bool hasBuffer, StackItemType type, bool hasWaveTable)
-{
+{	
 	itemType = type;
 	this->hasBuffer = hasBuffer;
 	this->hasWaveTable = hasWaveTable;
@@ -21,6 +21,9 @@ Item::Item(bool hasBuffer, StackItemType type, bool hasWaveTable)
 		waveTableIdx = new WaveTableIndex(WaveTable::WaveTableSine);
 		//item->WaveTableIdx = WaveTableIndex_Create(WaveTables_Tables->WaveTableSquare);
 	}
+
+	// add level param
+	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // level
 }
 
 Item::~Item(void)

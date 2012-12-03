@@ -8,8 +8,12 @@ Lfo::Lfo(StackItemType lfoType) : ItemProcessor(lfoType, true)
 	AddIntParam(new ParamInt(kWaveFormSin)); // waveform type
 	AddIntParam(new ParamInt(kPolarityPositive)); // polarity
 
-	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // rate 
-	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // delay time
+	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true, 20.0f)); // rate 
+	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime, true, 20.0f)); // delay time
+
+#ifndef REPLAYER
+	paramsFloat[PROC_PARAM_FLOAT_LEVEL]->SetValueWithInt(0);
+#endif
 }
 
 

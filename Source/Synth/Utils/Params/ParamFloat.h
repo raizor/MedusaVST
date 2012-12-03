@@ -12,11 +12,13 @@ class Voice;
 class ParamFloat : public Param
 {
 public:
+	bool exponential;
+	float exponentialIncrement;
 	float TargetValue;
 	float DefaultValue;		
 	ParamValueTypeFloat ValueType;
 
-	ParamFloat(float value, bool modifiable, float defaultModValue, float modIncVal, ParamValueTypeFloat valueType);
+	ParamFloat(float value, bool modifiable, float defaultModValue, float modIncVal, ParamValueTypeFloat valueType, bool exponential = false, float exponentialInc = 0.0f);
 	~ParamFloat(void);
 	float ConvertValueFromInt(float value);
 	void SetValueWithInt(float value);

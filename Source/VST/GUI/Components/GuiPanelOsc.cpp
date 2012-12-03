@@ -5,9 +5,9 @@
 
 GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
-	knobFinetune = new GuiKnob(0, 0, 8, 118, IDB_KNOBS_BI, 0, 100, true, "FINETUNE");
-	knobPhase = new GuiKnob(0, 0, 52, 152, IDB_KNOBS_UNI, 0, 127, false, "PHASE");
-	knobLevel = new GuiKnob(0, 0, 96, 118, IDB_KNOBS_UNI, 0, 127, false, "LEVEL");
+	knobFinetune = new GuiKnob(0, 0, 8, 118, IDB_KNOBS_BI, 0, 100, true, kKnobTypeCents, "FINETUNE");
+	knobPhase = new GuiKnob(0, 0, 52, 152, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "PHASE");
+	knobLevel = new GuiKnob(0, 0, 96, 118, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "LEVEL");
 
 	butStripOscs = new GuiButtonStrip(0, 0, 8, 287);
 
@@ -169,7 +169,7 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 
 	// fine tune
 	si = new LinkedSynthItem();
-	si->item = (Item*)item;
+	si->item = item;
 	si->itemType = item->itemType;
 	si->param = item->paramsFloat[OSC_PARAM_FLOAT_DETUNE_FINE];
 	si->valueType = kParamValueTypeIntBi;
@@ -178,7 +178,7 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 
 	// phase
 	si = new LinkedSynthItem();
-	si->item = (Item*)item;
+	si->item = item;
 	si->itemType = item->itemType;
 	si->param = item->paramsFloat[OSC_PARAM_FLOAT_PHASE];
 	si->valueType = kParamValueTypeZeroToOneUni;
@@ -187,7 +187,7 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 
 	// level
 	si = new LinkedSynthItem();
-	si->item = (Item*)item;
+	si->item = item;
 	si->itemType = item->itemType;
 	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;

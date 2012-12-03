@@ -5,16 +5,16 @@
 
 GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
-	knobDelayTime = new GuiKnob(0, 0, 14, 148, IDB_KNOBS_UNI, 0, 127, true, "DELAY TIME");
-	knobStartLevel = new GuiKnob(0, 0, 304, 148, IDB_KNOBS_UNI, 0, 127, false, "START LEVEL");
-	knobAttackTime = new GuiKnob(0, 0, 72, 148, IDB_KNOBS_UNI, 0, 127, false, "ATTACK TIME");
-	knobAttackLevel = new GuiKnob(0, 0, 188, 148, IDB_KNOBS_UNI, 0, 127, false, "ATTACK LEVEL");
-	knobDecayTime = new GuiKnob(0, 0, 130, 148, IDB_KNOBS_UNI, 0, 127, false, "DECAY TIME");
-	knobDecayLevel = new GuiKnob(0, 0, 188, 148, IDB_KNOBS_UNI, 0, 127, false, "DECAY LEVEL");
-	knobSustainTime = new GuiKnob(0, 0, 246, 148, IDB_KNOBS_UNI, 0, 127, false, "SUSTAIN TIME");
-	knobSustainLevel = new GuiKnob(0, 0, 304, 148, IDB_KNOBS_UNI, 0, 127, false, "SUSTAIN LEVEL");
-	knobReleaseTime = new GuiKnob(0, 0, 362, 148, IDB_KNOBS_UNI, 0, 127, false, "RELEASE TIME");
-	knobReleaseLevel = new GuiKnob(0, 0, 363, 148, IDB_KNOBS_UNI, 0, 127, false, "RELEASE LEVEL");
+	knobDelayTime = new GuiKnob(0, 0, 14, 148, IDB_KNOBS_UNI, 0, 127, true, kKnobTypeSeconds, "DELAY TIME");
+	knobStartLevel = new GuiKnob(0, 0, 304, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "START LEVEL");
+	knobAttackTime = new GuiKnob(0, 0, 72, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeSeconds,  "ATTACK TIME");
+	knobAttackLevel = new GuiKnob(0, 0, 188, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "ATTACK LEVEL");
+	knobDecayTime = new GuiKnob(0, 0, 130, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeSeconds, "DECAY TIME");
+	knobDecayLevel = new GuiKnob(0, 0, 188, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "DECAY LEVEL");
+	knobSustainTime = new GuiKnob(0, 0, 246, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeSeconds, "SUSTAIN TIME");
+	knobSustainLevel = new GuiKnob(0, 0, 304, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "SUSTAIN LEVEL");
+	knobReleaseTime = new GuiKnob(0, 0, 362, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeSeconds, "RELEASE TIME");
+	knobReleaseLevel = new GuiKnob(0, 0, 363, 148, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "RELEASE LEVEL");
 
 	// overlay panel
 	panelOverlay = new GuiComponent(406, 66, 6, 142, IDB_BUTTONSTRIP, kSpritesButtons_Overlay_adsr_other, false, 0);

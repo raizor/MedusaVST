@@ -5,9 +5,9 @@
 
 GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
-	knobOffset = new GuiKnob(0, 0, 10, 117, IDB_KNOBS_BI, 0, 127, true);
-	knobDelay = new GuiKnob(0, 0, 48, 147, IDB_KNOBS_UNI, 0, 127, false);
-	knobFadeIn = new GuiKnob(0, 0, 87, 117, IDB_KNOBS_UNI, 0, 127, false);
+	knobOffset = new GuiKnob(0, 0, 10, 117, IDB_KNOBS_BI, 0, 127, true, kKnobTypeDecimalTwoPlaces, "Offset");
+	knobDelay = new GuiKnob(0, 0, 48, 147, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "Delay");
+	knobFadeIn = new GuiKnob(0, 0, 87, 117, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "Fade In");
 	AddSubComponent(knobOffset);
 	AddSubComponent(knobDelay);
 	AddSubComponent(knobFadeIn);
@@ -51,7 +51,8 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 	butsAv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
-	SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO]);
+	int num = NUMBER_START_LFO_AV;
+	SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[num]);
 }
 
 
@@ -67,6 +68,39 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 
 	// controls
 	LinkedSynthItem* si;
+
+
+	// speed slider
+	si = new LinkedSynthItem();
+	si->item = item;
+	si->itemType = item->itemType;
+	si->param = item->paramsFloat[LFO_PARAM_FLOAT_RATE];
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	sliderSpeed->synthItem = si;
+	sliderSpeed->knob->synthItem = si;
+
+	// amount slider
+	si = new LinkedSynthItem();
+	si->item = item;
+	si->itemType = item->itemType;
+	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	sliderAmount->synthItem = si;
+	sliderAmount->knob->synthItem = si;
+
+	/*
+	// morph slider
+	si = new LinkedSynthItem();
+	si->item = item;
+	si->itemType = item->itemType;
+	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	sliderMorph->synthItem = si;
+	sliderMorph->knob->synthItem = si;
+	*/
 
 	/*
 	// fine tune

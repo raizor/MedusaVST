@@ -6,7 +6,10 @@
 
 class Voice;
 class Adsr;
+class SimpleFilter;
 class ModulationMatrix;
+class Patch;
+class Osc;
 
 class Patch
 {

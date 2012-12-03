@@ -2,6 +2,8 @@
 #include "Voice.h"
 #include "../Items/Processors/Osc.h"
 #include "../Items/Processors/Adsr.h"
+#include "../Items/Processors/SimpleFilter.h"
+#include "../Items/Processors/Lfo.h"
 #include "Params/Modulation/ModulationMatrix.h"
 
 PatchList* PatchList::list = 0;
@@ -18,6 +20,68 @@ Patch::Patch(int number)
 	DelayAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
 	ReverbAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
 	ChanVolAmount = new ParamFloat(128, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
+
+	polyphony = 4;
+
+	// OSCS
+	for(int i=0; i<Constants_NumOscillators; i++)
+	{
+		Osc* osc = new Osc();
+		osc->enabled = i == 0;
+
+		/*
+		Osc* prev = i > 0 ? &patch->Oscs[i-1] : &patch->Oscs[Constants_NumOscillators-1];
+		Osc* next = i < Constants_NumOscillators - 1 ? &patch->Oscs[i+1] : &patch->Oscs[0];
+		patch->Oscs[i].OscPrevious = prev; 
+		patch->Oscs[i].OscNext = next;*/
+
+		items[numItems++] = osc;
+	}
+
+	// EGs
+	Adsr* eg = new Adsr(kEgTypeAmp);
+	eg->enabled  = true; // no needed
+	egAmp = eg;
+
+	eg = new Adsr(kEgTypePitch);
+	eg->enabled  = false; // no needed
+	egPitch = eg;
+
+	items[numItems++] = egAmp;
+	items[numItems++] = egPitch;
+
+	for(int i=0; i<Constants_NumEnvelopes; i++)
+	{
+		Adsr* adsr = new Adsr(kEgTypeStandard);
+		adsr->enabled = false;
+		items[numItems++] = adsr;
+	}
+
+	// filters
+	//Filters = (Filter*)zynth_mallocAlloc(sizeof(V2Filter)*Constants_NumFilters);
+	for(int i=0; i<Constants_NumFilters; i++)
+	{
+		SimpleFilter* filter = new SimpleFilter();
+		items[numItems++] = filter;
+		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
+		//FILTER_INIT(&patch->Filters[i], i, patch);
+	}	
+
+	for(int i=0; i<Constants_NumLfoAllVoices; i++)
+	{
+		Lfo* lfo = new Lfo(kStackItemTypeLfoAllVoices);
+		items[numItems++] = lfo;
+		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
+		//FILTER_INIT(&patch->Filters[i], i, patch);
+	}	
+
+	for(int i=0; i<Constants_NumLfoPerVoice; i++)
+	{
+		Lfo* lfo = new Lfo(kStackItemTypeLfoAllVoices);
+		items[numItems++] = lfo;
+		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
+		//FILTER_INIT(&patch->Filters[i], i, patch);
+	}	
 }
 
 Patch::~Patch(void)

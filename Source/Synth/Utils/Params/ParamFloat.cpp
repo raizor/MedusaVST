@@ -1,8 +1,10 @@
 #include "ParamFloat.h"
 #include "../Voice.h"
 
-ParamFloat::ParamFloat(float value, bool modifiable, float defaultModValue, float modIncVal, ParamValueTypeFloat valueType) : Param(kParamTypeFloat, modifiable, defaultModValue, modIncVal)
+ParamFloat::ParamFloat(float value, bool modifiable, float defaultModValue, float modIncVal, ParamValueTypeFloat valueType, bool exponential, float exponentialInc) : Param(kParamTypeFloat, modifiable, defaultModValue, modIncVal)
 {
+	this->exponential = exponential;
+	this->exponentialIncrement = exponentialInc;
 	float* f = (float*)zynth_mallocAlloc(sizeof(float));
 	_value = f;
 	ValueType = valueType;
@@ -175,6 +177,11 @@ void ParamFloat::SetValueWithInt(float value)
 {
 	_intValue = value;
 	float val = ConvertValueFromInt(value);
+	if (exponential)
+	{
+		//val = pow(val, exponentialIncrement);
+		val = exp(val);
+	}
 	float*f = (float*)_value;
 	*f = val;
 	DefaultValue = *f;

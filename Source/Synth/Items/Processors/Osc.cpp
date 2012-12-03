@@ -4,9 +4,7 @@
 
 Osc::Osc(void) : ItemProcessor(kStackItemTypeWfOsc, true)
 {
-	AddIntParam(new ParamInt(kWaveFormSin)); // waveform type
-
-	AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // volume
+	AddIntParam(new ParamInt(kWaveFormSin)); // waveform type	
 	AddFloatParam(new ParamFloat(0.0f, true, 1, 0.5f, kParamValueTypeIntBi)); // detune octaves
 	AddFloatParam(new ParamFloat(0, true, 1, 0.5f, kParamValueTypeIntBi)); // detune semitones
 	AddFloatParam(new ParamFloat(50, true, 1, 0.5f, kParamValueTypeCents)); // detune finetune
@@ -29,6 +27,9 @@ Osc::Osc(void) : ItemProcessor(kStackItemTypeWfOsc, true)
 		SyncPositionsCount[i] = 0;
 	}
 	
+#ifndef REPLAYER
+	paramsFloat[PROC_PARAM_FLOAT_LEVEL]->SetValueWithInt(64);
+#endif
 }
 
 Osc::~Osc(void)
