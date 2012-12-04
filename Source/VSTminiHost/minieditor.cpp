@@ -53,6 +53,7 @@ bool checkEffectEditor (AEffect* effect)
 	t.style = WS_POPUPWINDOW|WS_DLGFRAME|DS_MODALFRAME|DS_CENTER;
 	t.cx = 100;
 	t.cy = 100;
+
 	DialogBoxIndirectParam (GetModuleHandle (0), &t, 0, (DLGPROC)EditorProc, (LPARAM)effect);
 
 	theEffect = 0;

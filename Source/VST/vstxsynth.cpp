@@ -74,8 +74,11 @@ VstXSynth::VstXSynth (audioMasterCallback audioMaster)
 	}
 	if (synth == NULL)
 	{
-		synth = new Synth();
+		synth = new Synth();		
 	}
+
+	SynthObj = synth;
+
 	if (gui == NULL)
 	{
 		gui = new Editor(this);

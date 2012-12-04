@@ -6,6 +6,7 @@
 #include "Synth.h"
 #include <mmreg.h>
 #include "AudioStreamDx.h"
+#include "Utils/VoicePool.h"
 
 //static HANDLE stdout;
 static AudioStreamDx *audioStreamDx;	
@@ -40,6 +41,9 @@ void entrypoint( void )
 
 	threadHandle = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)RenderAudio, 0, 0, 0);
 	SetThreadPriority(threadHandle, THREAD_PRIORITY_ABOVE_NORMAL);
+
+	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+	VoicePool::Pool->GetVoiceAndPlayNote(0, 69, p);
 	
 	while (GetAsyncKeyState(VK_ESCAPE)>=0 && GetAsyncKeyState(VK_SPACE)>=0)
 	{

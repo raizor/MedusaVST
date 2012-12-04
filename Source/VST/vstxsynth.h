@@ -77,6 +77,10 @@ private:
 class VstXSynth : public AudioEffectX
 {
 public:
+	static Editor* gui;
+	static Synth* synth;
+	Synth* SynthObj;
+
 	VstXSynth (audioMasterCallback audioMaster);
 	~VstXSynth ();
 
@@ -125,8 +129,7 @@ private:
 	float fPhase1, fPhase2;
 	float fScaler;
 
-	static Editor* gui;
-	static Synth* synth;
+
 
 	VstXSynthProgram* programs;
 	VstInt32 channelPrograms[16];

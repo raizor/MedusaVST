@@ -11,7 +11,7 @@ class GuiKeyboardKey : public GuiComponent
 public: 
 	int midiNumber;
 	bool keyDown;
-	GuiKeyboardKey(int width, int height, int offsetX, int offsetY, int imageId, int spriteId);
+	GuiKeyboardKey(int width, int height, int offsetX, int offsetY, int imageId, int spriteId, int midiNumber);
 	~GuiKeyboardKey(void);
 	virtual void HandleEvent(GEvent* evt, bool recursing = false);
 	virtual void draw();

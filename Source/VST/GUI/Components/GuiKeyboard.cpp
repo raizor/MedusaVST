@@ -1,9 +1,10 @@
 #include "GuiKeyboard.h"
 #include "GuiMainWindow.h"
+#include "Utils/VoicePool.h"
 
-GuiKeyboardKey::GuiKeyboardKey(int width, int height, int offsetX, int offsetY, int imageId, int spriteId) : GuiComponent(width, height, offsetX, offsetY, imageId, spriteId)
+GuiKeyboardKey::GuiKeyboardKey(int width, int height, int offsetX, int offsetY, int imageId, int spriteId, int midiNumber) : GuiComponent(width, height, offsetX, offsetY, imageId, spriteId)
 {
-	midiNumber = 0;
+	this->midiNumber = midiNumber;
 	keyDown = false;
 	this->hottable = true;
 	for(int i=0; i<10; i++)
@@ -53,6 +54,8 @@ void GuiKeyboardKey::HandleEvent(GEvent* evt, bool recursing)
 				sprintf(&msg[0], "KEY x: %d, y: %d", (int)evt->pos.x, (int)evt->pos.y);
 				DebugPrintLine(msg);
 				keyDown = true;
+				Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+				VoicePool::Pool->GetVoiceAndPlayNote(0, midiNumber, p);
 				evt->isHandled = true;
 			}
 
@@ -176,7 +179,7 @@ GuiKeyboard::GuiKeyboard(int width, int height, int offsetX, int offsetY, int im
 	for(int i=0; i<66; i++)
 	{
 		keyDown[i] = false;
-		GuiKeyboardKey* key = new GuiKeyboardKey(12, 56, 13*i, 0, IDB_BUTTONSTRIP, kSpritesButtons_Keyboard_overlay);
+		GuiKeyboardKey* key = new GuiKeyboardKey(12, 56, 13*i, 0, IDB_BUTTONSTRIP, kSpritesButtons_Keyboard_overlay, i+24);
 		AddSubComponent(key);
 	}
 }
@@ -312,6 +315,7 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 
 			if (!evt->isHandled && hottable && width > 0 && height > 0 && IsHot(evt->pos))
 			{
+				// NEXT
 				GuiMainWindow::dragComponent = this;
 				GuiMainWindow::dragPoint->x = evt->pos.x;
 				GuiMainWindow::dragPoint->y = evt->pos.y;
@@ -320,9 +324,10 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 				int keyNum = ((int)evt->pos.x - 14) / 13;
 				for(int i=0; i<100; i++)
 				{
-					keyDown[i] = false;
+					//keyDown[i] = false;
 				}
-				keyDown[keyNum] = true;
+				//keyDown[keyNum] = true;
+
 
 				return;
 			}
@@ -343,18 +348,27 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 			{
 				GuiComponent* gc = GetComponent(i);
 				gc->HandleEvent(evt, true);
-				GuiKeyboardKey* key = (GuiKeyboardKey*)gc;
-				key->keyDown = false;
+				GuiKeyboardKey* key = (GuiKeyboardKey*)gc;				
+				if (key->keyDown)
+				{
+					key->keyDown = false;
+					Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+					VoicePool::Pool->Stop(0, key->midiNumber);
+				}
+				
+
 				//if (evt->isHandled)
 				//	break;				
 			}
+
+
 
 			if (!evt->isHandled)
 			{
 				evt->isHandled = true;
 				for(int i=0; i<100; i++)
 				{
-					keyDown[i] = false;
+					//keyDown[i] = false;
 				}
 			}
 

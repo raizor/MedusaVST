@@ -180,7 +180,7 @@ void ParamFloat::SetValueWithInt(float value)
 	if (exponential)
 	{
 		//val = pow(val, exponentialIncrement);
-		val = exp(val);
+		//val = exp(val);
 	}
 	float*f = (float*)_value;
 	*f = val;

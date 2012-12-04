@@ -14,11 +14,24 @@
 
 #if _WIN32
 #include <windows.h>
+#include "AudioStreamDx.h"
 #elif TARGET_API_MAC_CARBON
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
 #include <stdio.h>
+
+static AudioStreamDx *audioStreamDx;	
+static HANDLE threadHandle;
+
+void RenderAudio( void *arg ) 
+{
+	while (true)
+	{
+		audioStreamDx->Update();
+		Sleep(1);
+	}
+}
 
 void print(const char *bla)
 {
@@ -124,6 +137,8 @@ static void checkEffectProperties (AEffect* effect);
 static void checkEffectProcessing (AEffect* effect);
 extern bool checkEffectEditor (AEffect* effect); // minieditor.cpp
 
+static AEffect* effect;
+
 //-------------------------------------------------------------------------------------------------------
 int main (int argc, char* argv[])
 {
@@ -158,7 +173,7 @@ int main (int argc, char* argv[])
 	}
 
 	printf ("HOST> Create effect...\n");
-	AEffect* effect = mainEntry (HostCallback);
+	effect = mainEntry (HostCallback);
 	if (!effect)
 	{
 		printf ("Failed to create effect instance!\n");
@@ -172,6 +187,12 @@ int main (int argc, char* argv[])
 
 	checkEffectProperties (effect);
 	checkEffectProcessing (effect);
+
+	audioStreamDx = new AudioStreamDx(100);
+	threadHandle = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)RenderAudio, 0, 0, 0);
+	SetThreadPriority(threadHandle, THREAD_PRIORITY_ABOVE_NORMAL);
+
+
 	checkEffectEditor (effect);
 
 	printf ("HOST> Close effect...\n");
@@ -333,6 +354,11 @@ VstIntPtr VSTCALLBACK HostCallback (AEffect* effect, VstInt32 opcode, VstInt32 i
 		}
 	}
 
+	if (opcode == 6)
+	{
+		filtered = true;
+	}
+
 	if (!filtered)
 		printf ("PLUG> HostCallback (opcode %d)\n index = %d, value = %p, ptr = %p, opt = %f\n", opcode, index, FromVstPtr<void> (value), ptr, opt);
 
@@ -344,4 +370,67 @@ VstIntPtr VSTCALLBACK HostCallback (AEffect* effect, VstInt32 opcode, VstInt32 i
 	}
 
 	return result;
+}
+
+
+void callProcessReplacing(short* buffer, int numSamples)
+{
+	int blockSize = numSamples/2;
+	float** inputs = 0;
+	float** outputs = 0;
+	VstInt32 numInputs = effect->numInputs;
+	VstInt32 numOutputs = effect->numOutputs;
+
+	if (numInputs > 0)
+	{
+		inputs = new float*[numInputs];
+		for (VstInt32 i = 0; i < numInputs; i++)
+		{
+			inputs[i] = new float[blockSize];
+			memset (inputs[i], 0, blockSize * sizeof (float));
+		}
+	}
+
+	if (numOutputs > 0)
+	{
+		outputs = new float*[numOutputs];
+		for (VstInt32 i = 0; i < numOutputs; i++)
+		{
+			outputs[i] = new float[blockSize];
+			memset (outputs[i], 0, blockSize * sizeof (float));
+		}
+	}
+
+	//printf ("HOST> Resume effect...\n");
+	effect->dispatcher (effect, effMainsChanged, 0, 1, 0, 0);
+
+	//for (VstInt32 processCount = 0; processCount < kNumProcessCycles; processCount++)
+	///{
+		//printf ("HOST> Process Replacing...\n");
+		effect->processReplacing (effect, inputs, outputs, blockSize);
+	//}
+
+	int idx=0;
+	for(int i=0; i<blockSize; i++)
+	{
+		buffer[idx++] = outputs[0][i]*Constants_ClipLimitMax;
+		buffer[idx++] = outputs[1][i]*Constants_ClipLimitMax;
+	}
+
+	//printf ("HOST> Suspend effect...\n");
+	effect->dispatcher (effect, effMainsChanged, 0, 0, 0, 0);
+
+	if (numInputs > 0)
+	{
+		for (VstInt32 i = 0; i < numInputs; i++)
+			delete [] inputs[i];
+		delete [] inputs;
+	}
+
+	if (numOutputs > 0)
+	{
+		for (VstInt32 i = 0; i < numOutputs; i++)
+			delete [] outputs[i];
+		delete [] outputs;
+	}
 }

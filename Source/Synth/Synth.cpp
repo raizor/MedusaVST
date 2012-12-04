@@ -32,9 +32,9 @@ void Synth::Synth_Init()
 	Constants::instance = new Constants();
 	PowerOfTwoTable::instance = new PowerOfTwoTable();
 	PitchUtils::instance = new PitchUtils();
+	WaveTableGen::GenerateTables();
 	VoicePool::Pool = new VoicePool();
 	PatchList::list = new PatchList();
-	WaveTableGen::GenerateTables();
 	MixBuffer = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 	TestBuffer = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 	AmpBuffer = new SampleBufferFloat(Constants_MixBufferSizeFloat);

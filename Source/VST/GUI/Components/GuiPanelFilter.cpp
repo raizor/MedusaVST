@@ -174,6 +174,7 @@ void GuiPanelFilter::CallbackClicked(void* data, GEvent* evt)
 		}else{
 			currentIndex = 0;
 		}
+		filter->enabled = currentIndex;
 		param->SetValue(currentIndex);
 		sprintf(GuiMainWindow::panelFilter->labFilter1Type->text, GuiMainWindow::panelFilter->FilterTypeToString(currentIndex));
 		return;

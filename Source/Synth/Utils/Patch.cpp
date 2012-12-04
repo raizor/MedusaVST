@@ -41,6 +41,7 @@ Patch::Patch(int number)
 	// EGs
 	Adsr* eg = new Adsr(kEgTypeAmp);
 	eg->enabled  = true; // no needed
+	eg->paramsFloat[PROC_PARAM_FLOAT_LEVEL]->SetValueWithInt(127);
 	egAmp = eg;
 
 	eg = new Adsr(kEgTypePitch);
