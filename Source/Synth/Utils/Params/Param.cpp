@@ -16,15 +16,3 @@ Param::Param(ParamType type, bool modifiable, float defaultModValue, float modIn
 Param::~Param(void)
 {
 }
-
-ParamList::ParamList(int size)
-{
-	Size = size;
-	Count = 0;
-	Params = (void**)zynth_mallocAlloc(sizeof(void*)*size);
-	Types = (int*)zynth_mallocAlloc(sizeof(int)*size);
-}
-
-ParamList::~ParamList()
-{
-}

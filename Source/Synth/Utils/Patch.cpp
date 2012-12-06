@@ -39,12 +39,12 @@ Patch::Patch(int number)
 	}
 
 	// EGs
-	Adsr* eg = new Adsr(kEgTypeAmp);
+	Adsr* eg = new Adsr(kStackItemTypeAmpEg);
 	eg->enabled  = true; // no needed
 	eg->paramsFloat[PROC_PARAM_FLOAT_LEVEL]->SetValueWithInt(127);
 	egAmp = eg;
 
-	eg = new Adsr(kEgTypePitch);
+	eg = new Adsr(kStackItemTypePitchEg);
 	eg->enabled  = false; // no needed
 	egPitch = eg;
 
@@ -53,7 +53,7 @@ Patch::Patch(int number)
 
 	for(int i=0; i<Constants_NumEnvelopes; i++)
 	{
-		Adsr* adsr = new Adsr(kEgTypeStandard);
+		Adsr* adsr = new Adsr(kStackItemTypeEnvAdsr);
 		adsr->enabled = false;
 		items[numItems++] = adsr;
 	}
@@ -78,7 +78,7 @@ Patch::Patch(int number)
 
 	for(int i=0; i<Constants_NumLfoPerVoice; i++)
 	{
-		Lfo* lfo = new Lfo(kStackItemTypeLfoAllVoices);
+		Lfo* lfo = new Lfo(kStackItemTypeLfoPerVoice);
 		items[numItems++] = lfo;
 		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
 		//FILTER_INIT(&patch->Filters[i], i, patch);

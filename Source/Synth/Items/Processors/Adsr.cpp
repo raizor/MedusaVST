@@ -1,9 +1,8 @@
 #include "Adsr.h"
 #include "../../Utils/Voice.h"
 
-Adsr::Adsr(EgType type) : ItemProcessor(kStackItemTypeAmpEg, true)
+Adsr::Adsr(StackItemType type) : ItemProcessor(type, true)
 {
-	this->type = type;
 	stage = (int*)zynth_mallocAlloc(sizeof(int)*Constants_Polyphony);
 	value = (float*)zynth_mallocAlloc(sizeof(float)*Constants_Polyphony);
 	stageAmount = (float*)zynth_mallocAlloc(sizeof(float)*Constants_Polyphony);
@@ -17,7 +16,7 @@ Adsr::Adsr(EgType type) : ItemProcessor(kStackItemTypeAmpEg, true)
 	
 
 	// TODO: optimize
-	if (this->type == kEgTypePitch)
+	if (itemType == kStackItemTypePitchEg)
 	{
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // delay time
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // start level
@@ -50,7 +49,7 @@ Adsr::Adsr(EgType type) : ItemProcessor(kStackItemTypeAmpEg, true)
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // release level
 	}
 
-	enabled = this->type == kEgTypeAmp;
+	enabled = itemType == kStackItemTypeEnvAdsr;
 }
 
 
@@ -60,7 +59,7 @@ Adsr::~Adsr(void)
 
 void Adsr::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples)
 {
-	bool isAmpEg = type == kEgTypeAmp;
+	bool isAmpEg = itemType == kStackItemTypeAmpEg;
 
 	for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+numSamples; i++)
 	{

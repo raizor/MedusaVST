@@ -42,6 +42,7 @@ public:
 	bool scrolloffset;
 	bool hasImage;
 	int spriteId;
+	void* data;
 	GuiImage* image;	
 	GuiComponent(int width, int height, int offsetX, int offsetY, int imageId = 0, int spriteId = 0, bool scrollable = false, char* name = NULL);
 	bool SetImage(int imageId);

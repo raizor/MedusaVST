@@ -26,61 +26,25 @@ ModulationMatrix::~ModulationMatrix()
 {
 }
 
-void ModulationMatrix::SetSource(int row, int itemType, int itemNumber, int paramNumber)
+void ModulationMatrix::SetSource(int row, Item* item)
 {
 	ModulationMatrixItem* matrixItem = &Rows[row].ItemSource;
-	matrixItem->itemNumber = itemNumber;
-	matrixItem->ItemType = (StackItemType)itemType;
-	matrixItem->ParamNumber = -1;
+	matrixItem->Item = item;
 	matrixItem->ParentRow = &Rows[row];
 	matrixItem->ParentRow->SourceSet = true;
-
-	/* TODO
-	switch((StackItemType)itemType)
-	{
-	case (kStackItemTypeWfOsc):
-		{
-			matrixItem->Item = patch->Oscs[itemNumber]._item;
-			break;
-		}
-
-	case (kStackItemTypeLfoAllVoices):
-		{
-			matrixItem->Item = patch->LfosAv[itemNumber]._item;
-			break;
-		}
-
-	case (kStackItemTypeLfoPerVoice):
-		{
-			matrixItem->Item = patch->LfosPv[itemNumber]._item;
-			break;
-		}
-
-	case (kStackItemTypeEnvAdsr):
-		{
-			matrixItem->Item = patch->EnvAdsr[itemNumber]._item;
-			break;
-		}
-
-	case (kStackItemTypeAmpEg):
-		{
-			matrixItem->Item = patch->EnvAmp->_item;
-			break;
-		}
-
-	case (kStackItemTypePitchEg):
-		{
-			matrixItem->Item = patch->EnvPitch->_item;
-			break;
-		}
-	}*/
-
+	
 	Changed = true;
 }
 
-void ModulationMatrix::SetDest(int row, int itemType, int itemNumber, int paramNumber)
+void ModulationMatrix::SetDest(int row, Item* item, ParamFloat* param)
 {
+	ModulationMatrixItem* matrixItem = &Rows[row].ItemSource;
+	matrixItem->Item = item;
+	matrixItem->Param = param;
+	matrixItem->ParentRow = &Rows[row];
+	matrixItem->ParentRow->SourceSet = true;
 
+	Changed = true;
 }
 
 void ModulationMatrix::SetCurve(int row, int curve)

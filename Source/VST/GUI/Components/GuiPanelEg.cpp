@@ -155,9 +155,9 @@ GuiPanelEg::~GuiPanelEg(void)
 
 void GuiPanelEg::SetStackItem(Adsr* item)
 {
-	panelOverlay->enabled = item->type == kEgTypePitch;
+	panelOverlay->enabled = item->itemType == kStackItemTypePitchEg;
 
-	bool isPitch = item->type == kEgTypePitch;
+	bool isPitch = panelOverlay->enabled ;
 
 	// root
 	this->synthItem = new LinkedSynthItem();

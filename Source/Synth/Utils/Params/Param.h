@@ -28,16 +28,3 @@ public:
 protected:	
 	void* _value;	
 };
-
-class ParamList
-{
-public:
-	int* Types;
-	void** Params;
-	int Size;
-	int Count;
-
-	ParamList(int size);
-	~ParamList();
-};
-

@@ -423,7 +423,12 @@ void BMFont::Test()
 
 void BMFont::Print(float x, float y, const char *fmt, ...)
 {
-	
+	if (strlen(fmt) == 0)
+	{
+		// no text
+		return;
+	}
+
 	float CurX = (float) x;
 	float CurY = (float) y;
 	float DstX = 0.0;

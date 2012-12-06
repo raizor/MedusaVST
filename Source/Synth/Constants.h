@@ -166,14 +166,6 @@ enum OscModMode
 	kOscModModeItemCount
 };
 
-enum EgType
-{
-	kEgTypeStandard = 0,
-	kEgTypeAmp,
-	kEgTypePitch,
-	kEgTypeItemCount
-};
-
 enum FilterMode
 {
 	kFilterModeParallel = 0,

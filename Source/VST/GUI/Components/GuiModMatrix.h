@@ -8,6 +8,14 @@
 #include "../../Utils/ContextMenus.h"
 #include "../Sprites/buttons.h"
 
+class opair
+{
+public:
+	void* val1;
+	void* val2;
+	opair(void* v1, void* v2);
+};
+
 class GuiModMatrix : public GuiComponent
 {
 public:
@@ -21,5 +29,9 @@ public:
 	GuiModMatrix(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiModMatrix(void);
 	void CallbackClicked(void* data, GEvent* evt);
+	static char* StackItemTypeName(StackItemType type);
+	static char* GuiModMatrix::ModulationCurveName(ModulationCurve type);
+	void AddParamMenus(GContextMenuEx* menu, int* itemId, Item* item);
+	char* GuiModMatrix::ParamName(Param* param);
 };
 

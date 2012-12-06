@@ -23,9 +23,6 @@ class ModulationMatrixItem
 {
 public:
 	Item* Item;
-	int itemNumber;
-	int ParamNumber;
-	StackItemType ItemType;
 	ParamFloat* Param;
 	ModulationMatrixRow* ParentRow;
 };
@@ -53,8 +50,8 @@ public:
 	ModulationMatrix(Patch* patch);
 	~ModulationMatrix();
 
-	void SetSource(int row, int itemType, int itemNumber, int paramNumber);
-	void SetDest(int row, int itemType, int itemNumber, int paramNumber);
+	void SetSource(int row, Item* item);
+	void SetDest(int row, Item* item, ParamFloat* param);
 	void SetCurve(int row, int curve);
 	void HandleChanges();
 	void HandleDestItemChanges(Item* item);

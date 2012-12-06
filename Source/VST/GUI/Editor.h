@@ -52,6 +52,8 @@ public:
 
 	///	Draws a spinning pyramid.
 	void draw();
+	void onGLKeyDown(const VstKeyCode& key);
+	void onGLKeyUp(const VstKeyCode& key);
 
 	void PatchChanged(Patch* patch);
 

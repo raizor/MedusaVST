@@ -36,6 +36,11 @@ void GContextMenu::AddItem(const char* item)
 	items.push_back(itemCopy);
 }
 
+ItemParamWrapper::ItemParamWrapper(int cmdId)
+{
+	commandId = cmdId;
+}
+
 // ------------------------------------------
 
 GContextMenuEx::GContextMenuEx()
@@ -60,12 +65,18 @@ int GContextMenuEx::SelectAt(const GPoint& pos)
 	return result;
 }
 
-void GContextMenuEx::AddItem(int commandID, const char* name)
+ItemParamWrapper* GContextMenuEx::AddItem(int commandID, const char* name, void* obj)
 {
+	int cmdId = commandID;
+	if (obj)
+		cmdId = (int)obj;
+	
 	// We don't create copies of strings here, since the Lua GC will (hopefully) not collect them because it blocks on menu tracking
-	InsertMenuA(hPopupMenu, itemCount+1, MF_BYCOMMAND | MF_STRING, commandID, name);
-
+	InsertMenuA(hPopupMenu, itemCount+1, MF_BYCOMMAND | MF_STRING, cmdId, name);
+	ItemParamWrapper* w = new ItemParamWrapper(cmdId);
+	w->item = obj;
 	itemCount++;
+	return w;
 }
 
 void GContextMenuEx::AddMenu(GContextMenuEx* menu, const char* name)

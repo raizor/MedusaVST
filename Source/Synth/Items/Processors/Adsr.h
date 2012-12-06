@@ -22,12 +22,11 @@
 class Adsr : public ItemProcessor
 {
 public:
-	EgType type;
 	int* stage;
 	float* value;
 	float* stageAmount;
 
-	Adsr(EgType egType);
+	Adsr(StackItemType egType);
 	~Adsr(void);
 
 	void Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples);
