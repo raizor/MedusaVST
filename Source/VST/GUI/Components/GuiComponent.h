@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define DRAW_OVERLAYS
+#define xDRAW_OVERLAYS
 
 enum GuiComponentType
 {
@@ -46,7 +46,7 @@ public:
 	GuiImage* image;	
 	GuiComponent(int width, int height, int offsetX, int offsetY, int imageId = 0, int spriteId = 0, bool scrollable = false, char* name = NULL);
 	bool SetImage(int imageId);
-	~GuiComponent(void);
+	virtual ~GuiComponent();
 
 	virtual void AddSubComponent(GuiComponent* component);
 	virtual int SubComponentCount();

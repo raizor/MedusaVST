@@ -20,6 +20,7 @@ GuiImageManager::GuiImageManager(void)
 	glImages->push(new GuiImage(IDB_PNG_KNOB_SURROUND)); // bi focus knobs
 	glImages->push(new GuiImage(IDB_KEYBOARD_OVERLAYS)); // item panel
 	glImages->push(new GuiImage(IDB_BUTTONSTRIP)); // item panel
+	glImages->push(new GuiImage(IDB_PNG_HEADER)); // header
 }
 
 GuiImageManager::~GuiImageManager(void)

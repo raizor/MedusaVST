@@ -49,10 +49,9 @@ public:
 
 	ModulationMatrix(Patch* patch);
 	~ModulationMatrix();
-
+	void ModulationMatrix::HandleItem(Item* item);
 	void SetSource(int row, Item* item);
 	void SetDest(int row, Item* item, ParamFloat* param);
 	void SetCurve(int row, int curve);
 	void HandleChanges();
-	void HandleDestItemChanges(Item* item);
 };

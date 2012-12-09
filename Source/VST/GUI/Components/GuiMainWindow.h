@@ -4,11 +4,20 @@
 #include "GuiPanelOsc.h"
 #include "GuiPanelEg.h"
 #include "GuiPanelLfo.h"
-#include "GuiPanelModulations.h"
 #include "GuiPanelFilter.h"
 #include "GuiPanelMaster.h"
 #include "GuiKeyboard.h"
 #include "GuiModMatrix.h"
+#include "GuiPanelMain.h"
+#include "GuiPanelHeader.h"
+
+#include "GuiPanelPatchGlobal.h"
+#include "GuiPanelDistortion.h"
+#include "GuiPanelCompression.h"
+#include "GuiPanelGlobalDelay.h"
+#include "GuiPanelGlobalReverb.h"
+#include "GuiPanelGlobalModulation.h"
+#include "GuiPanelGlobalEq.h"
 
 #define NUMBER_EG_AMP 6
 #define NUMBER_EG_PITCH 7
@@ -21,8 +30,7 @@ public:
 	static void* hWindow;
 	static char labelText[100];
 	static GuiComponent *hotComponent, *dragComponent;
-	static GPoint *dragPoint, *movePoint;
-	int panelNumber;
+	static GPoint *dragPoint, *movePoint;	
 	Patch* currentPatch;
 	static GuiPanelOsc* panelOsc;
 	//GSurface* surface;
@@ -33,6 +41,20 @@ public:
 	//static GuiPanelModulations* panelModulations;
 	static GuiKeyboard* keyboard;
 	static GuiPanelMaster *panelMaster;
+	static GuiPanelHeader* panelHeader;
+
+	// patch fx
+	GuiPanelPatchGlobal* panelPatchGlobal;
+	GuiPanelDistortion* panelDistortion;
+	GuiPanelCompression* panelCompression;
+
+	// global fx
+	GuiPanelGlobalDelay* panelGlobalDelay;
+	GuiPanelGlobalReverb* panelGlobalReverb;
+	GuiPanelGlobalEq* panelGlobalEq;
+	GuiPanelGlobalModulation* panelGlobalModulation;
+
+	static GuiPanelMain *panelMain;
 
 	static int currentOscNumber;
 	static int currentEgNumber;
@@ -40,7 +62,7 @@ public:
 
 	GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiMainWindow(void);
-	void draw();
+	//void draw();
 	void PatchChanged(Patch* patch);
 };
 

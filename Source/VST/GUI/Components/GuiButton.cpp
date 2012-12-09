@@ -54,26 +54,22 @@ void GuiButton::draw()
 			switch(buttonType)
 			{
 			case(kButtonTypeEnabledSwitch):
-				{
-					state = PatchList::list->CurrentPatch->items[NUMBER_START_OSC+GuiMainWindow::currentOscNumber]->enabled ? kButtonStateOn : kButtonStateOff;
-					break;
-				}
+				state = PatchList::list->CurrentPatch->items[NUMBER_START_OSC+GuiMainWindow::currentOscNumber]->enabled ? kButtonStateOn : kButtonStateOff;
+				break;
 			case(kButtonTypeOscNumber):
-				{
-					state = GuiMainWindow::currentOscNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
-					break;
-				}
+				state = GuiMainWindow::currentOscNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
+				break;
 			case(kButtonTypeEgNumber):
-				{
-					state = GuiMainWindow::currentEgNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
-					break;
-				}
+				state = GuiMainWindow::currentEgNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
+				break;				
+			case(kButtonTypePage):
+				state = enabled ? kButtonStateOn : kButtonStateOff;
+				break;
 			default:
-				{
-					state = kButtonStateOff;
-				}
+				state = enabled ? kButtonStateOn : kButtonStateOff;
+				break;
 			}
-		}	
+		}
 
 		// hot
 		switch(buttonType)
@@ -152,11 +148,20 @@ void GuiButton::draw()
 				}
 				break;
 			}
+		case(kButtonTypePage):
+			{
+				if (state == kButtonStateOn)
+				{
+					sprite = image->spriteCollection->GetSprite((int)buttonOnHot);
+				}else{
+					sprite = image->spriteCollection->GetSprite((int)buttonOn);
+				}
+			}
 		default:
 			{
 				if (state == kButtonStateOn)
 				{
-					if (synthItem && synthItem->item->enabled && buttonOnHot)
+					if (enabled && buttonOnHot)
 					{
 						sprite = image->spriteCollection->GetSprite((int)buttonOnHot);
 					}else{
@@ -164,7 +169,7 @@ void GuiButton::draw()
 					}
 
 				}else{
-					if (synthItem && synthItem->item->enabled && buttonOnHot)
+					if (enabled && buttonOnHot)
 					{
 						sprite = image->spriteCollection->GetSprite((int)buttonOffHot);
 					}else{
@@ -251,7 +256,7 @@ void GuiButton::Clicked(GEvent* evt)
 			}
 		default:
 			{
-
+				int xx = 1;
 			}
 
 		}

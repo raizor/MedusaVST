@@ -110,18 +110,21 @@ void GuiComponent::draw()
 		glColor4f(1,1,1,1);
 #endif
 	}
-
-	// draw sub components last as they likely appear on top of this component
-	for(int i=0; i<this->SubComponentCount(); i++)
+	if (enabled)
 	{
-		GuiComponent* gc = GetComponent(i);
-		gc->dirty = dirty; // mark children as dirty as we're dirty, dirty children!!
-		gc->draw();
+		// draw sub components last as they likely appear on top of this component
+		for(int i=0; i<this->SubComponentCount(); i++)
+		{
+			GuiComponent* gc = GetComponent(i);
+			gc->dirty = dirty; // mark children as dirty as we're dirty, dirty children!!
+			gc->draw();
+		}
 	}
+
+
 	glPopMatrix();
 
 	dirty = false;
-
 }
 
 int GuiComponent::GetOffsetX()

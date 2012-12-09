@@ -228,6 +228,11 @@ bool GuiSliderKnob::IsHot(GPoint pos, bool onlyCheckY)
 	return GuiComponent::IsHot(pos.Plus(0, 20), onlyCheckY);
 }
 
+
+GuiSliderKnob::~GuiSliderKnob(void)
+{
+}
+
 // slider
 
 /*

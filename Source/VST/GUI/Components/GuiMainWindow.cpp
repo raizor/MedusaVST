@@ -9,7 +9,9 @@ GPoint* GuiMainWindow::movePoint = NULL;
 int GuiMainWindow::currentOscNumber = 0;
 int GuiMainWindow::currentEgNumber = 0;
 int GuiMainWindow::currentLfoNumber = 0;
+GuiPanelMain* GuiMainWindow::panelMain = 0;
 GuiPanelMaster* GuiMainWindow::panelMaster = 0;
+GuiPanelHeader* GuiMainWindow::panelHeader = 0;
 GuiPanelOsc* GuiMainWindow::panelOsc = 0;
 GuiPanelEg* GuiMainWindow::panelEg = 0;
 GuiPanelLfo* GuiMainWindow::panelLfo = 0;
@@ -20,9 +22,8 @@ void* GuiMainWindow::hWindow = 0;
 GuiKeyboard* GuiMainWindow::keyboard = 0;
 char GuiMainWindow::labelText[100];
 
-GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, 0)
 {		
-	panelNumber = 0;
 	currentPatch = NULL;
 	dragPoint = new GPoint(0,0);
 	movePoint = new GPoint(0,0);
@@ -31,27 +32,57 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	currentEgNumber = NUMBER_EG_AMP;
 	currentLfoNumber = 0;
 
-	// container panels for main gui
-	panelOsc = new GuiPanelOsc( 460, 217, 0, 170, 0);
-	panelFilter = new GuiPanelFilter(460, 217, 460, 170, 0);
-	panelEg = new GuiPanelEg(460, 217, 0, 384, 0);
-	panelLfo = new GuiPanelLfo(460, 217, 460, 384, 0); 
-	//panelModulations = new GuiPanelModulations(630, 205, 0, 594, 0); 
-	panelMaster = new GuiPanelMaster(279, 202, 640, 594, 0); 
-	panelModMatrix = new GuiModMatrix(635, 205, 0, 597, 0); 
+	panelHeader = new GuiPanelHeader(921, 167, 0, 0, IDB_PNG_HEADER);
+	panelMain = new GuiPanelMain(920, 696, 0, 167, imageId);
 
-	keyboard = new GuiKeyboard(858, 58, 13, 801, IDB_KEYBOARD_OVERLAYS);
+	// container panels for main gui
+	panelOsc = new GuiPanelOsc( 460, 217, 0, 0, 0);
+	panelFilter = new GuiPanelFilter(460, 217, 460, 0, 0);
+	panelEg = new GuiPanelEg(460, 217, 0, 384-167, 0);
+	panelLfo = new GuiPanelLfo(460, 217, 460, 384-167, 0); 
+	panelModMatrix = new GuiModMatrix(635, 205, 0, 597-167, 0); 
+	
+	// patch fx
+	panelPatchGlobal = new GuiPanelPatchGlobal(0, 0, 0, 0, 0);
+	panelDistortion = new GuiPanelDistortion(0, 0, 0, 0, 0);
+	panelCompression = new GuiPanelCompression(0, 0, 0, 0, 0);
+
+	// global fx
+	panelGlobalDelay = new GuiPanelGlobalDelay(0, 0, 0, 0, 0);
+	panelGlobalReverb = new GuiPanelGlobalReverb(0, 0, 0, 0, 0);
+	panelGlobalEq = new GuiPanelGlobalEq(0, 0, 0, 0, 0);
+	panelGlobalModulation = new GuiPanelGlobalModulation(0, 0, 0, 0, 0);
+
+	keyboard = new GuiKeyboard(858, 58, 13, 801-167, IDB_KEYBOARD_OVERLAYS);
 
 	//surface = new GSurface(400, 400);
 	
+	// patch 
+	panelMain->panelPatch->AddSubComponent(panelOsc);
+	panelMain->panelPatch->AddSubComponent(panelEg);
+	panelMain->panelPatch->AddSubComponent(panelFilter);
+	panelMain->panelPatch->AddSubComponent(panelLfo);	
+	panelMain->panelPatch->AddSubComponent(panelModMatrix);
+	
+	// patch fx
+	panelMain->panelPatchFx->AddSubComponent(panelPatchGlobal);
+	panelMain->panelPatchFx->AddSubComponent(panelDistortion);
+	panelMain->panelPatchFx->AddSubComponent(panelCompression);
 
-	AddSubComponent(panelOsc);
-	AddSubComponent(panelEg);
-	AddSubComponent(panelFilter);
-	AddSubComponent(panelLfo);
+	// global fx
+	panelMain->panelGlobalFx->AddSubComponent(panelGlobalDelay);
+	panelMain->panelGlobalFx->AddSubComponent(panelGlobalReverb);
+	panelMain->panelGlobalFx->AddSubComponent(panelGlobalEq);
+	panelMain->panelGlobalFx->AddSubComponent(panelGlobalModulation);
+
+
+	AddSubComponent(panelHeader);
+	AddSubComponent(panelMain);
+	
+	panelMain->AddSubComponent(keyboard);
+
+	panelMaster = new GuiPanelMaster(279, 202, 640, 595, 0); 
 	AddSubComponent(panelMaster);	
-	AddSubComponent(keyboard);
-	AddSubComponent(panelModMatrix);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)
@@ -72,6 +103,7 @@ GuiMainWindow::~GuiMainWindow(void)
 {
 }
 
+/*
 void GuiMainWindow::draw()
 {
 	//if (!dirty) return; // doesn't need drawing
@@ -85,7 +117,7 @@ void GuiMainWindow::draw()
 	//glColor4f(1,1,1,1);
 	glBegin(GL_QUADS);
 
-	float numPanels = 2.0f;
+	float numPanels = 3.0f;
 	float panelSize = 1.0f / numPanels;
 
 	float x1 = panelSize*panelNumber;
@@ -128,3 +160,4 @@ void GuiMainWindow::draw()
 
 	dirty = false;
 }
+*/

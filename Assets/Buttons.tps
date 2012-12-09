@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data version="1.0">
     <struct type="Settings">
+        <key>fileFormatVersion</key>
+        <int>1</int>
         <key>variation</key>
         <string>main</string>
         <key>verbose</key>
@@ -17,8 +19,6 @@
         <false/>
         <key>dpi</key>
         <uint>72</uint>
-        <key>allowFreeSize</key>
-        <false/>
         <key>dataFormat</key>
         <string>cpp</string>
         <key>textureFileName</key>
@@ -73,6 +73,12 @@
             <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
+            <key>sizeConstraints</key>
+            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
+            <key>forceSquared</key>
+            <false/>
+            <key>forceWordAligned</key>
+            <false/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
                 <key>heuristic</key>
@@ -122,16 +128,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>crop</key>
-            <false/>
             <key>innerPadding</key>
             <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trim</key>
-            <false/>
+            <key>trimMode</key>
+            <enum type="SpriteSettings::TrimMode">None</enum>
             <key>heuristicMask</key>
             <false/>
         </struct>
@@ -187,6 +191,12 @@
             <filename>../Source/VST/resources/sliders/slider_focus_2.png</filename>
             <filename>../Source/VST/resources/keyboard/keyboard_overlay.png</filename>
             <filename>../../../../GitRepo/VstC_VS2012/csSynth1_WINFORMS_NET4_C/VstNetMidiPlugin1/Resources/panels/overlay_adsr_other.png</filename>
+            <filename>../Source/VST/resources/buttons/but_globalFx_lit.png</filename>
+            <filename>../Source/VST/resources/buttons/but_patch.png</filename>
+            <filename>../Source/VST/resources/buttons/but_patch_lit.png</filename>
+            <filename>../Source/VST/resources/buttons/but_patchFx.png</filename>
+            <filename>../Source/VST/resources/buttons/but_patchFx_lit.png</filename>
+            <filename>../Source/VST/resources/buttons/but_globalFx.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -21,6 +21,7 @@ enum ButtonType
 	kButtonTypeEgAmp,
 	kButtonTypeEgPitch,
 	kButtonTypeOscParam,
+	kButtonTypePage
 
 };
 

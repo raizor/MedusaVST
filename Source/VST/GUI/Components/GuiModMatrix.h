@@ -29,9 +29,11 @@ public:
 	GuiModMatrix(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiModMatrix(void);
 	void CallbackClicked(void* data, GEvent* evt);
-	static char* StackItemTypeName(StackItemType type);
+	static char* StackItemTypeName(Item* item);
 	static char* GuiModMatrix::ModulationCurveName(ModulationCurve type);
 	void AddParamMenus(GContextMenuEx* menu, int* itemId, Item* item);
-	char* GuiModMatrix::ParamName(Param* param);
+	char* GuiModMatrix::ParamName(Item* item, Param* param);
+	char* GuiModMatrix::DestName(opair* pair);
+	char* GuiModMatrix::SourceName(Item* item);
 };
 

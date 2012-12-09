@@ -172,15 +172,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Components\GuiPanelEg.h" />
+    <ClInclude Include="GUI\Components\GuiPanelGlobalModulation.h" />
+    <ClInclude Include="GUI\Components\GuiPanelCompression.h" />
+    <ClInclude Include="GUI\Components\GuiPanelGlobalDelay.h" />
+    <ClInclude Include="GUI\Components\GuiPanelDistortion.h" />
+    <ClInclude Include="GUI\Components\GuiPanelGlobalEq.h" />
+    <ClInclude Include="GUI\Components\GuiPanelPatchGlobal.h" />
+    <ClInclude Include="GUI\Components\GuiPanelGlobalReverb.h" />
+    <ClInclude Include="GUI\Components\GuiPanelMain.h" />
     <ClInclude Include="Utils\ContextMenus.h" />
     <ClInclude Include="GUI\Components\GuiModMatrix.h" />
     <ClInclude Include="GUI\Components\GuiVizualizer.h" />
     <ClInclude Include="GUI\Components\GuiPanelKeyboard.h" />
     <ClInclude Include="GUI\Components\GuiPanelHeader.h" />
     <ClInclude Include="GUI\Components\GuiPanelMaster.h" />
-    <ClInclude Include="GUI\Components\GuiPanelModulations.h" />
     <ClInclude Include="GUI\Components\GuiKeyboard.h" />
-    <ClInclude Include="GUI\Components\GuiPanelEg.h" />
     <ClInclude Include="GUI\Components\GuiPanelFilter.h" />
     <ClInclude Include="GUI\Components\GuiPanelLfo.h" />
     <ClInclude Include="GUI\Sprites\buttons.h" />
@@ -219,15 +226,23 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Components\GuiPanelEg.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelGlobalModulation.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelCompression.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelGlobalDelay.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelDistortion.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelGlobalEq.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelPatchGlobal.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelGlobalReverb.cpp" />
+    <ClCompile Include="GUI\Components\GuiPanelMain.cpp" />
+    <ClCompile Include="GUI\Components\Source.cpp" />
     <ClCompile Include="Utils\ContextMenus.cpp" />
     <ClCompile Include="GUI\Components\GuiModMatrix.cpp" />
     <ClCompile Include="GUI\Components\GuiVizualizer.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelKeyboard.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelHeader.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelMaster.cpp" />
-    <ClCompile Include="GUI\Components\GuiPanelModulations.cpp" />
     <ClCompile Include="GUI\Components\GuiKeyboard.cpp" />
-    <ClCompile Include="GUI\Components\GuiPanelEg.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelFilter.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelLfo.cpp" />
     <ClCompile Include="GUI\Sprites\buttons.cpp" />

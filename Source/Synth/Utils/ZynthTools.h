@@ -2,10 +2,14 @@
 
 #include "../Constants.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define zt_pow pow
 #define zt_powf powf
 
+#define zt_fabs fabs
+
+/*
 __forceinline float zt_fabs(float v)
 {
 	float r;
@@ -14,15 +18,22 @@ __forceinline float zt_fabs(float v)
 	_asm fstp dword ptr [r]; 
 	return r; 
 }
+*/
 
+#define zt_memset memset
+
+/*
 __forceinline void zt_memset( void *dst, int val, int amount )
 {
 	_asm mov edi, dst
 	_asm mov eax, val
 	_asm mov ecx, amount
 	_asm rep stosb
-}
+}*/
 
+#define zt_memcpy memcpy
+
+/*
 __forceinline void zt_memcpy( void *dst, const void *ori, int amount )
 {
 	_asm mov edi, dst
@@ -30,6 +41,7 @@ __forceinline void zt_memcpy( void *dst, const void *ori, int amount )
 	_asm mov ecx, amount
 	_asm rep movsb
 }
+*/
 
 // float from [0,1) into 0.32 unsigned fixed-point
 // this loses a bit, but that's what V2 does.
@@ -135,6 +147,9 @@ __forceinline float msys_frand( int *seed )
 
 static short opc1 = 0x043f ;     // floor
 
+#define msys_ifloorf floorf 
+
+/*
 __forceinline int msys_ifloorf( const float x )
 {
 	int res;
@@ -147,7 +162,8 @@ __forceinline int msys_ifloorf( const float x )
 	_asm fldcw   word  ptr [tmp]
 
 	return res;
-}
+}*/
+
 /*
 __forceinline float msys_powf( const float x, const float y )
 {
@@ -199,6 +215,9 @@ static inline float MAX(float a, float b)
 	return a > b ? a : b;
 }
 
+#define msys_cosf cosf
+
+/*
 __forceinline float msys_cosf( const float x)
 {
 	float r; _asm fld  dword ptr [x]; 
@@ -206,14 +225,18 @@ __forceinline float msys_cosf( const float x)
 	_asm fstp dword ptr [r]; 
 	return r; 
 }
+*/
 
+#define msys_sinf sinf
+
+/*
 __forceinline float msys_sinf( const float x)
 { 
 	float r; _asm fld  dword ptr [x]; 
 	_asm fsin;  
 	_asm fstp dword ptr [r]; 
 	return r; 
-}
+}*/
 
 __forceinline float RND_0_1()
 {
