@@ -445,7 +445,7 @@ void BMFont::Print(float x, float y, const char *fmt, ...)
 		return;											// Do Nothing
 
 	va_start(ap, fmt);									// Parses The String For Variables
-	vsprintf(text, fmt, ap);						    // And Converts Symbols To Actual Numbers
+	//vsprintf(text, fmt, ap);						    // And Converts Symbols To Actual Numbers
 	va_end(ap);		
 	
 	//Select and enable the font texture. (With mipmapping.)
@@ -456,7 +456,7 @@ void BMFont::Print(float x, float y, const char *fmt, ...)
 	unsigned char *color = (unsigned char*)&fcolor;
 	
 	//y= y + LineHeight; //This can be used to flip rendering
-    Flen = strlen(text);
+    Flen = strlen(fmt);
 
 	//Todo: Add caching to make this much faster
 	txlist.clear();
@@ -464,9 +464,9 @@ void BMFont::Print(float x, float y, const char *fmt, ...)
 	for (int i = 0; i != Flen; ++i)
 	{
   
-		 f=&Chars[text[i]];
+		 f=&Chars[fmt[i]];
 
-		 if (text[i] == '%')
+		 if (fmt[i] == '%')
 		 {
 			 int xx = 1;
 		 }
@@ -514,12 +514,12 @@ void BMFont::Print(float x, float y, const char *fmt, ...)
 		 //if the check character is 1 less then the end of the string.
 		 if (Flen > 1 && i < Flen)
 		 { 
-			 x += GetKerningPair(text[i],text[i+1]);
+			 x += GetKerningPair(text[i],fmt[i+1]);
 		 }
 		  
 		 x +=  f->XAdvance;
     }
-   Render_String(strlen(text));
+   Render_String(strlen(fmt));
 }
 
 void BMFont::PrintCenter( float x, float y, float width, const char *string)

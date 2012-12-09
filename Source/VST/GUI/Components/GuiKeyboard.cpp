@@ -6,6 +6,7 @@ GuiKeyboardKey::GuiKeyboardKey(int width, int height, int offsetX, int offsetY, 
 {
 	this->midiNumber = midiNumber;
 	keyDown = false;
+	drawOverlay = true;
 	this->hottable = true;
 	for(int i=0; i<10; i++)
 	{

@@ -56,9 +56,9 @@ void GuiPanelHeader::CallbackClicked(void* data, GEvent* evt)
 		GuiMainWindow::panelMain->panelGlobalFx->enabled = false;
 	}
 
-	if (GuiPanelHeader::butGlobalFx->state == KPanelGlobalFx)
+	if (GuiPanelHeader::butGlobalFx->state == kButtonStateOn)
 	{
-		GuiMainWindow::panelMain->panelNumber = 2;
+		GuiMainWindow::panelMain->panelNumber = KPanelGlobalFx;
 		GuiMainWindow::panelMain->panelPatch->enabled = false;
 		GuiMainWindow::panelMain->panelPatchFx->enabled = false;
 		GuiMainWindow::panelMain->panelGlobalFx->enabled = true;

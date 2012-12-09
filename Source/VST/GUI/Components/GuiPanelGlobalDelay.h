@@ -8,6 +8,16 @@
 class GuiPanelGlobalDelay : public GuiComponent
 {
 public:
+
+	GuiKnob* knobTimeLeft;
+	GuiKnob* knobTimeRight;
+	GuiKnob* knobFeedback;
+
+	GuiSlider* sliderDepth;
+	GuiSlider* sliderPhase;
+	GuiSlider* sliderRate;
+	GuiSlider* sliderLevel;
+
 	GuiPanelGlobalDelay(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelGlobalDelay(void);
 };

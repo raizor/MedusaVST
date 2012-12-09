@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define xDRAW_OVERLAYS
+#define DRAW_OVERLAYS
 
 enum GuiComponentType
 {
@@ -27,6 +27,7 @@ private:
 	vector<GuiComponent*> subComponents;
 
 public:
+	bool drawOverlay;
 	char name[100];
 	bool hasName;
 	int width, height;

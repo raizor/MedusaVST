@@ -18,6 +18,7 @@
 #include "GuiPanelGlobalReverb.h"
 #include "GuiPanelGlobalModulation.h"
 #include "GuiPanelGlobalEq.h"
+#include "GuiPanelFxRouting.h"
 
 #define NUMBER_EG_AMP 6
 #define NUMBER_EG_PITCH 7
@@ -47,6 +48,8 @@ public:
 	GuiPanelPatchGlobal* panelPatchGlobal;
 	GuiPanelDistortion* panelDistortion;
 	GuiPanelCompression* panelCompression;
+	GuiPanelFxRouting* panelFxRoutingPatch;
+	GuiPanelFxRouting* panelFxRoutingGlobal;
 
 	// global fx
 	GuiPanelGlobalDelay* panelGlobalDelay;

@@ -10,6 +10,7 @@ GuiComponent::GuiComponent(int width, int height, int offsetX, int offsetY, int 
 	{
 		sprintf(this->name, name);
 	}
+	drawOverlay = true;
 	dirty = true;
 	synthItem = 0;
 	scrollable = scrollable;
@@ -79,35 +80,39 @@ void GuiComponent::draw()
 		glEnd();
 	}else{
 #ifdef DRAW_OVERLAYS
-		glDisable(GL_TEXTURE_2D);
-		switch (type)
+		if (drawOverlay)
 		{
-		case kGuiComponentTypeSlider:
+			glDisable(GL_TEXTURE_2D);
+			switch (type)
 			{
-				glColor4f(1,1,0,0.2f);
-				break;
+			case kGuiComponentTypeSlider:
+				{
+					glColor4f(1,1,0,0.2f);
+					break;
+				}
+
+			default:
+				{
+					glColor4f(1,0,1,0.2f);
+					break;
+				}
+
 			}
 
-		default:
-			{
-				glColor4f(1,0,1,0.2f);
-				break;
-			}
+			glBegin(GL_QUADS);
 
+			glVertex2i(0,0);
+
+			glVertex2i(0, 0+height);
+
+			glVertex2i(0+width, 0+height);
+
+			glVertex2i(0+width, 0);
+			glEnd();
+			glEnable(GL_TEXTURE_2D);
+			glColor4f(1,1,1,1);
 		}
-		
-		glBegin(GL_QUADS);
 
-		glVertex2i(0,0);
-
-		glVertex2i(0, 0+height);
-
-		glVertex2i(0+width, 0+height);
-
-		glVertex2i(0+width, 0);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		glColor4f(1,1,1,1);
 #endif
 	}
 	if (enabled)
@@ -149,7 +154,7 @@ int GuiComponent::GetOffsetY()
 
 void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 {
-	if (evt->isHandled) return;
+	if (evt->isHandled || !enabled) return;
 
 	switch(evt->type)
 	{

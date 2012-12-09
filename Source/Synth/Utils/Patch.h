@@ -26,6 +26,7 @@ public:
 	// global feed effects
 	ParamFloat* DelayAmount;
 	ParamFloat* ReverbAmount;
+	ParamFloat* BoostAmount;
 	ParamFloat* ChanVolAmount;
 
 	Patch(int patchNum);

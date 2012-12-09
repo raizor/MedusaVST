@@ -33,7 +33,9 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	currentLfoNumber = 0;
 
 	panelHeader = new GuiPanelHeader(921, 167, 0, 0, IDB_PNG_HEADER);
+	panelHeader->drawOverlay = false;
 	panelMain = new GuiPanelMain(920, 696, 0, 167, imageId);
+	panelMain->drawOverlay = false;
 
 	// container panels for main gui
 	panelOsc = new GuiPanelOsc( 460, 217, 0, 0, 0);
@@ -43,17 +45,19 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelModMatrix = new GuiModMatrix(635, 205, 0, 597-167, 0); 
 	
 	// patch fx
-	panelPatchGlobal = new GuiPanelPatchGlobal(0, 0, 0, 0, 0);
-	panelDistortion = new GuiPanelDistortion(0, 0, 0, 0, 0);
-	panelCompression = new GuiPanelCompression(0, 0, 0, 0, 0);
+	panelPatchGlobal = new GuiPanelPatchGlobal(389, 209, 525, 5, 0);
+	panelDistortion = new GuiPanelDistortion(288, 209, 6, 6, 0);
+	panelCompression = new GuiPanelCompression(288, 205, 5, 220, 0);
+	panelFxRoutingPatch = new GuiPanelFxRouting(219, 419, 299, 6, 0);
 
 	// global fx
-	panelGlobalDelay = new GuiPanelGlobalDelay(0, 0, 0, 0, 0);
-	panelGlobalReverb = new GuiPanelGlobalReverb(0, 0, 0, 0, 0);
-	panelGlobalEq = new GuiPanelGlobalEq(0, 0, 0, 0, 0);
-	panelGlobalModulation = new GuiPanelGlobalModulation(0, 0, 0, 0, 0);
+	panelGlobalDelay = new GuiPanelGlobalDelay(389, 205, 524, 220, 0);
+	panelGlobalReverb = new GuiPanelGlobalReverb(288, 204, 6, 431, 0);
+	panelGlobalEq = new GuiPanelGlobalEq(334, 204, 299, 430, 0);
+	panelGlobalModulation = new GuiPanelGlobalModulation(389, 209, 524, 6, 0);
+	panelFxRoutingGlobal = new GuiPanelFxRouting(219, 419, 299, 6, 0);
 
-	keyboard = new GuiKeyboard(858, 58, 13, 801-167, IDB_KEYBOARD_OVERLAYS);
+	keyboard = new GuiKeyboard(858, 58, 13, 801, IDB_KEYBOARD_OVERLAYS);
 
 	//surface = new GSurface(400, 400);
 	
@@ -63,25 +67,31 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelMain->panelPatch->AddSubComponent(panelFilter);
 	panelMain->panelPatch->AddSubComponent(panelLfo);	
 	panelMain->panelPatch->AddSubComponent(panelModMatrix);
+	panelMain->panelPatch->drawOverlay = false;
 	
 	// patch fx
 	panelMain->panelPatchFx->AddSubComponent(panelPatchGlobal);
 	panelMain->panelPatchFx->AddSubComponent(panelDistortion);
 	panelMain->panelPatchFx->AddSubComponent(panelCompression);
+	panelMain->panelPatchFx->AddSubComponent(panelFxRoutingPatch);
+	panelMain->panelPatchFx->drawOverlay = false;
 
 	// global fx
 	panelMain->panelGlobalFx->AddSubComponent(panelGlobalDelay);
 	panelMain->panelGlobalFx->AddSubComponent(panelGlobalReverb);
 	panelMain->panelGlobalFx->AddSubComponent(panelGlobalEq);
 	panelMain->panelGlobalFx->AddSubComponent(panelGlobalModulation);
+	panelMain->panelGlobalFx->AddSubComponent(panelFxRoutingGlobal);
+	panelMain->panelGlobalFx->drawOverlay = false;
 
 
 	AddSubComponent(panelHeader);
 	AddSubComponent(panelMain);
-	
-	panelMain->AddSubComponent(keyboard);
 
 	panelMaster = new GuiPanelMaster(279, 202, 640, 595, 0); 
+
+	AddSubComponent(keyboard);
+
 	AddSubComponent(panelMaster);	
 }
 

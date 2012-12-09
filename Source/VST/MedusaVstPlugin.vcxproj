@@ -172,6 +172,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Components\GuiPanelFxRouting.h" />
     <ClInclude Include="GUI\Components\GuiPanelEg.h" />
     <ClInclude Include="GUI\Components\GuiPanelGlobalModulation.h" />
     <ClInclude Include="GUI\Components\GuiPanelCompression.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Components\GuiPanelFxRouting.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelEg.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelGlobalModulation.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelCompression.cpp" />

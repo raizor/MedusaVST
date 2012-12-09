@@ -92,6 +92,11 @@ void GuiKnob::draw()
 					sprintf(GuiMainWindow::labelText, "%d cents", (int)p->TargetValue);
 					break;
 
+				case(kKnobTypePercentage):
+					// todo percent not working
+					sprintf(GuiMainWindow::labelText, "%0.1f %%%%", p->TargetValue*100.0f);
+					break;
+
 				default:
 					sprintf(GuiMainWindow::labelText, " MISS %0.3f%% ", p->TargetValue);
 					break;

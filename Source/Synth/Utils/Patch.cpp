@@ -18,8 +18,9 @@ Patch::Patch(int number)
 	ModMatrix = new ModulationMatrix(this);
 
 	DelayAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
-	ReverbAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
-	ChanVolAmount = new ParamFloat(128, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
+	ReverbAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);		
+	BoostAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
+	ChanVolAmount = new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
 
 	polyphony = 4;
 
