@@ -4,6 +4,8 @@
 #include "VoiceNoteState.h"
 #include "../Constants.h"
 #include "../Items/Item.h"
+#include "../Items/Processors/Delay and Reverb/ModDelay.h"
+#include "../Items/Processors/Delay and Reverb/Reverb.h"
 #include "Patch.h"
 /*
 #include "../Patches/StackItems/Delay/ModDelay.h"
@@ -18,8 +20,8 @@
 class VoicePool  
 {
 public:
-	Item* GlobalDelay;
-	Item* GlobalReverb;
+	ModDelay* GlobalDelay;
+	Reverb* GlobalReverb;
 	Voice *Voices[Constants_Polyphony]; 
 	Voice *LastVoice;
 	long Counter;

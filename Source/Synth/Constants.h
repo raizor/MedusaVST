@@ -4,11 +4,25 @@
 #include "Utils/PowerOfTwoTable.h"
 #include "math.h"
 	
+//#define WIN32_LEAN_AND_MEAN		// exclude some windows headers
+
 // functionality switches
 // use DirectSound? Otherwise WaveOut used - remember to link correct lib (dsound.lib or winmm.lib)!!
 #define USE_DIRECT_SOUND 0
 
 #define dsize 100000000
+
+#define PITCH_DETUNE_OCTAVES 2
+
+#define NUMBER_START_OSC 0
+
+#define NUMBER_START_EG Constants_NumOscillators
+
+#define NUMBER_START_FILTER NUMBER_START_EG + Constants_NumEnvelopes // extra 2 for amp and pitch eg 
+
+#define NUMBER_START_LFO_AV NUMBER_START_FILTER + Constants_NumFilters 
+
+#define NUMBER_START_LFO_PV NUMBER_START_LFO_AV + Constants_NumLfoAllVoices
 
 // data types
 typedef int               sInt;
@@ -135,7 +149,18 @@ enum StackItemType
 	kStackItemTypeCompressor,
 	kStackItemTypeBoost,
 	kStackItemTypePatchSettings,
+	kStackItemTypeChorusFlange,
 	kStackItemTypeItemCount
+};
+
+enum DistortionMode
+{
+	kDistortionModeOff = 0,
+	kDistortionModeBitCrush ,
+	kDistortionModeBitDecimate,
+	kDistortionModeBitOverdrive,
+	kDistortionModeBitClip,
+	kDistortionItemCount
 };
 
 enum LfoType
@@ -267,7 +292,8 @@ enum ParamValueTypeFloat
 // modulation
 enum ModulationCurve
 {
-	kModulationCurveAddBipolarPlus = 0,
+	kModulationCurveNone = 0,
+	kModulationCurveAddBipolarPlus,
 	kModulationCurveAddBipolarMinus,
 	kkModulationCurveAddUnipolarPlus,
 	kModulationCurveAddUnipolarMinus,
@@ -333,4 +359,5 @@ public:
 	Constants();
 	~Constants();
 	void CalcNewSampleRate(sInt samplerate);
+	int GetExponentialValue(float value, int max, float mult = 0.5f);
 };

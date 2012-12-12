@@ -4,6 +4,7 @@
 #include "GuiSlider.h"
 #include "GuiButton.h"
 #include "GuiLabel.h"
+#include "Displays/GuiDisplayWave.h"
 
 class Osc;
 
@@ -39,6 +40,8 @@ public:
 	GuiLabel* labMode;
 	GuiLabel* labModMode;
 	
+	GuiDisplayWave* displayWave;
+
 	std::vector<GuiButton*> butOscs;
 
 	GuiButtonStrip* butStripOscs;
@@ -49,5 +52,6 @@ public:
 	void CallbackClicked(void* data, GEvent* evt);
 	char* OscModModeToString(int val);
 	char* OscModeToString(int val);
+	void GuiPanelOsc::SetWaveformName(Osc* osc);
 };
 

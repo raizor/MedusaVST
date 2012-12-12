@@ -3,6 +3,7 @@
 #include "../Constants.h"
 #include "../Items/Item.h"
 #include "Params/ParamFloat.h"
+#include "Params/ParamInt.h"
 
 class Voice;
 class Adsr;
@@ -10,6 +11,9 @@ class SimpleFilter;
 class ModulationMatrix;
 class Patch;
 class Osc;
+class Distort;
+class ChorusFlange;
+class Boost;
 
 class Patch
 {
@@ -17,11 +21,19 @@ public:
 	Item** items;
 	Adsr* egAmp;
 	Adsr* egPitch;
+	Distort* distort;
+	ChorusFlange* chorus;
+	Boost* boost;
 	int numItems;
 	int number;
 	int polyphony;
+#ifndef REPLAYER
+	char* name;
+#endif
 
 	ModulationMatrix* ModMatrix;
+
+	ParamInt* FilterProcMode;
 
 	// global feed effects
 	ParamFloat* DelayAmount;

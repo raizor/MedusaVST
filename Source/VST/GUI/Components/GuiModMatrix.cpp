@@ -85,6 +85,21 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			{
 				subMenu->AddItem(i, StackItemTypeName(p->items[(NUMBER_START_OSC)+i]), p->items[(NUMBER_START_OSC)+i]);
 			}	
+
+			// eg
+			subMenu = new GContextMenuEx();
+			menuSource->AddMenu(subMenu, "EGs");	
+
+			// amp
+			subMenu->AddItem(i, StackItemTypeName((Item*)p->egAmp), p->egAmp);
+
+			// pitch
+			subMenu->AddItem(i, StackItemTypeName((Item*)p->egPitch), p->egPitch);
+
+			for(int i=0; i<Constants_NumFilters; i++)
+			{
+				subMenu->AddItem(i, StackItemTypeName(p->items[(NUMBER_START_EG)+i]), p->items[(NUMBER_START_EG)+i]);
+			}
 			
 			
 			// filters
@@ -132,9 +147,13 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			gp.x = 0;
 			gp.y = 0;
 			int it = menuSource->SelectAt(evt->pos);
-			Item* pp = (Item*)it; 
-			PatchList::list->CurrentPatch->ModMatrix->SetSource(i, (Item*)pp);
-			GuiMainWindow::panelModMatrix->butSource.at(i)->SetText(SourceName(pp));
+			if (it)
+			{
+				Item* pp = (Item*)it; 
+				PatchList::list->CurrentPatch->ModMatrix->SetSource(i, (Item*)pp);
+				GuiMainWindow::panelModMatrix->butSource.at(i)->SetText(SourceName(pp));
+			}
+
 			/*
 			opair* pp = (opair*)it; 
 			PatchList::list->CurrentPatch->ModMatrix->SetSource(i, (Item*)pp->val1, (ParamFloat*)pp->val2);
@@ -153,15 +172,18 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			int id = 1000;
 			for(int i=0; i<kModulationCurveItemCount; i++)
 			{
-				menuSource->AddItem(i, ModulationCurveName((ModulationCurve)i));
+				menuSource->AddItem(i+1, ModulationCurveName((ModulationCurve)i));
 			}
 			GPoint gp;
 			gp.x = 0;
 			gp.y = 0;
 			int curve = menuSource->SelectAt(evt->pos);
-			PatchList::list->CurrentPatch->ModMatrix->SetCurve(i, curve);
-			char* txt = ModulationCurveName((ModulationCurve)curve);
-			GuiMainWindow::panelModMatrix->butCurve.at(i)->SetText(txt);
+			if (curve)
+			{			
+				PatchList::list->CurrentPatch->ModMatrix->SetCurve(i, curve-1);
+				char* txt = ModulationCurveName((ModulationCurve)(curve-1));
+				GuiMainWindow::panelModMatrix->butCurve.at(i)->SetText(txt);
+			}
 			return;
 		}
 
@@ -237,9 +259,13 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			gp.x = 0;
 			gp.y = 0;
 			int it = menuSource->SelectAt(evt->pos);
-			opair* pp = (opair*)it; 
-			PatchList::list->CurrentPatch->ModMatrix->SetDest(i, (Item*)pp->val1, (ParamFloat*)pp->val2);
-			GuiMainWindow::panelModMatrix->butDest.at(i)->SetText(DestName(pp));
+			if (it)
+			{
+				opair* pp = (opair*)it; 
+				PatchList::list->CurrentPatch->ModMatrix->SetDest(i, (Item*)pp->val1, (ParamFloat*)pp->val2);
+				GuiMainWindow::panelModMatrix->butDest.at(i)->SetText(DestName(pp));
+			}
+			
 			/*
 			PatchList::list->CurrentPatch->ModMatrix->SetCurve(0, curve);
 			char* txt = ModulationCurveName((ModulationCurve)curve);
@@ -252,7 +278,7 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 
 void GuiModMatrix::AddParamMenus(GContextMenuEx* menu, int* itemId, Item* item)
 {
-	switch(item->itemType)
+	switch(item->type)
 	{
 	case (kStackItemTypeWfOsc):
 		{
@@ -290,6 +316,9 @@ char* GuiModMatrix::ModulationCurveName(ModulationCurve type)
 {
 	switch (type)
 	{
+	case(kModulationCurveNone):
+		return "";
+		break;
 	case(kModulationCurveAddBipolarPlus):
 		return "Add Bipolar +";
 		break;
@@ -322,7 +351,7 @@ char* GuiModMatrix::ModulationCurveName(ModulationCurve type)
 
 char* GuiModMatrix::SourceName(Item* item)
 {
-	StackItemType t = item->itemType;
+	StackItemType t = item->type;
 	char* nn = StackItemTypeName(item);
 	char* xx = new char[50];
 	sprintf(xx, "%s", nn);
@@ -333,7 +362,7 @@ char* GuiModMatrix::DestName(opair* op)
 {
 	Item* it = (Item*)op->val1;
 	Param* pp = (Param*)op->val2;
-	StackItemType t = it->itemType;
+	StackItemType t = it->type;
 	char* item = StackItemTypeName(it);
 	char* param = ParamName(it, pp);
 	char* xx = new char[50];
@@ -345,7 +374,7 @@ char* GuiModMatrix::StackItemTypeName(Item* item)
 {
 	char *name = new char[25];
 	Patch* p = PatchList::list->CurrentPatch;
-	switch (item->itemType)
+	switch (item->type)
 	{
 	case(kStackItemTypeWfOsc):
 		for(int i = NUMBER_START_OSC; i<NUMBER_START_OSC + Constants_NumOscillators; i++)
@@ -410,10 +439,36 @@ char* GuiModMatrix::StackItemTypeName(Item* item)
 	}	
 }
 
+void GuiModMatrix::UpdateGrid()
+{
+	Patch* patch = PatchList::list->CurrentPatch;
+	for(int i=0; i<8; i++)
+	{
+		ModulationMatrixRow* row = patch->ModMatrix->Rows[i];
+		if (row->SourceSet)
+		{
+			butSource[i]->SetText(StackItemTypeName(row->ItemSource->Item));
+		}else
+		{
+			butSource[i]->SetText("");
+		}
+		
+		butCurve[i]->SetText(ModulationCurveName(row->Curve));
+
+		if (row->DestSet)
+		{
+			butDest[i]->SetText(DestName(new opair(row->ItemDest->Item, row->ItemDest->Param)));
+		}else
+		{
+			butDest[i]->SetText("");
+		}
+	}
+}
+
 
 char* GuiModMatrix::ParamName(Item* item, Param* param)
 {
-	if (item->itemType == kStackItemTypeWfOsc)
+	if (item->type == kStackItemTypeWfOsc)
 	{
 		if (item->paramsFloat[PROC_PARAM_FLOAT_LEVEL] == param)
 			return "Level";
@@ -422,7 +477,7 @@ char* GuiModMatrix::ParamName(Item* item, Param* param)
 			return "Pitch";
 	}
 
-	if (item->itemType == kStackItemTypeLfoAllVoices || item->itemType == kStackItemTypeLfoPerVoice)
+	if (item->type == kStackItemTypeLfoAllVoices || item->type == kStackItemTypeLfoPerVoice)
 	{
 		if (item->paramsFloat[PROC_PARAM_FLOAT_LEVEL] == param)
 			return "Level";
@@ -432,7 +487,7 @@ char* GuiModMatrix::ParamName(Item* item, Param* param)
 
 	}
 
-	if (item->itemType == kStackItemTypeSimpleFilter)
+	if (item->type == kStackItemTypeSimpleFilter)
 	{
 		if (item->paramsFloat[PROC_PARAM_FLOAT_LEVEL] == param)
 			return "Level";

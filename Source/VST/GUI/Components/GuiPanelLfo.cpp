@@ -73,7 +73,7 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 	// speed slider
 	si = new LinkedSynthItem();
 	si->item = item;
-	si->itemType = item->itemType;
+	si->itemType = item->type;
 	si->param = item->paramsFloat[LFO_PARAM_FLOAT_RATE];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -83,7 +83,7 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 	// amount slider
 	si = new LinkedSynthItem();
 	si->item = item;
-	si->itemType = item->itemType;
+	si->itemType = item->type;
 	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;

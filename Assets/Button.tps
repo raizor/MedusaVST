@@ -197,6 +197,12 @@
             <filename>../Source/VST/resources/buttons/but_patchFx.png</filename>
             <filename>../Source/VST/resources/buttons/but_patchFx_lit.png</filename>
             <filename>../Source/VST/resources/buttons/but_globalFx.png</filename>
+            <filename>../Source/VST/resources/buttons/saveDisk.png</filename>
+            <filename>../Source/VST/resources/buttons/exit.png</filename>
+            <filename>../Source/VST/resources/buttons/box_patchName.png</filename>
+            <filename>../Source/VST/resources/buttons/box_patchNum.png</filename>
+            <filename>../Source/VST/resources/buttons/but_left.png</filename>
+            <filename>../Source/VST/resources/buttons/but_right.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -16,8 +16,9 @@ Adsr::Adsr(StackItemType type) : ItemProcessor(type, true)
 	
 
 	// TODO: optimize
-	if (itemType == kStackItemTypePitchEg)
+	if (type == kStackItemTypePitchEg)
 	{
+		// PITCH
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // delay time
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // start level
 
@@ -33,8 +34,9 @@ Adsr::Adsr(StackItemType type) : ItemProcessor(type, true)
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // release time
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // release level
 	}else{
+		// AMP/OTHER
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // delay time
-		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // start level
+		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // start level
 
 		AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeTime)); // attack time
 		AddFloatParam(new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // attack level
@@ -49,7 +51,7 @@ Adsr::Adsr(StackItemType type) : ItemProcessor(type, true)
 		AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // release level
 	}
 
-	enabled = itemType == kStackItemTypeEnvAdsr;
+	enabled = type == kStackItemTypeEnvAdsr;
 }
 
 
@@ -59,7 +61,7 @@ Adsr::~Adsr(void)
 
 void Adsr::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples)
 {
-	bool isAmpEg = itemType == kStackItemTypeAmpEg;
+	bool isAmpEg = type == kStackItemTypeAmpEg;
 
 	for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+numSamples; i++)
 	{

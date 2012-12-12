@@ -43,11 +43,19 @@ __forceinline void zt_memcpy( void *dst, const void *ori, int amount )
 }
 */
 
+
+static inline int FloatToInt(float x)
+{
+	unsigned e = (0x7F + 31) - ((* (unsigned*) &x & 0x7F800000) >> 23);
+	unsigned m = 0x80000000 | (* (unsigned*) &x << 8);
+	return int((m >> e) & -(e < 32));
+}
+
 // float from [0,1) into 0.32 unsigned fixed-point
 // this loses a bit, but that's what V2 does.
 static inline sU32 ftou32(sF32 v)
 {
-	return 2u * (sInt)(v * fc32bit);
+	return 2u * FloatToInt((v * fc32bit));
 }
 
 static inline sF32 bits2float(sU32 u)
@@ -67,13 +75,6 @@ static inline sF32 utof23(sU32 x)
 {
 	sF32 f = bits2float((x >> 9) | 0x3f800000); // 1 + x/(2^32)
 	return f - 1.0f;
-}
-
-static inline int FloatToInt(float x)
-{
-	unsigned e = (0x7F + 31) - ((* (unsigned*) &x & 0x7F800000) >> 23);
-	unsigned m = 0x80000000 | (* (unsigned*) &x << 8);
-	return int((m >> e) & -(e < 32));
 }
 
 static inline sF32 calcfreq(sF32 x)

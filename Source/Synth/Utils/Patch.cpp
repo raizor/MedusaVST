@@ -4,7 +4,14 @@
 #include "../Items/Processors/Adsr.h"
 #include "../Items/Processors/SimpleFilter.h"
 #include "../Items/Processors/Lfo.h"
+#include "../Items/Processors/Distort.h"
+#include "../Items/Processors/Boost.h"
+#include "../Items/Processors/ChorusFlange.h"
 #include "Params/Modulation/ModulationMatrix.h"
+
+#ifndef REPLAYER
+	#include <stdio.h>
+#endif
 
 PatchList* PatchList::list = 0;
 
@@ -21,6 +28,12 @@ Patch::Patch(int number)
 	ReverbAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);		
 	BoostAmount = new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
 	ChanVolAmount = new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
+	FilterProcMode = new ParamInt(kFilterModeParallel);
+
+#ifndef REPLAYER
+	name = new char[100];
+	sprintf(name, "UNNAMED");
+#endif 
 
 	polyphony = 4;
 
@@ -40,17 +53,12 @@ Patch::Patch(int number)
 	}
 
 	// EGs
-	Adsr* eg = new Adsr(kStackItemTypeAmpEg);
-	eg->enabled  = true; // no needed
-	eg->paramsFloat[PROC_PARAM_FLOAT_LEVEL]->SetValueWithInt(127);
-	egAmp = eg;
+	egAmp = new Adsr(kStackItemTypeAmpEg);
+	egAmp->enabled  = true; // no needed
+	egAmp->paramsFloat[PROC_PARAM_FLOAT_LEVEL]->SetValueWithInt(127);
 
-	eg = new Adsr(kStackItemTypePitchEg);
-	eg->enabled  = false; // no needed
-	egPitch = eg;
-
-	items[numItems++] = egAmp;
-	items[numItems++] = egPitch;
+	egPitch = new Adsr(kStackItemTypePitchEg);
+	egPitch->enabled  = false; // no needed
 
 	for(int i=0; i<Constants_NumEnvelopes; i++)
 	{
@@ -59,12 +67,17 @@ Patch::Patch(int number)
 		items[numItems++] = adsr;
 	}
 
+	// amp and pitch follow other egs
+	//items[numItems++] = egAmp;
+	//items[numItems++] = egPitch;
+
 	// filters
 	//Filters = (Filter*)zynth_mallocAlloc(sizeof(V2Filter)*Constants_NumFilters);
 	for(int i=0; i<Constants_NumFilters; i++)
 	{
 		SimpleFilter* filter = new SimpleFilter();
 		items[numItems++] = filter;
+		filter->number = i;
 		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
 		//FILTER_INIT(&patch->Filters[i], i, patch);
 	}	
@@ -73,6 +86,7 @@ Patch::Patch(int number)
 	{
 		Lfo* lfo = new Lfo(kStackItemTypeLfoAllVoices);
 		items[numItems++] = lfo;
+		lfo->number = i;
 		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
 		//FILTER_INIT(&patch->Filters[i], i, patch);
 	}	
@@ -81,9 +95,15 @@ Patch::Patch(int number)
 	{
 		Lfo* lfo = new Lfo(kStackItemTypeLfoPerVoice);
 		items[numItems++] = lfo;
+		lfo->number = i;
 		//patch->Filters[i]._item = StackItem_Create(FILTER_NUM_PARAMS);
 		//FILTER_INIT(&patch->Filters[i], i, patch);
 	}	
+
+	// distortion
+	distort = new Distort();
+	boost = new Boost();
+	chorus = new ChorusFlange();
 }
 
 Patch::~Patch(void)

@@ -87,7 +87,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// cutoff 1
 	si = new LinkedSynthItem();
 	si->item = item1;
-	si->itemType = item1->itemType;
+	si->itemType = item1->type;
 	si->param = item1->paramsFloat[FILTER_PARAM_FLOAT_CUTOFF];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -96,7 +96,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// res 1
 	si = new LinkedSynthItem();
 	si->item = item1;
-	si->itemType = item1->itemType;
+	si->itemType = item1->type;
 	si->param = item1->paramsFloat[FILTER_PARAM_FLOAT_RESONANCE];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -105,7 +105,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// panning 1
 	si = new LinkedSynthItem();
 	si->item = item1;
-	si->itemType = item1->itemType;
+	si->itemType = item1->type;
 	si->param = item1->paramsFloat[FILTER_PARAM_FLOAT_PANNING];
 	si->valueType = kParamValueTypePan;
 	si->paramType = kParamTypeFloat;
@@ -114,7 +114,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// level 1
 	si = new LinkedSynthItem();
 	si->item = item1;
-	si->itemType = item1->itemType;
+	si->itemType = item1->type;
 	si->param = item1->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -123,7 +123,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// cutoff 2
 	si = new LinkedSynthItem();
 	si->item = item2;
-	si->itemType = item2->itemType;
+	si->itemType = item2->type;
 	si->param = item2->paramsFloat[FILTER_PARAM_FLOAT_CUTOFF];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -132,7 +132,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// res 2
 	si = new LinkedSynthItem();
 	si->item = item2;
-	si->itemType = item2->itemType;
+	si->itemType = item2->type;
 	si->param = item2->paramsFloat[FILTER_PARAM_FLOAT_RESONANCE];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -141,7 +141,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// panning 2
 	si = new LinkedSynthItem();
 	si->item = item2;
-	si->itemType = item2->itemType;
+	si->itemType = item2->type;
 	si->param = item2->paramsFloat[FILTER_PARAM_FLOAT_PANNING];
 	si->valueType = kParamValueTypePan;
 	si->paramType = kParamTypeFloat;
@@ -150,7 +150,7 @@ void GuiPanelFilter::SetStackItem(SimpleFilter* item1, SimpleFilter* item2)
 	// level 2
 	si = new LinkedSynthItem();
 	si->item = item2;
-	si->itemType = item2->itemType;
+	si->itemType = item2->type;
 	si->param = item2->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;

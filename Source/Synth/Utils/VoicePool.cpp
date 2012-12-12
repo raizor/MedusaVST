@@ -35,18 +35,14 @@ VoicePool::VoicePool()
 	// create channel buffer
 	BufferChannels = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 
-	//VoicePool_Pool->GlobalDelay = (ModDelay*)zynth_mallocAlloc(sizeof(ModDelay));
-	//VoicePool_Pool->GlobalReverb = (Reverb*)zynth_mallocAlloc(sizeof(Reverb));
-
-	// TODO
-
 	// init delay
-	//VoicePool_Pool->GlobalDelay->init(32768);
-	//VoicePool_Pool->GlobalDelay->set();
+	GlobalDelay = new ModDelay(32768);
+	GlobalDelay->Set();
 
 	// init reverb
-	//VoicePool_Pool->GlobalReverb->init();
-	//VoicePool_Pool->GlobalReverb->set();
+	GlobalReverb = new Reverb();
+	GlobalReverb->Set();
+	
 }
 
 bool VoicePool::NotePlaying(int channel, int note)

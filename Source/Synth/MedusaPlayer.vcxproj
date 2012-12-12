@@ -19,7 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Items\Processors\ChorusFlange.h" />
+    <ClInclude Include="Items\Processors\Boost.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Items\Processors\Distort.h" />
     <ClInclude Include="Items\Processors\Delay and Reverb\FixedDelay.h" />
     <ClInclude Include="Items\Processors\SimpleFilter.h" />
     <ClInclude Include="Globals.h" />
@@ -52,10 +55,14 @@
     <ClInclude Include="Utils\ZynthTools.h" />
     <ClInclude Include="Utils\WaveTableGen.h" />
     <ClInclude Include="Utils\WaveFormGen.h" />
+    <ClInclude Include="Writer.h" />
     <ClInclude Include="ZynthTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Items\Processors\ChorusFlange.cpp" />
+    <ClCompile Include="Items\Processors\Boost.cpp" />
     <ClCompile Include="Constants.cpp" />
+    <ClCompile Include="Items\Processors\Distort.cpp" />
     <ClCompile Include="Items\Processors\Delay and Reverb\FixedDelay.cpp" />
     <ClCompile Include="Items\Processors\SimpleFilter.cpp" />
     <ClCompile Include="Items\ItemProcessor.cpp" />
@@ -87,6 +94,7 @@
     <ClCompile Include="Utils\ZynthTools.cpp" />
     <ClCompile Include="Utils\WaveTableGen.cpp" />
     <ClCompile Include="Utils\WaveFormGen.cpp" />
+    <ClCompile Include="Writer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8AE19AD8-5C12-4FB0-9E93-13D0A90353F8}</ProjectGuid>
@@ -278,7 +286,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;REPLAYER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -292,6 +300,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <ExceptionHandling>false</ExceptionHandling>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -303,6 +312,7 @@
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>winmm.lib;dsound.lib;kernel32.lib;user32.lib;gdi32.lib;MSVCRT_VS6.LIB;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <AdditionalOptions>/OPT:NOWIN98 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

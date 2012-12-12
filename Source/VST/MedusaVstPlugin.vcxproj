@@ -172,6 +172,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Components\Displays\GuiDisplayWave.h" />
+    <ClInclude Include="GUI\Components\Displays\GuiDisplayEg.h" />
+    <ClInclude Include="Utils\directories.h" />
+    <ClInclude Include="Utils\filedialog.h" />
+    <ClInclude Include="FileIo.h" />
     <ClInclude Include="GUI\Components\GuiPanelFxRouting.h" />
     <ClInclude Include="GUI\Components\GuiPanelEg.h" />
     <ClInclude Include="GUI\Components\GuiPanelGlobalModulation.h" />
@@ -227,6 +232,11 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Components\Displays\GuiDisplayWave.cpp" />
+    <ClCompile Include="GUI\Components\Displays\GuiDisplayEg.cpp" />
+    <ClCompile Include="Utils\directories.cpp" />
+    <ClCompile Include="Utils\filedialog.cpp" />
+    <ClCompile Include="FileIo.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelFxRouting.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelEg.cpp" />
     <ClCompile Include="GUI\Components\GuiPanelGlobalModulation.cpp" />

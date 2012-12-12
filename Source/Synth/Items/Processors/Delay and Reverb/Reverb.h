@@ -16,11 +16,20 @@
 #define REVERB_ballr0_LEN 205
 #define REVERB_ballr1_LEN 77
 
+// float params
+#define REVERB_PARAM_FLOAT_TIME    1
+#define REVERB_PARAM_FLOAT_LOW_CUT 2
+#define REVERB_PARAM_FLOAT_HI_CUT  3
+
 class Reverb : public ItemProcessor
 {
 public:
 	Reverb(void);
 	~Reverb(void);
+
+	void Set();
+	void Reset();
+	void Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples);
 
 private:
 	sF32 gainc[4];  // feedback gain for comb filter delays 0-3

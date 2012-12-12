@@ -5,9 +5,9 @@
 
 GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
-	knobFinetune = new GuiKnob(0, 0, 8, 118, IDB_KNOBS_BI, 0, 100, true, kKnobTypeCents, "FINETUNE");
-	knobPhase = new GuiKnob(0, 0, 52, 152, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "PHASE");
-	knobLevel = new GuiKnob(0, 0, 96, 118, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "LEVEL");
+	knobFinetune = new GuiKnob(0, 0, 8, 120, IDB_KNOBS_BI, 0, 100, true, kKnobTypeCents, "FINETUNE");
+	knobPhase = new GuiKnob(0, 0, 52, 155, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "PHASE");
+	knobLevel = new GuiKnob(0, 0, 96, 120, IDB_KNOBS_UNI, 0, 127, false, kKnobTypeDecimalTwoPlaces, "LEVEL");
 
 	butStripOscs = new GuiButtonStrip(0, 0, 8, 287);
 
@@ -149,8 +149,9 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 
 	labModMode = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*4), "Add");
 	AddSubComponent(labModMode);
-
-	SetStackItem((Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC]);
+	
+	displayWave = new GuiDisplayWave(159, 159, 147, 47, 0);
+	AddSubComponent(displayWave);
 }
 
 
@@ -170,7 +171,7 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	// fine tune
 	si = new LinkedSynthItem();
 	si->item = item;
-	si->itemType = item->itemType;
+	si->itemType = item->type;
 	si->param = item->paramsFloat[OSC_PARAM_FLOAT_DETUNE_FINE];
 	si->valueType = kParamValueTypeIntBi;
 	si->paramType = kParamTypeFloat;
@@ -179,7 +180,7 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	// phase
 	si = new LinkedSynthItem();
 	si->item = item;
-	si->itemType = item->itemType;
+	si->itemType = item->type;
 	si->param = item->paramsFloat[OSC_PARAM_FLOAT_PHASE];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
@@ -188,11 +189,21 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	// level
 	si = new LinkedSynthItem();
 	si->item = item;
-	si->itemType = item->itemType;
+	si->itemType = item->type;
 	si->param = item->paramsFloat[PROC_PARAM_FLOAT_LEVEL];
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobLevel->synthItem = si;
+
+	// set wave viz osc
+	displayWave->SetOsc(item);
+	SetWaveformName(item);
+}
+
+void GuiPanelOsc::SetWaveformName(Osc* osc)
+{
+	char* c = GuiMainWindow::panelOsc->labWaveType->text;
+	sprintf(c, osc->waveTableIdx->Table->TableName);
 }
 
 void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
@@ -232,7 +243,7 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		}
 		param->SetValue(currentIndex);
 		osc->WaveChanged();
-		sprintf(GuiMainWindow::panelOsc->labWaveType->text, osc->waveTableIdx->Table->TableName);
+		SetWaveformName(osc);
 		return;
 	}
 

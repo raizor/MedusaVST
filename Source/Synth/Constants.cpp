@@ -60,3 +60,16 @@ void Constants::CalcNewSampleRate(sInt samplerate)
 	SRfcBoostCos = cos(boost);
 	SRfcBoostSin = sin(boost);
 }
+
+int Constants::GetExponentialValue(float value, int max, float mult)
+{
+	for (int i = 0; i <= max; i++)
+	{
+		float val = (float)pow(mult, ((float)i / max) * 10) * 0.0127f;
+		if (val >= value)
+		{
+			return i;
+		}
+	}
+	return 0;
+}

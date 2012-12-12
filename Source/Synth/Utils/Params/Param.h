@@ -15,7 +15,7 @@ enum ParamType
 class Param
 {
 public:
-	int Number;
+	int number;
 	ParamType type;
 	bool Modifiable;
 	float DefaultModValue;
@@ -27,4 +27,7 @@ public:
 
 protected:	
 	void* _value;	
+#ifndef REPLAYER
+	friend class ZynthIo;
+#endif
 };

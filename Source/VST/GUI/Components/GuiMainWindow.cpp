@@ -84,15 +84,16 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelMain->panelGlobalFx->AddSubComponent(panelFxRoutingGlobal);
 	panelMain->panelGlobalFx->drawOverlay = false;
 
-
 	AddSubComponent(panelHeader);
 	AddSubComponent(panelMain);
-
-	panelMaster = new GuiPanelMaster(279, 202, 640, 595, 0); 
-
 	AddSubComponent(keyboard);
 
+	panelMaster = new GuiPanelMaster(279, 202, 640, 595, 0); 
 	AddSubComponent(panelMaster);	
+
+
+	panelOsc->SetStackItem((Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC]);
+	panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)

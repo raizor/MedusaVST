@@ -3,7 +3,7 @@
 
 ModDelay::ModDelay(int bufferLength) : ItemProcessor(kStackItemTypeModDelay, true)
 {
-	itemType = kStackItemTypeModDelay;
+	type = kStackItemTypeModDelay;
 
 	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi, true)); // feedback 
 	AddFloatParam(new ParamFloat(127, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // delay left
@@ -35,22 +35,25 @@ void ModDelay::Reset()
 
 void ModDelay::Set()
 {
+	
 	wetout = (paramsFloat[PROC_PARAM_FLOAT_LEVEL]->ValueAsInt() - 64.0f) / 64.0f;
 	dryout = 1.0f - fabsf(wetout);
 	fbval = (paramsFloat[MODDELAY_PARAM_FLOAT_FEEDBACK]->ValueAsInt() - 64.0f) / 64.0f;
-
+	
 	sF32 lenscale = ((sF32)dbufmask - 1023.0f) / 128.0f;
 	dboffs[0] = FloatToInt(paramsFloat[MODDELAY_PARAM_FLOAT_DELAY_LENGTH_LEFT]->ValueAsInt() * lenscale);
 	dboffs[1] = FloatToInt(paramsFloat[MODDELAY_PARAM_FLOAT_DELAY_LENGTH_RIGHT]->ValueAsInt() * lenscale);
-
+	
 	mfreq = FloatToInt(SRfclinfreq * fcmdlfomul * calcfreq(paramsFloat[MODDELAY_PARAM_FLOAT_MOD_RATE]->ValueAsInt() / 128.0f));
 	mmaxoffs = FloatToInt(paramsFloat[MODDELAY_PARAM_FLOAT_MOD_DEPTH]->ValueAsInt() * 1023.0f / 128.0f);
 	mphase = ftou32((paramsFloat[MODDELAY_PARAM_FLOAT_MOD_PHASE]->ValueAsInt() - 64.0f) / 128.0f);
+	
 }
 
 
 void ModDelay::RenderBuffer(SampleBufferFloat* bufferIn, sInt nsamples)
 {
+	
 	if (!wetout)
 		return;
 
@@ -75,6 +78,7 @@ void ModDelay::RenderBuffer(SampleBufferFloat* bufferIn, sInt nsamples)
 
 void ModDelay::RenderChan(StereoSample *chanbuf, sInt nsamples)
 {
+	
 	if (!wetout)
 		return;
 
@@ -89,6 +93,7 @@ void ModDelay::RenderChan(StereoSample *chanbuf, sInt nsamples)
 
 inline sF32 ModDelay::ProcessChanSample(sF32 in, sInt ch, sF32 dry)
 {
+	
 	// modulation is a triangle wave
 	sU32 counter = mcnt + (ch ? mphase : 0);
 	counter = (counter < 0x80000000u) ? counter*2 : 0xffffffffu - counter*2;
@@ -106,11 +111,13 @@ inline sF32 ModDelay::ProcessChanSample(sF32 in, sInt ch, sF32 dry)
 	// mix and output
 	delaybuf[dbptr] = in + delayed*fbval;
 	return delayed;
+	
 	//return in*dry + delayed*wetout;
 }
 
 inline void ModDelay::ProcessSample(StereoSample *out, sF32 l, sF32 r, sF32 dry)
 {
+	
 	out->l = ProcessChanSample(l, 0, dry);
 	out->r = ProcessChanSample(r, 1, dry);
 

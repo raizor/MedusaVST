@@ -5,6 +5,8 @@
 enum SpritesButton
 {
 	kSpritesButtons_None = 0,
+	kSpritesButtons_Box_patchName,
+	kSpritesButtons_Box_patchNum,
 	kSpritesButtons_But_1_off,
 	kSpritesButtons_But_1_off_lit,
 	kSpritesButtons_But_1_on,
@@ -39,6 +41,7 @@ enum SpritesButton
 	kSpritesButtons_But_filterMode_para,
 	kSpritesButtons_But_globalFx,
 	kSpritesButtons_But_globalFx_lit,
+	kSpritesButtons_But_left,
 	kSpritesButtons_But_master_limit_off,
 	kSpritesButtons_But_master_limit_on,
 	kSpritesButtons_But_modArp_arp,
@@ -55,8 +58,11 @@ enum SpritesButton
 	kSpritesButtons_But_pitch_off_lit,
 	kSpritesButtons_But_pitch_on,
 	kSpritesButtons_But_pitch_on_lit,
+	kSpritesButtons_But_right,
+	kSpritesButtons_Exit,
 	kSpritesButtons_Keyboard_overlay,
 	kSpritesButtons_Overlay_adsr_other,
+	kSpritesButtons_SaveDisk,
 	kSpritesButtons_Slider,
 	kSpritesButtons_Slider_2,
 	kSpritesButtons_Slider_focus,

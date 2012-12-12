@@ -15,7 +15,8 @@ public:
 	bool hasBuffer;
 	bool hasWaveTable;
 	bool enabled;
-	StackItemType itemType;
+	int number;
+	StackItemType type;
 	SampleBufferFloat* buffer;
 	ParamFloat** paramsFloat;
 	ParamInt** paramsInt;

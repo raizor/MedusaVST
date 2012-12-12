@@ -50,14 +50,13 @@ float Osc::GetFrequency(Voice* voice, int bufferIndex, bool haveFreqMod)
 	float v  = PowerOfTwoTable::instance->GetPower(2.0f);
 	//int xx = 1;
 
-
-	paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->Value();
-
 	// float mv = FloatStackItemParam_ModValue(osc->PitchModifier, voice, bufferIndex);
-	float mv = 0;//FloatStackItemParam_ModValue(osc->PitchModifier, voice, bufferIndex);
-
+	//float mv = paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->GetModValue(voice, bufferIndex);
 	if (haveFreqMod)
 	{
+		float oct = PITCH_DETUNE_OCTAVES;
+		paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->GetModulatedValue(&oct, bufferIndex);
+		dtOct += oct;
 		//dtSemi += mv * 100.0f;	
 	}	
 

@@ -270,6 +270,11 @@ void GuiKeyboard::draw()
 
 void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing) 
 {
+	if (!enabled)
+	{
+		return;
+	}
+
 	switch(evt->type)
 	{
 	case(kGEventMouseMoved):

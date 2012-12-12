@@ -145,17 +145,20 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	butEg->ClickedHandler = (FpClickedCallback)&GuiPanelEg::CallbackClicked;
 	butEg->synthItem = si;
 	AddSubComponent(butEg);
-
-	SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
+	
+	displayEg = new GuiDisplayEg(315, 95, 98, 44, 0);
+	displayEg->eg = PatchList::list->CurrentPatch->egAmp;
+	AddSubComponent(displayEg);
 }
 
 GuiPanelEg::~GuiPanelEg(void)
 {
 }
 
+
 void GuiPanelEg::SetStackItem(Adsr* item)
 {
-	panelOverlay->enabled = item->itemType == kStackItemTypePitchEg;
+	panelOverlay->enabled = item->type == kStackItemTypePitchEg;
 
 	bool isPitch = panelOverlay->enabled ;
 
@@ -358,11 +361,12 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 
 		knobStartLevel->enabled = false;		
 		knobAttackLevel->enabled = false;
-		knobReleaseLevel->enabled = false;
-		
+		knobReleaseLevel->enabled = false;	
 		
 		
 	}
+
+	displayEg->eg = PatchList::list->CurrentPatch->egAmp;
 }
 
 

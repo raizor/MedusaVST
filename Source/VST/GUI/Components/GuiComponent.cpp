@@ -209,7 +209,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 			}
 
 			// check children first
-			for(int i=0; i<subComponents.size(); i++)
+			for(int i=this->SubComponentCount()-1; i>-1; i--)
 			{
 				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
 				gc->HandleEvent(evt, true);	

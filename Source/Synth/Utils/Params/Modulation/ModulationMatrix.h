@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../../../Constants.h"
-#include "../../ZynthTools.h"
+#include "../../../Items/Item.h"
+#include "../../Params/ParamFloat.h"
+#include "../../Params/ParamInt.h"
 
 #define ModulationMatrixNumRows 16
 
@@ -22,6 +24,8 @@ public:
 class ModulationMatrixItem
 {
 public:
+	ModulationMatrixItem();
+
 	Item* Item;
 	ParamFloat* Param;
 	ModulationMatrixRow* ParentRow;
@@ -31,19 +35,22 @@ class ModulationMatrixRow
 {
 public:
 	int RowNum;
-	ModulationRange Range;
-	ModulationMatrixItem ItemSource;
-	ModulationMatrixItem ItemDest;
+	ModulationRange* Range;
+	ModulationMatrixItem* ItemSource;
+	ModulationMatrixItem* ItemDest;
 	ModulationCurve Curve;
 	bool SourceSet;
 	bool DestSet;
+
+	ModulationMatrixRow();
+	~ModulationMatrixRow();
 };
 
 class ModulationMatrix 
 {
 public:
 	Patch* patch;
-	ModulationMatrixRow Rows[ModulationMatrixNumRows];		
+	ModulationMatrixRow** Rows;	
 	int RowCount;
 	bool Changed;
 

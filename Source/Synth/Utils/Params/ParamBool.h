@@ -10,5 +10,6 @@ public:
 	ParamBool(bool value);
 	~ParamBool(void);
 	bool Value();
+	friend class ZynthIo;
 };
 

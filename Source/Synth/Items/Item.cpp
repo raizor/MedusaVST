@@ -4,13 +4,14 @@
 
 Item::Item(bool hasBuffer, StackItemType type, bool hasWaveTable)
 {	
-	itemType = type;
+	this->type = type;
 	this->hasBuffer = hasBuffer;
 	this->hasWaveTable = hasWaveTable;
 	buffer = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 	numParamsFloat = 0;
 	numParamsBool = 0;
 	numParamsInt = 0;
+	number = 0;
 	enabled = false;
 	paramsFloat = new ParamFloat*[100];
 	paramsBool = new ParamBool*[100];
@@ -32,16 +33,19 @@ Item::~Item(void)
 
 void Item::AddFloatParam(ParamFloat* param)
 {
+	param->number = numParamsFloat;
 	paramsFloat[numParamsFloat++] = param;
 }
 
 void Item::AddIntParam(ParamInt* param)
 {
+	param->number = numParamsInt;
 	paramsInt[numParamsInt++] = param;
 }
 
 void Item::AddBoolParam(ParamBool* param)
 {
+	param->number = numParamsBool;
 	paramsBool[numParamsBool++] = param;
 }
 

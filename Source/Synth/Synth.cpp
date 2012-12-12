@@ -48,7 +48,9 @@ void Synth::Synth_Init()
 
 	// setup test patch
 	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
-	//VoicePool::Pool->GetVoiceAndPlayNote(0, 69, p);
+#ifdef REPLAYER
+	VoicePool::Pool->GetVoiceAndPlayNote(0, 69, p);
+#endif
 }
 
 void Synth::MixTest(SampleBufferFloat* bufferOut, int numSamples)

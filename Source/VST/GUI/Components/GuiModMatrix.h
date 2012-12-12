@@ -35,5 +35,6 @@ public:
 	char* GuiModMatrix::ParamName(Item* item, Param* param);
 	char* GuiModMatrix::DestName(opair* pair);
 	char* GuiModMatrix::SourceName(Item* item);
+	void GuiModMatrix::UpdateGrid();
 };
 

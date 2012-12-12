@@ -1,26 +1,42 @@
-#include "ModulationMatrix.h"
-#include "../ParamFloat.h"
-#include "../../../Items/Item.h"
-#include "../../../Items//Processors/Adsr.h"
+
 #include "../../../Utils/Patch.h"
-#include "../../../Synth.h"
+#include "ModulationMatrix.h"
+
+// ROW
+
+ModulationMatrixRow::ModulationMatrixRow()
+{
+}
+
+// ITEM
+
+ModulationMatrixItem::ModulationMatrixItem()
+{
+	Item = 0;
+	Param = 0;
+	ParentRow = 0;
+}
+
+// MATRIX
 
 ModulationMatrix::ModulationMatrix(Patch* patch)
 {
 	this->patch = patch;
+	Rows = new ModulationMatrixRow*[ModulationMatrixNumRows];
+	//this->v = new void*[ModulationMatrixNumRows];
+
 	for(int i=0; i<ModulationMatrixNumRows; i++)
 	{
+		Rows[i] = new ModulationMatrixRow();
+		Rows[i]->ItemSource = new ModulationMatrixItem();
+		Rows[i]->ItemDest = new ModulationMatrixItem();
 		// TODO: change according to modulator type: eg = mult, lfo = plus etc
-		Rows[i].RowNum = i;
-		Rows[i].SourceSet = false;		
-		Rows[i].Curve = kModulationCurveMultUnipolarPlus;
-		Rows[i].DestSet = false;
+		Rows[i]->RowNum = i;
+		Rows[i]->SourceSet = false;		
+		Rows[i]->Curve = kModulationCurveNone;
+		Rows[i]->DestSet = false;
 	}
 	Changed = false;
-	for(int i=0; i<ModulationMatrixNumRows; i++)
-	{
-		Rows[i].ItemDest;
-	}		
 }
 
 ModulationMatrix::~ModulationMatrix()
@@ -29,9 +45,9 @@ ModulationMatrix::~ModulationMatrix()
 
 void ModulationMatrix::SetSource(int row, Item* item)
 {
-	ModulationMatrixItem* matrixItem = &Rows[row].ItemSource;
+	ModulationMatrixItem* matrixItem = Rows[row]->ItemSource;
 	matrixItem->Item = item;
-	matrixItem->ParentRow = &Rows[row];
+	matrixItem->ParentRow = Rows[row];
 	matrixItem->ParentRow->SourceSet = true;
 	
 	Changed = true;
@@ -39,10 +55,10 @@ void ModulationMatrix::SetSource(int row, Item* item)
 
 void ModulationMatrix::SetDest(int row, Item* item, ParamFloat* param)
 {
-	ModulationMatrixItem* matrixItem = &Rows[row].ItemDest;
+	ModulationMatrixItem* matrixItem = Rows[row]->ItemDest;
 	matrixItem->Item = item;
 	matrixItem->Param = param;
-	matrixItem->ParentRow = &Rows[row];
+	matrixItem->ParentRow = Rows[row];
 	matrixItem->ParentRow->DestSet = true;
 
 	Changed = true;
@@ -50,7 +66,7 @@ void ModulationMatrix::SetDest(int row, Item* item, ParamFloat* param)
 
 void ModulationMatrix::SetCurve(int row, int curve)
 {
-	Rows[0].Curve = (ModulationCurve)curve;
+	Rows[0]->Curve = (ModulationCurve)curve;
 }
 
 void ModulationMatrix::HandleItem(Item* item)
@@ -64,19 +80,19 @@ void ModulationMatrix::HandleItem(Item* item)
 		// check each matrix row
 		for(int j=0; j<Constants_MaxModulations; j++)
 		{
-			ModulationMatrixRow* row = &Rows[j];
+			ModulationMatrixRow* row = Rows[j];
 			// row has a valid source and dest?
 			if (row->SourceSet && row->DestSet)
 			{
-				Item* siItem = row->ItemDest.Item;
-				if (siItem == item && row->ItemDest.Param == param)
+				Item* siItem = row->ItemDest->Item;
+				if (siItem == item && row->ItemDest->Param == param)
 				{
 					// store ref to tempbuffer of modulator stack item (source item)
-					Item* sourceItem = row->ItemSource.Item;
+					Item* sourceItem = row->ItemSource->Item;
 					if (sourceItem->enabled)
 					{
 						Modulator* mod = &param->ModList->Modulators[param->ModList->Count];
-						mod->Type = sourceItem->itemType;
+						mod->Type = sourceItem->type;
 						mod->Curve = row->Curve;
 						mod->ModBuffer = sourceItem->buffer;			
 						param->ModList->Count++;
@@ -100,8 +116,8 @@ void ModulationMatrix::HandleChanges()
 	}
 
 	// egs
-	HandleItem(patch->egAmp);
-	HandleItem(patch->egPitch);
+	HandleItem((Item*)patch->egAmp);
+	HandleItem((Item*)patch->egPitch);
 
 	for(int i=NUMBER_START_EG; i<NUMBER_START_EG+Constants_NumEnvelopes; i++)
 	{

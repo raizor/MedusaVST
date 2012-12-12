@@ -4,6 +4,8 @@
 #include "GuiSlider.h"
 #include "GuiButton.h"
 #include "GuiLabel.h"
+#include "Displays/GuiDisplayEg.h"
+
 
 class Adsr;
 
@@ -39,9 +41,12 @@ public:
 	GuiButton* butPitchEg;
 	std::vector<GuiButton*> butEgs;
 
+	GuiDisplayEg* displayEg;
+
 	GuiPanelEg(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelEg(void);
 	virtual void GuiPanelEg::SetStackItem(Adsr* item);
 	void CallbackClicked(void* data, GEvent* evt);
+	
 };
 
