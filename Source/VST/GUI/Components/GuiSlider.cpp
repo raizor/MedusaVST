@@ -3,13 +3,14 @@
 
 // knob
 
-GuiSliderKnob::GuiSliderKnob(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, char* name) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiSliderKnob::GuiSliderKnob(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, SliderType sliderType, char* name) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	if (name)
 	{
 		this->hasName = true;
 		sprintf(this->name, name);
 	}	
+	this->sliderType = sliderType;
 	type = kGuiComponentTypeSliderKnob;
 	hottable = true;
 	value = 0;
@@ -123,6 +124,11 @@ void GuiSliderKnob::HandleDrag(GEvent* evt)
 		{
 			ParamFloat* p  = (ParamFloat*)synthItem->param;
 			p->SetValueWithInt((int)newVal);
+			if (sliderType == kSliderTypeLfoLevel)
+			{
+				// enable lfo?
+				synthItem->item->enabled = newVal != 0;
+			}
 			sprintf(&msg[0], "knob val: %d", (int)newVal);
 			DebugPrintLine(msg);
 		}
@@ -242,10 +248,10 @@ bar pos matches Y pos within slider bounds
 
 */
 
-GuiSlider::GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, char* name) : GuiComponent(width, height, offsetX, offsetY, imageId)
+GuiSlider::GuiSlider(int width, int height, int offsetX, int offsetY, int imageId, SpritesButton sliderOn, SpritesButton sliderOff, SliderType sliderType, char* name) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	hottable = true;
-	this->knob = new GuiSliderKnob(38, 33, -2, height, imageId, sliderOn, sliderOff, name);
+	this->knob = new GuiSliderKnob(38, 33, -2, height, imageId, sliderOn, sliderOff, sliderType, name);
 	if (name)
 	{
 		this->hasName = true;

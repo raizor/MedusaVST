@@ -12,13 +12,13 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 	AddSubComponent(knobDelay);
 	AddSubComponent(knobFadeIn);
 
-	sliderMorph = new GuiSlider(30, 128, 320, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, "MORPH");
+	sliderMorph = new GuiSlider(30, 128, 320, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, kSliderTypeGeneric, "MORPH");
 	AddSubComponent(sliderMorph);
 
-	sliderSpeed = new GuiSlider(30, 128, 364, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, "SPEED");
+	sliderSpeed = new GuiSlider(30, 128, 364, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, kSliderTypeGeneric,  "SPEED");
 	AddSubComponent(sliderSpeed);
 
-	sliderAmount = new GuiSlider(30, 128, 416, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, "AMOUNT");
+	sliderAmount = new GuiSlider(30, 128, 416, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, kSliderTypeLfoLevel, "AMOUNT");
 	AddSubComponent(sliderAmount);
 
 	int amtx = 205;
@@ -51,13 +51,25 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 	butsAv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
-	int num = NUMBER_START_LFO_AV;
-	SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[num]);
+	displayWave = new GuiDisplayWave(155, 155, 144, 44, 0);
+	AddSubComponent(displayWave);
+
+	labWaveType1 = new GuiLabel(72, 12, 63, 44, "Sine");
+	AddSubComponent(labWaveType1);
+
+	labWaveType2 = new GuiLabel(72, 12, 63, 56, "Sine");
+	AddSubComponent(labWaveType2);
 }
 
 
 GuiPanelLfo::~GuiPanelLfo(void)
 {
+}
+
+void GuiPanelLfo::SetWaveformName(Lfo* osc)
+{
+	char* c = GuiMainWindow::panelLfo->labWaveType1->text;
+	sprintf(c, osc->waveTableIdx->Table->TableName);
 }
 
 void GuiPanelLfo::SetStackItem(Lfo* item)
@@ -89,6 +101,10 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 	si->paramType = kParamTypeFloat;
 	sliderAmount->synthItem = si;
 	sliderAmount->knob->synthItem = si;
+
+	// set wave viz osc
+	displayWave->SetOsc(item);
+	SetWaveformName(item);
 
 	/*
 	// morph slider
@@ -130,4 +146,6 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 	si->paramType = kParamTypeFloat;
 	knobLevel->synthItem = si;
 	*/
+
+
 }

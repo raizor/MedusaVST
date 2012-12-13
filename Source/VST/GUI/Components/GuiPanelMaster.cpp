@@ -6,7 +6,7 @@ GuiPanelMaster::GuiPanelMaster(int width, int height, int offsetX, int offsetY, 
 	butLimit = new GuiButton(32, 26, 236, 10, IDB_BUTTONSTRIP, kSpritesButtons_But_master_limit_off, kSpritesButtons_But_master_limit_on, kSpritesButtons_None);
 	AddSubComponent(butLimit);
 
-	sliderLevel = new GuiSlider(30, 128, 237, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, "LEVEL");
+	sliderLevel = new GuiSlider(30, 128, 237, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, kSliderTypeGeneric, "LEVEL");
 	AddSubComponent(sliderLevel);
 
 	// labels

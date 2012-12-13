@@ -31,19 +31,46 @@ void GuiDisplayWave::draw()
 	glDisable(GL_TEXTURE_2D);
 	glLineWidth(1.0f);
 	glBegin(GL_LINE_STRIP);
-
-	int waveSize = osc->waveTableIdx->Table->Tables[0].FloatBuffer->Size;
-	int inc = waveSize/width;
-	float phase = osc->paramsFloat[OSC_PARAM_FLOAT_PHASE]->TargetValue;
-	int x = 0;
-	int halfHeight = height * 0.5f;
-	int offset = waveSize * phase;
-	for(int i=0; i<waveSize; i+=inc)
+	
+	switch (osc->type)
 	{
-		float val = osc->waveTableIdx->Table->Tables[0].FloatBuffer->Buffer[(i+offset) % waveSize].l;
-		int hv = (int)(val * height * 0.5f);
-		glVertex2i(x, hv+halfHeight);
-		x++;
+	case(kStackItemTypeWfOsc):
+		{		
+			int x = 0;
+			int halfHeight = height * 0.5f;
+			int waveSize = osc->waveTableIdx->Table->Tables[0].FloatBuffer->Size;
+			int inc = waveSize/width;
+			float phase = osc->paramsFloat[OSC_PARAM_FLOAT_PHASE]->TargetValue;
+			int offset = waveSize * phase;
+			for(int i=0; i<waveSize; i+=inc)
+			{
+				float val = osc->waveTableIdx->Table->Tables[0].FloatBuffer->Buffer[(i+offset) % waveSize].l;
+				int hv = (int)(val * height * 0.5f);
+				glVertex2i(x, hv+halfHeight);
+				x++;
+			}
+		}
+		break;
+	case(kStackItemTypeLfoAllVoices):
+		{		
+			int x = 0;
+			int halfHeight = height * 0.5f;
+			int waveSize = osc->waveTableIdx->Table->Tables[0].FloatBuffer->Size;
+			int inc = waveSize/width;
+			float phase = 0;//osc->paramsFloat[OSC_PARAM_FLOAT_PHASE]->TargetValue;
+			int offset = waveSize * phase;
+			for(int i=0; i<waveSize; i+=inc)
+			{
+				float val = osc->waveTableIdx->Table->Tables[0].FloatBuffer->Buffer[(i+offset) % waveSize].l;
+				int hv = (int)(val * height * 0.5f);
+				glVertex2i(x, hv+halfHeight);
+				x++;
+			}
+		}
+		break;
+	case(kStackItemTypeLfoPerVoice):
+		break;
+
 	}
 	
 	//glVertex2i(width,height);

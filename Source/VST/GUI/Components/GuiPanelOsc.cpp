@@ -17,7 +17,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	AddSubComponent(knobPhase);
 	AddSubComponent(knobLevel);
 
-	sliderFilter = new GuiSlider(30, 128, 419, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, "LEVEL");
+	sliderFilter = new GuiSlider(30, 128, 419, 56, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, kSliderTypeGeneric, "LEVEL");
 	AddSubComponent(sliderFilter);
 
 	butEnabled = new GuiButton(26, 26, 62, 118, IDB_BUTTONSTRIP, kSpritesButtons_But_osc_power_off, kSpritesButtons_But_osc_power_on, kSpritesButtons_None);

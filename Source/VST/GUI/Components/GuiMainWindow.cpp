@@ -94,6 +94,8 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 
 	panelOsc->SetStackItem((Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC]);
 	panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
+	int num = NUMBER_START_LFO_AV;
+	panelLfo->SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[num]);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)
