@@ -8,7 +8,8 @@ GPoint* GuiMainWindow::dragPoint = NULL;
 GPoint* GuiMainWindow::movePoint = NULL;
 int GuiMainWindow::currentOscNumber = 0;
 int GuiMainWindow::currentEgNumber = 0;
-int GuiMainWindow::currentLfoNumber = 0;
+int GuiMainWindow::currentLfoAvNumber = 0;
+int GuiMainWindow::currentLfoPvNumber = 0;
 GuiPanelMain* GuiMainWindow::panelMain = 0;
 GuiPanelMaster* GuiMainWindow::panelMaster = 0;
 GuiPanelHeader* GuiMainWindow::panelHeader = 0;
@@ -30,7 +31,8 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 
 	currentOscNumber = 0;
 	currentEgNumber = NUMBER_EG_AMP;
-	currentLfoNumber = 0;
+	currentLfoAvNumber = 0;
+	currentLfoPvNumber = 0;
 
 	panelHeader = new GuiPanelHeader(921, 167, 0, 0, IDB_PNG_HEADER);
 	panelHeader->drawOverlay = false;
@@ -94,8 +96,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 
 	panelOsc->SetStackItem((Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC]);
 	panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
-	int num = NUMBER_START_LFO_AV;
-	panelLfo->SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[num]);
+	panelLfo->SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV]);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)

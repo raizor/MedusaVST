@@ -124,9 +124,14 @@ void GuiSliderKnob::HandleDrag(GEvent* evt)
 		{
 			ParamFloat* p  = (ParamFloat*)synthItem->param;
 			p->SetValueWithInt((int)newVal);
-			if (sliderType == kSliderTypeLfoLevel)
+
+			if (synthItem->item->type == kStackItemTypeLfoAllVoices || 
+				synthItem->item->type == kStackItemTypeLfoPerVoice || 
+				synthItem->item->type == kStackItemTypeAmpEg || 
+				synthItem->item->type == kStackItemTypePitchEg || 
+				synthItem->item->type == kStackItemTypeEnvAdsr)
 			{
-				// enable lfo?
+				// enable lfo/eg
 				synthItem->item->enabled = newVal != 0;
 			}
 			sprintf(&msg[0], "knob val: %d", (int)newVal);

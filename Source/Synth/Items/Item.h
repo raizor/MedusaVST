@@ -17,7 +17,7 @@ public:
 	bool enabled;
 	int number;
 	StackItemType type;
-	SampleBufferFloat* buffer;
+	SampleBufferFloat** buffer;
 	ParamFloat** paramsFloat;
 	ParamInt** paramsInt;
 	ParamBool** paramsBool;

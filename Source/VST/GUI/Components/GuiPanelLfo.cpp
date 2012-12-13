@@ -26,29 +26,77 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 
 	// av
 	GuiButton* butOsc;
-	butOsc = new GuiButton(26, 27, 53+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_1_off, kSpritesButtons_But_1_on, kSpritesButtons_None);
+	butOsc = new GuiButton(26, 27, 53+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_1_off, kSpritesButtons_But_1_on, kSpritesButtons_But_1_off_lit, kSpritesButtons_But_1_on_lit);
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
+	butOsc->itemNumber = 0;
+	LinkedSynthItem* si = new LinkedSynthItem();
+	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV];
+	si->param = &si->item->enabled;	
+	butOsc->synthItem = si;
+	si->paramType = kParamTypeEnabled;
+	butOsc->buttonType = kButtonTypeLfoAvNumber;
 	butsAv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
-	butOsc = new GuiButton(26, 27, 76+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_2_off, kSpritesButtons_But_2_on, kSpritesButtons_None);
+	butOsc = new GuiButton(26, 27, 76+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_2_off, kSpritesButtons_But_2_on, kSpritesButtons_But_2_off_lit, kSpritesButtons_But_2_on_lit);
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
+	butOsc->itemNumber = 1;
+	si = new LinkedSynthItem();
+	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV+1];
+	si->param = &si->item->enabled;	
+	butOsc->synthItem = si;
+	si->paramType = kParamTypeEnabled;
+	butOsc->buttonType = kButtonTypeLfoAvNumber;
 	butsAv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
-	butOsc = new GuiButton(26, 27, 99+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_3_off, kSpritesButtons_But_3_on, kSpritesButtons_None);
+	butOsc = new GuiButton(26, 27, 99+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_3_off, kSpritesButtons_But_3_on, kSpritesButtons_But_3_off_lit, kSpritesButtons_But_3_on_lit);
+	butOsc->itemNumber = 2;
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
+	si = new LinkedSynthItem();
+	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV+2];
+	si->param = &si->item->enabled;	
+	butOsc->synthItem = si;
+	si->paramType = kParamTypeEnabled;
+	butOsc->buttonType = kButtonTypeLfoAvNumber;
 	butsAv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
-	butOsc = new GuiButton(26, 27, 122+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_4_off, kSpritesButtons_But_4_on, kSpritesButtons_None);
+	butOsc = new GuiButton(26, 27, 122+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_4_off, kSpritesButtons_But_4_on, kSpritesButtons_But_4_off_lit, kSpritesButtons_But_4_on_lit);
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
+	butOsc->itemNumber = 3;
+	si = new LinkedSynthItem();
+	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV+3];
+	si->param = &si->item->enabled;	
+	butOsc->synthItem = si;
+	si->paramType = kParamTypeEnabled;
+	butOsc->buttonType = kButtonTypeLfoAvNumber;
 	butsAv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
 	// pv
-	butOsc = new GuiButton(26, 27, 171+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_1_off, kSpritesButtons_But_1_on, kSpritesButtons_None);
-	butsAv.push_back(butOsc);
+	butOsc = new GuiButton(26, 27, 171+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_1_off, kSpritesButtons_But_1_on, kSpritesButtons_But_1_off_lit, kSpritesButtons_But_1_on_lit);
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
+	si = new LinkedSynthItem();
+	butOsc->itemNumber = 0;
+	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_LFO_PV];
+	si->param = &si->item->enabled;	
+	butOsc->synthItem = si;
+	si->paramType = kParamTypeEnabled;
+	butOsc->buttonType = kButtonTypeLfoPvNumber;
+	butPv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
-	butOsc = new GuiButton(26, 27, 194+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_2_off, kSpritesButtons_But_2_on, kSpritesButtons_None);
-	butsAv.push_back(butOsc);
+	butOsc = new GuiButton(26, 27, 194+amtx, amty, IDB_BUTTONSTRIP, kSpritesButtons_But_2_off, kSpritesButtons_But_2_on, kSpritesButtons_But_2_off_lit, kSpritesButtons_But_2_on_lit);
+	butOsc->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
+	si = new LinkedSynthItem();
+	butOsc->itemNumber = 1;
+	si->item = PatchList::list->CurrentPatch->items[NUMBER_START_LFO_PV+1];
+	si->param = &si->item->enabled;	
+	butOsc->synthItem = si;
+	si->paramType = kParamTypeEnabled;
+	butOsc->buttonType = kButtonTypeLfoPvNumber;
+	butPv.push_back(butOsc);
 	AddSubComponent(butOsc);
 
 	displayWave = new GuiDisplayWave(155, 155, 144, 44, 0);
@@ -148,4 +196,34 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 	*/
 
 
+}
+
+
+void GuiPanelLfo::CallbackClicked(void* data, GEvent* evt)
+{
+	char msg[100];
+	for (int i=0; i<GuiMainWindow::panelLfo->butsAv.size(); i++)
+	{
+		if (data == GuiMainWindow::panelLfo->butsAv[i])
+		{
+			DebugPrintLine("XX");
+			sprintf(&msg[0], "lfo av %d", i);
+			DebugPrintLine(msg);
+			Lfo* lfo = (Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV+i];
+			GuiMainWindow::panelLfo->SetStackItem(lfo);
+		}
+	}
+
+	for (int i=0; i<GuiMainWindow::panelLfo->butPv.size(); i++)
+	{
+
+		if (data == GuiMainWindow::panelLfo->butPv[i])
+		{
+			DebugPrintLine("XX");
+			sprintf(&msg[0], "lfo pv %d", i);
+			DebugPrintLine(msg);
+			Lfo* lfo = (Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_PV+i];
+			GuiMainWindow::panelLfo->SetStackItem(lfo);
+		}
+	}
 }

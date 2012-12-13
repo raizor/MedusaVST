@@ -7,7 +7,12 @@ Item::Item(bool hasBuffer, StackItemType type, bool hasWaveTable)
 	this->type = type;
 	this->hasBuffer = hasBuffer;
 	this->hasWaveTable = hasWaveTable;
-	buffer = new SampleBufferFloat(Constants_MixBufferSizeFloat);
+	buffer = new SampleBufferFloat*[Constants_Polyphony];
+	for(int i=0; i<Constants_Polyphony; i++)
+	{
+		buffer[i] = new SampleBufferFloat(Constants_MixBufferSizeFloat);
+	}
+
 	numParamsFloat = 0;
 	numParamsBool = 0;
 	numParamsInt = 0;

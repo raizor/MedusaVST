@@ -28,7 +28,7 @@ public:
 
 	float GetModValue(Voice* voice, int bufferIndex);
 	float GetModdedValue(Voice* voice, int bufferIndex);
-	float GetModulatedValue(float *value, int bufferIndex);
+	float GetModulatedValue(Voice* voice, float *value, int bufferIndex);
 
 	static float ModValue(float* value, float modValue, ModulationCurve* curve);
 
@@ -52,7 +52,7 @@ class Modulator
 {
 public:
 	StackItemType Type;
-	SampleBufferFloat *ModBuffer;
+	SampleBufferFloat **ModBuffer;
 	ModulationCurve Curve;
 	
 	Modulator();

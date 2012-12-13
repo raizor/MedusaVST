@@ -17,6 +17,8 @@ enum ButtonType
 {
 	kButtonTypeEnabledSwitch = 0,
 	kButtonTypeOscNumber,
+	kButtonTypeLfoAvNumber,
+	kButtonTypeLfoPvNumber,
 	kButtonTypeEgNumber,
 	kButtonTypeEgAmp,
 	kButtonTypeEgPitch,

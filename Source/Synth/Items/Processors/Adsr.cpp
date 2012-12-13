@@ -227,7 +227,7 @@ prepareRelease:
 				bufferOut->Buffer[idx].ch[j] *= amt;					
 			}
 			//
-			buffer->Buffer[idx].ch[j] = amt;
+			buffer[voice->Number]->Buffer[idx].ch[j] = amt;
 			if (!isAmpEg)
 			{
 				int xx = 1;

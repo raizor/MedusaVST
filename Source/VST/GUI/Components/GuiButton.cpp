@@ -59,6 +59,12 @@ void GuiButton::draw()
 			case(kButtonTypeOscNumber):
 				state = GuiMainWindow::currentOscNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
 				break;
+			case(kButtonTypeLfoAvNumber):
+				state = GuiMainWindow::currentLfoAvNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
+				break;
+			case(kButtonTypeLfoPvNumber):
+				state = GuiMainWindow::currentLfoPvNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
+				break;
 			case(kButtonTypeEgNumber):
 				state = GuiMainWindow::currentEgNumber == this->itemNumber ? kButtonStateOn : kButtonStateOff;
 				break;				
@@ -73,7 +79,13 @@ void GuiButton::draw()
 
 		// hot
 		switch(buttonType)
-		{			
+		{		
+		case(kButtonTypeLfoAvNumber):
+			{
+			}
+		case(kButtonTypeLfoPvNumber):
+			{
+			}
 		case(kButtonTypeOscNumber):
 		{
 			if (state == kButtonStateOn)
@@ -95,6 +107,7 @@ void GuiButton::draw()
 			}
 			break;
 		}
+
 		case(kButtonTypeOscParam):
 			{
 				glDisable(GL_TEXTURE_2D);
@@ -244,6 +257,18 @@ void GuiButton::Clicked(GEvent* evt)
 		case(kButtonTypeOscNumber):
 			{
 				GuiMainWindow::currentOscNumber = this->itemNumber;
+				//synthItem->item->enabled = !synthItem->item->enabled;
+				break;
+			}
+		case(kButtonTypeLfoAvNumber):
+			{
+				GuiMainWindow::currentLfoAvNumber = this->itemNumber;
+				//synthItem->item->enabled = !synthItem->item->enabled;
+				break;
+			}
+		case(kButtonTypeLfoPvNumber):
+			{
+				GuiMainWindow::currentLfoPvNumber = this->itemNumber;
 				//synthItem->item->enabled = !synthItem->item->enabled;
 				break;
 			}

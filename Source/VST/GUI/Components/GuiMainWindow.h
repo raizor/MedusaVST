@@ -61,7 +61,8 @@ public:
 
 	static int currentOscNumber;
 	static int currentEgNumber;
-	static int currentLfoNumber;
+	static int currentLfoAvNumber;
+	static int currentLfoPvNumber;
 
 	GuiMainWindow(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiMainWindow(void);

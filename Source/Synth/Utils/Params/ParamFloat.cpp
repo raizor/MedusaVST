@@ -138,7 +138,7 @@ float ParamFloat::GetModValue(Voice* voice, int bufferIndex)
 		for(int i=0; i<ModList->Count; i++)
 		{
 			Modulator* mod = &ModList->Modulators[i];
-			ModValue(&modValue, ModList->Modulators[i].ModBuffer->Buffer[bufferIndex].ch[0], &mod->Curve);
+			ModValue(&modValue, ModList->Modulators[i].ModBuffer[voice->Number]->Buffer[bufferIndex].ch[0], &mod->Curve);
 		}
 		return modValue;	
 	}else{
@@ -151,12 +151,12 @@ float ParamFloat::GetModdedValue(Voice* voice, int bufferIndex)
 	return Value() * GetModValue(voice, bufferIndex);
 }
 
-float ParamFloat::GetModulatedValue(float* value, int bufferIndex)
+float ParamFloat::GetModulatedValue(Voice* voice, float* value, int bufferIndex)
 {
 	for (int i=0; i<ModList->Count; i++)
 	{
 		Modulator* mod = &ModList->Modulators[i];
-		float modder = ModList->Modulators[i].ModBuffer->Buffer[bufferIndex].ch[0];
+		float modder = ModList->Modulators[i].ModBuffer[voice->Number]->Buffer[bufferIndex].ch[0];
 		ModValue(value, modder, &mod->Curve);
 	}
 	return 0;

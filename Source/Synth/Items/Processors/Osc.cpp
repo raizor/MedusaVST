@@ -55,7 +55,7 @@ float Osc::GetFrequency(Voice* voice, int bufferIndex, bool haveFreqMod)
 	if (haveFreqMod)
 	{
 		float oct = PITCH_DETUNE_OCTAVES;
-		paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->GetModulatedValue(&oct, bufferIndex);
+		paramsFloat[OSC_PARAM_FLOAT_PITCH_MOD]->GetModulatedValue(voice, &oct, bufferIndex);
 		dtOct += oct;
 		//dtSemi += mv * 100.0f;	
 	}	
@@ -211,7 +211,7 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 
 		if (fm)
 		{
-			f = f + (OscPrevious->buffer->Buffer[idx].ch[0] * 10000);
+			f = f + (OscPrevious->buffer[voice->Number]->Buffer[idx].ch[0] * 10000);
 		}
 		
 		float v = waveTableIdx->Sample(voice, f, &syncHit);
@@ -248,7 +248,7 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 			float val = v;
 
 			// write val to temp buffer
-			buffer->Buffer[idx].ch[j] = val;
+			buffer[voice->Number]->Buffer[idx].ch[j] = val;
 			// write val to output buffer
 			if (ringMod)
 			{

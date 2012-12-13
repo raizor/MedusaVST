@@ -39,5 +39,6 @@ public:
 	~GuiPanelLfo(void);
 	void GuiPanelLfo::SetWaveformName(Lfo* osc);
 	virtual void SetStackItem(Lfo* item);
+	void CallbackClicked(void* data, GEvent* evt);
 };
 

@@ -373,15 +373,27 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 void GuiPanelEg::CallbackClicked(void* data, GEvent* evt)
 {
 	char msg[100];
-	for (int i=0; i<GuiMainWindow::panelEg->butEgs.size(); i++)
+	for (int i=2; i<GuiMainWindow::panelEg->butEgs.size(); i++)
 	{
 		if (data == GuiMainWindow::panelEg->butEgs[i])
 		{
 			DebugPrintLine("XX");
 			sprintf(&msg[0], "eg %d", i);
 			DebugPrintLine(msg);
-			Adsr* eg = (Adsr*)PatchList::list->CurrentPatch->items[NUMBER_START_EG+i];
+			Adsr* eg = (Adsr*)PatchList::list->CurrentPatch->items[NUMBER_START_EG+i-2];
 			GuiMainWindow::panelEg->SetStackItem(eg);
 		}
+	}
+
+	if (data == GuiMainWindow::panelEg->butEgs[0])
+	{
+		// amp
+		GuiMainWindow::panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
+	}
+
+	if (data == GuiMainWindow::panelEg->butEgs[1])
+	{
+		// amp
+		GuiMainWindow::panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egPitch);
 	}
 }

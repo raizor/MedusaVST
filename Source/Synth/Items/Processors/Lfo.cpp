@@ -40,7 +40,7 @@ void Lfo::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 
 		for (int j = 0; j < Constants_NumAudioChannels; j++)
 		{
-			bufferOut->Buffer[idx].ch[j] = v*depth*level;				
+			buffer[voice->Number]->Buffer[idx].ch[j] = v*depth*level;				
 		}
 	}
 }
