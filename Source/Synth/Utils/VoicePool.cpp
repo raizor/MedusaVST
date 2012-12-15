@@ -171,8 +171,10 @@ void VoicePool::MixVoicesToBuffer(SampleBufferFloat* bufferOut, int numSamples)
 			bool processDelay = fx == 0;
 			SampleBufferFloat* fxBuffer = processDelay ? BufferDelay : BufferReverb;
 			// TODO
-			float delayAmount = 0;//FloatStackItemParam_Value(patch->DelayAmount) * FloatStackItemParam_Value(VoicePool_Pool->GlobalDelay->Amount);
-			float reverbAmount = 0;//FloatStackItemParam_Value(patch->ReverbAmount) * FloatStackItemParam_Value(VoicePool_Pool->GlobalReverb->Amount);
+			float delayAmount = patch->DelayAmount->Value() * VoicePool::Pool->GlobalDelay->paramsFloat[PROC_PARAM_FLOAT_LEVEL]->Value();
+			float reverbAmount = patch->ReverbAmount->Value() * VoicePool::Pool->GlobalReverb->paramsFloat[PROC_PARAM_FLOAT_LEVEL]->Value();
+			//float delayAmount = 0;//FloatStackItemParam_Value(patch->DelayAmount) * FloatStackItemParam_Value(VoicePool_Pool->GlobalDelay->Amount);
+			//float reverbAmount = 0;//FloatStackItemParam_Value(patch->ReverbAmount) * FloatStackItemParam_Value(VoicePool_Pool->GlobalReverb->Amount);
 
 			// get current patch for this channel to determine delay/reverb amounts
 			// we do a wet/dry mix thing here. the dry amount is copied to the channel buffer
@@ -208,6 +210,12 @@ void VoicePool::MixVoicesToBuffer(SampleBufferFloat* bufferOut, int numSamples)
 
 	// handle global delay by processing contents of FX buffer
 	// delay
+	VoicePool::Pool->GlobalDelay->RenderBuffer(VoicePool::Pool->BufferDelay, numSamples);
+	bufferOut->MixIn(VoicePool::Pool->BufferDelay, 0, numSamples);
+	// reverb
+	VoicePool::Pool->GlobalReverb->RenderBuffer(VoicePool::Pool->BufferReverb, numSamples);
+	bufferOut->MixIn(VoicePool::Pool->BufferReverb, 0, numSamples);
+
 	//VoicePool_Pool->GlobalDelay->renderBuffer(VoicePool_Pool->BufferDelay, numSamples);		
 	//bufferOut->MixIn(VoicePool_Pool->BufferDelay, 0, numSamples);
 

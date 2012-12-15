@@ -5,9 +5,9 @@ ModDelay::ModDelay(int bufferLength) : ItemProcessor(kStackItemTypeModDelay, tru
 {
 	type = kStackItemTypeModDelay;
 
-	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi, true)); // feedback 
-	AddFloatParam(new ParamFloat(127, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // delay left
-	AddFloatParam(new ParamFloat(127, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // delay right
+	AddFloatParam(new ParamFloat(64, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi, true)); // feedback 
+	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // delay left
+	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // delay right
 	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // rate
 	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // depth
 	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true)); // phase

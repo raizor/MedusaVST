@@ -250,6 +250,11 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 		// load patch name
 		read(patch->name, sizeof(char)*100, 1, fp, writer, useFile);
 
+		LoadParam(patch->DelayAmount, kParamTypeFloat, fp, writer, useFile);
+		LoadParam(patch->ReverbAmount, kParamTypeFloat, fp, writer, useFile);
+		LoadParam(patch->BoostAmount, kParamTypeFloat, fp, writer, useFile);
+		LoadParam(patch->ChanVolAmount, kParamTypeFloat, fp, writer, useFile);
+
 		// filter mode
 		int filtMode = ReadInt(fp, writer, useFile);
 		patch->FilterProcMode->SetValue(filtMode);
@@ -338,8 +343,76 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 				// dest
 				int itemNumber = ReadInt(fp, writer, useFile);
 				StackItemType itemType = (StackItemType)ReadInt(fp, writer, useFile);
+				Item* it;
+				switch (itemType)
+				{
+				case (kStackItemTypeWfOsc):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeSimpleFilter):
+					itemNumber+=NUMBER_START_FILTER;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeEnvAdsr):
+					itemNumber+=NUMBER_START_EG;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeLfoAllVoices):
+					itemNumber+=NUMBER_START_LFO_AV;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeMixer):
+					// TODO
+					//itemNumber+=0;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeAmpEg):
+					it = patch->egAmp;
+					break;
+				case (kStackItemTypePitchEg):
+					it = patch->egPitch;
+					break;
+				case (kStackItemTypeLfoPerVoice):
+					itemNumber+=NUMBER_START_LFO_PV;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypePitchBender):
+					//itemNumber+=NUMBER_START_LFO_AV;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeDistortion):
+					it = patch->distort;
+					break;
+				case (kStackItemTypeModDelay):
+					it = VoicePool::Pool->GlobalDelay;
+					break;
+				case (kStackItemTypeGlobalReverb):
+					it = VoicePool::Pool->GlobalReverb;
+					break;
+				case (kStackItemTypeGlobalDelay):
+					it = VoicePool::Pool->GlobalDelay;
+					break;
+				case (kStackItemTypeCompressor):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeBoost):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypePatchSettings):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeChorusFlange):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				}
+				it = patch->items[itemNumber];
 				int paramNumber = ReadInt(fp, writer, useFile);
-				patch->ModMatrix->SetDest(row->RowNum, patch->items[itemNumber], patch->items[itemNumber]->paramsFloat[paramNumber]);
+				patch->ModMatrix->SetDest(row->RowNum, it, it->paramsFloat[paramNumber]);
 			}
 		}
 
@@ -366,6 +439,7 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 		}*/
 	}
 
+	// TODO load/save patch settings
 
 	int numWaveTables = ReadInt(fp, writer, useFile);
 
@@ -473,6 +547,12 @@ int ZynthIo::SaveBank(FILE* fp, Writer *writer, bool useFile)
 
 		// save patch name
 		write(patch->name, 1, sizeof(char)*100, fp, writer, useFile);
+
+		SaveParam(patch->DelayAmount, kParamTypeFloat, fp, writer, useFile);
+		SaveParam(patch->ReverbAmount, kParamTypeFloat, fp, writer, useFile);
+		SaveParam(patch->BoostAmount, kParamTypeFloat, fp, writer, useFile);
+		SaveParam(patch->ChanVolAmount, kParamTypeFloat, fp, writer, useFile);
+
 		
 		// filter mode
 		WriteInt(patch->FilterProcMode->Value(), fp, writer, useFile);

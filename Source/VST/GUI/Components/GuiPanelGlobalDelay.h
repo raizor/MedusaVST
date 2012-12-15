@@ -20,5 +20,6 @@ public:
 
 	GuiPanelGlobalDelay(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelGlobalDelay(void);
+	void GuiPanelGlobalDelay::SetStackItem();
 };
 

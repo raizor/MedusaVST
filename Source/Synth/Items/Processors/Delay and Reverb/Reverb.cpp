@@ -30,11 +30,6 @@ Reverb::~Reverb(void)
 {
 }
 
-void Reverb::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples)
-{
-
-}
-
 void Reverb::Set()
 {
 	static const sF32 gaincdef[4] = {
@@ -75,5 +70,44 @@ void Reverb::Reset()
 
 		// low cut
 		hpf[ch] = 0.0f;
+	}
+}
+
+
+void Reverb::RenderBuffer(SampleBufferFloat* bufferIn, int nsamples)
+{
+	//const sF32 *inbuf = inst->aux1buf;
+
+	for (sInt ch=0; ch < 2; ch++)
+	{
+		for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+nsamples; i++)
+		{
+			int idx = i%Constants_MixBufferSizeFloat;
+			sF32 in = bufferIn->Buffer[idx].ch[ch] * gainin + fcdcoffset;
+
+			// parallel comb filters
+			sF32 cur = 0.0f;
+			for (sInt j=0; j < 4; j++)
+			{
+				sF32 dv = combd[ch][j].Fetch();
+				sF32 nv = gainc[j] * dv + ((j & 1) ? -in : in); // alternate phase on combs
+				combl[ch][j] += damp * (nv - combl[ch][j]);
+				combd[ch][j].Feed(combl[ch][j]);
+				cur += combl[ch][j];
+			}
+
+			// serial allpass filters
+			for (sInt j=0; j < 2; j++)
+			{
+				sF32 dv = alld[ch][j].Fetch();
+				sF32 dz = cur + gaina[j] * dv;
+				alld[ch][j].Feed(dz);
+				cur = dv - gaina[j] * dz;
+			}
+
+			// low cut and output
+			hpf[ch] += lowcutVal * (cur - hpf[ch]);
+			bufferIn->Buffer[idx].ch[ch] += cur - hpf[ch];
+		}
 	}
 }

@@ -97,6 +97,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelOsc->SetStackItem((Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC]);
 	panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
 	panelLfo->SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV]);
+	panelGlobalDelay->SetStackItem();
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)

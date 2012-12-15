@@ -146,6 +146,7 @@ enum StackItemType
 	kStackItemTypeDistortion,
 	kStackItemTypeModDelay,
 	kStackItemTypeGlobalReverb,
+	kStackItemTypeGlobalDelay,
 	kStackItemTypeCompressor,
 	kStackItemTypeBoost,
 	kStackItemTypePatchSettings,

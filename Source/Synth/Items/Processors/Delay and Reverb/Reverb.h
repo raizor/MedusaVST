@@ -29,7 +29,7 @@ public:
 
 	void Set();
 	void Reset();
-	void Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voice* voice, int numSamples);
+	void RenderBuffer(SampleBufferFloat* bufferIn, int nsamples);
 
 private:
 	sF32 gainc[4];  // feedback gain for comb filter delays 0-3
@@ -37,7 +37,6 @@ private:
 	sF32 gainin;    // input gain
 	sF32 damp;      // high cut (1-val^2)
 	sF32 lowcutVal;
-
 
 	FixedDelay combd[2][4];  // left/right comb filter delay lines
 	sF32 combl[2][4];     // left/right comb delay filter buffers
@@ -60,3 +59,32 @@ private:
 
 };
 
+/*
+Ralph: 1) precompute
+Ralph: a = 1 - 1 / t
+Ralph: t describes the shape of the curve
+Ralph: 2) normalize your input x, so that 0-127 (e.g) is mapped to 0-1
+Ralph: 3) compute
+Ralph: if (x >= 0 && x<= 1)
+Ralph: return (x*a) / (x*a + x - 1)
+Ralph: else
+Ralph: return x
+Ralph: -- done---
+Ralph: this is originally from a guy called christian budde
+Ralph: the beauty of this functions is that the parameter t describes the value at x = 0.5, i.e. at the halfway point
+Ralph: so if t = 0.1 (e.g.) you get a nice upwards-bending exponential-like curve
+
+------------------------
+
+Ralph: one-pole filter/exponentially averaged filter works well
+Ralph: that's the val = 0.99*val + 0.01*desired_value  one
+Joe: cool:)
+Ralph: for differing values of 0.99 
+Ralph: can also be expressed like this
+Ralph: val += (desired_val - val)*0.01
+Ralph: then you can do stuff like limiting the slope, so it doesn't move to fast
+Ralph: val += min((desired_val - val)*0.01, 0.1)
+Ralph: e..g
+Ralph: doesn't move to fast at big differences I should say
+
+*/

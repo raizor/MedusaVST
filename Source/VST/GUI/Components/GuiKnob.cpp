@@ -1,4 +1,5 @@
 #include "GuiKnob.h"
+#include "Items/Processors/Delay and Reverb/ModDelay.h"
 #include "GuiMainWindow.h"
 
 GuiKnob::GuiKnob(int width, int height, int offsetX, int offsetY, int imageId, int min, int max, bool biDirectional, KnobType knobType, char* name ) : GuiComponent(width, height, offsetX, offsetY, imageId, false)
@@ -175,6 +176,12 @@ void GuiKnob::HandleDrag(GEvent* evt)
 		ParamFloat* p  = (ParamFloat*)synthItem->param;
 		p->SetValueWithInt((int)newVal);
 		sprintf(&msg[0], "knob val: %d", (int)newVal);
+		if (synthItem->item && synthItem->item->type == kStackItemTypeModDelay)
+		{
+			ModDelay* md = (ModDelay*)synthItem->item;
+			md->Set();
+
+		}
 		DebugPrintLine(msg);
 	}
 
