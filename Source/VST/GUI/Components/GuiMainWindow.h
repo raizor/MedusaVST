@@ -6,6 +6,7 @@
 #include "GuiPanelLfo.h"
 #include "GuiPanelFilter.h"
 #include "GuiPanelMaster.h"
+#include "GuiPanelModeller.h"
 #include "GuiKeyboard.h"
 #include "GuiModMatrix.h"
 #include "GuiPanelMain.h"
@@ -38,6 +39,7 @@ public:
 	static GuiPanelEg* panelEg;
 	static GuiPanelFilter* panelFilter;
 	static GuiPanelLfo* panelLfo;
+	static GuiPanelModeller* panelModeller;
 	static GuiModMatrix* panelModMatrix;
 	//static GuiPanelModulations* panelModulations;
 	static GuiKeyboard* keyboard;

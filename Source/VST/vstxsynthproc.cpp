@@ -33,6 +33,7 @@ const double midiScaler = (1. / 127.);
 static float sawtooth[kWaveSize];
 static float pulse[kWaveSize];
 static float freqtab[kNumFrequencies];
+static VstTimeInfoFlags defaultTimeInfoFlags;
 
 static long runtime = 0;
 
@@ -81,6 +82,8 @@ void VstXSynth::initProcess ()
 		freqtab[i] = (float)a;
 		a *= k;
 	}
+
+	defaultTimeInfoFlags = kVstTempoValid;
 }
 
 static int xx = 0;
@@ -127,7 +130,9 @@ VstInt32 VstXSynth::processEvents (VstEvents* ev)
 
 //-----------------------------------------------------------------------------------------
 void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
-{
+{	
+	VstTimeInfo* timeInfo = getTimeInfo(defaultTimeInfoFlags);
+
 	float* out1 = outputs[0];
 	float* out2 = outputs[1];
 

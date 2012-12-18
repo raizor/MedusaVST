@@ -6,6 +6,8 @@ enum GuiLabelSize
 {
 	kGuiLabelSizeSmall = 0,
 	kGuiLabelSizeLarge,
+	kGuiLabelSizeBold,
+	kGuiLabelSizeTiny,
 
 };
 

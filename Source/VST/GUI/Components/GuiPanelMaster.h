@@ -18,6 +18,8 @@ public:
 
 	GuiSlider* sliderLevel;
 
+	GuiLabel* labSlider1;
+
 	GuiButton* butLimit;
 	GuiPanelMaster(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelMaster(void);

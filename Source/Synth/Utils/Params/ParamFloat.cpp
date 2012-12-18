@@ -179,6 +179,13 @@ void ParamFloat::SetValueWithInt(float value)
 	float val = ConvertValueFromInt(value);
 	if (exponential)
 	{
+		float t = 0.9f;
+		float a = 1 - 1 / t;
+		if (val >= 0 && val<= 1)
+		{
+			val =  (val*a) / (val*a + val - 1);
+		}
+		val = val * exponentialIncrement;
 		//val = pow(val, exponentialIncrement);
 		//val = exp(val);
 	}

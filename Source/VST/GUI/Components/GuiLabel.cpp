@@ -29,6 +29,12 @@ void GuiLabel::draw()
 	case kGuiLabelSizeLarge:
 		font = TextWriter::writer->LucidaBig;
 		break;
+	case kGuiLabelSizeBold:
+		font = TextWriter::writer->LucidaBold;
+		break;
+	case kGuiLabelSizeTiny:
+		font = TextWriter::writer->LucidaTiny;
+		break;
 	default:
 		break;
 	}

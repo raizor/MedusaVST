@@ -10,6 +10,8 @@ public:
 	static TextWriter* writer;
 	BMFont* Lucida;
 	BMFont* LucidaBig;
+	BMFont* LucidaBold;
+	BMFont* LucidaTiny;
 	TextWriter(void);
 	~TextWriter(void);
 };

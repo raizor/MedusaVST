@@ -32,6 +32,7 @@ VoicePool::VoicePool()
 	BufferDelay = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 	BufferReverb = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 
+
 	// create channel buffer
 	BufferChannels = new SampleBufferFloat(Constants_MixBufferSizeFloat);
 
@@ -209,9 +210,11 @@ void VoicePool::MixVoicesToBuffer(SampleBufferFloat* bufferOut, int numSamples)
 	// TODO
 
 	// handle global delay by processing contents of FX buffer
+
 	// delay
 	VoicePool::Pool->GlobalDelay->RenderBuffer(VoicePool::Pool->BufferDelay, numSamples);
 	bufferOut->MixIn(VoicePool::Pool->BufferDelay, 0, numSamples);
+
 	// reverb
 	VoicePool::Pool->GlobalReverb->RenderBuffer(VoicePool::Pool->BufferReverb, numSamples);
 	bufferOut->MixIn(VoicePool::Pool->BufferReverb, 0, numSamples);

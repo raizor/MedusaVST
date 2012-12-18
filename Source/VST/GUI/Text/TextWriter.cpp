@@ -15,6 +15,18 @@ TextWriter::TextWriter(void)
 	{
 		DebugBreak();
 	}
+
+	LucidaBold = new BMFont();
+	if (!LucidaBold->LoadFont(IDR_FONT_ENVYBOLD_DATA, IDB_FONT_ENVYBOLD_PNG))
+	{
+		DebugBreak();
+	}
+
+	LucidaTiny = new BMFont();
+	if (!LucidaTiny->LoadFont(IDR_FONT_ENVYTINY_DATA, IDB_FONT_ENVYTINY_PNG))
+	{
+		DebugBreak();
+	}
 }
 
 

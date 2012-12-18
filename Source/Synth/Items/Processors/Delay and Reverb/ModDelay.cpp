@@ -27,10 +27,10 @@ void ModDelay::Reset()
 	mcnt = 0;
 	//SampleBufferFloat_Clear(DelayBuffer);
 
-	/*
+	
 	zt_memset(db[0], 0, (dbufmask + 1) * sizeof(sF32));
 	zt_memset(db[1], 0, (dbufmask + 1) * sizeof(sF32));
-	*/
+	
 }
 
 void ModDelay::Set()

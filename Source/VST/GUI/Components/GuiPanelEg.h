@@ -36,6 +36,7 @@ public:
 	GuiButton* butMode;
 	GuiButton* butMod;
 
+	GuiLabel* labSlider1;
 
 	GuiButton* butAmpEg;
 	GuiButton* butPitchEg;

@@ -39,6 +39,10 @@ public:
 	GuiLabel* labOctave;
 	GuiLabel* labMode;
 	GuiLabel* labModMode;
+
+	GuiLabel* labKnob1;
+	GuiLabel* labKnob2;
+	GuiLabel* labKnob3;
 	
 	GuiDisplayWave* displayWave;
 
@@ -50,8 +54,8 @@ public:
 	~GuiPanelOsc(void);
 	virtual void SetStackItem(Osc* item);
 	void CallbackClicked(void* data, GEvent* evt);
-	char* OscModModeToString(int val);
-	char* OscModeToString(int val);
+	static char* OscModModeToString(int val);
+	static char* OscModeToString(int val);
 	void GuiPanelOsc::SetWaveformName(Osc* osc);
 };
 

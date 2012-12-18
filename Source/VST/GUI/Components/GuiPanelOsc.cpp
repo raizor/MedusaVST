@@ -149,6 +149,14 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 
 	labModMode = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*4), "Add");
 	AddSubComponent(labModMode);
+
+	// knob labels
+	labKnob1 = new GuiLabel(40, 12, 12, 166, "FINE", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob1);
+	labKnob2 = new GuiLabel(40, 12, 100, 166, "LEVEL", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob2);
+	labKnob3 = new GuiLabel(40, 12, 55, 200, "PHASE", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob3);
 	
 	displayWave = new GuiDisplayWave(159, 159, 147, 47, 0);
 	AddSubComponent(displayWave);

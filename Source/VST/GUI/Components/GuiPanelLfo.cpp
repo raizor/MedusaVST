@@ -1,6 +1,7 @@
 #include "GuiPanelLfo.h"
 #include "Items/Processors/Lfo.h"
 #include "Utils/WaveTableGen.h"
+#include "GuiPanelOsc.h"
 #include "../../GUI/Components/GuiMainWindow.h"
 
 GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
@@ -103,10 +104,27 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 	AddSubComponent(displayWave);
 
 	labWaveType1 = new GuiLabel(72, 12, 63, 44, "Sine");
+	labWaveType1->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
 	AddSubComponent(labWaveType1);
 
 	labWaveType2 = new GuiLabel(72, 12, 63, 56, "Sine");
+	labWaveType2->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
 	AddSubComponent(labWaveType2);
+
+	// knob labels
+	labKnob1 = new GuiLabel(40, 12, 10, 166, "OFFSET", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob1);
+	labKnob2 = new GuiLabel(40, 12, 50, 193, "DELAY", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob2);
+	labKnob3 = new GuiLabel(40, 12, 95, 166, "FADE IN", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob3);
+
+	labSlider1 = new GuiLabel(40, 12, 315, 190, "MORPH", true, kGuiLabelSizeTiny);
+	AddSubComponent(labSlider1);
+	labSlider2 = new GuiLabel(40, 12, 360, 190, "SPEED", true, kGuiLabelSizeTiny);
+	AddSubComponent(labSlider2);
+	labSlider3 = new GuiLabel(40, 12, 410, 190, "AMOUNT", true, kGuiLabelSizeTiny);
+	AddSubComponent(labSlider3);
 }
 
 
@@ -128,8 +146,7 @@ void GuiPanelLfo::SetStackItem(Lfo* item)
 
 	// controls
 	LinkedSynthItem* si;
-
-
+	
 	// speed slider
 	si = new LinkedSynthItem();
 	si->item = item;
@@ -225,5 +242,25 @@ void GuiPanelLfo::CallbackClicked(void* data, GEvent* evt)
 			Lfo* lfo = (Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_PV+i];
 			GuiMainWindow::panelLfo->SetStackItem(lfo);
 		}
+	}
+
+	if (data == GuiMainWindow::panelLfo->labWaveType1)
+	{
+		Lfo* osc = (Lfo*)GuiMainWindow::panelLfo->synthItem->item;		
+		ParamInt *param = osc->paramsInt[LFO_PARAM_INT_WAVEFORM];
+		int currentIndex = param->Value();
+		int numWaveTables = WaveTable::NumWaveTables;
+		if (currentIndex < numWaveTables-1)
+		{
+			currentIndex++;
+		}else{
+			currentIndex = 0;
+		}
+		param->SetValue(currentIndex);
+		osc->WaveChanged();
+		char* c = GuiMainWindow::panelLfo->labWaveType1->text;
+		sprintf(c, osc->waveTableIdx->Table->TableName);
+		GuiMainWindow::panelLfo->labWaveType1->SetText(c);
+		
 	}
 }

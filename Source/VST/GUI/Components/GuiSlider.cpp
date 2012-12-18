@@ -1,5 +1,7 @@
 #include "GuiSlider.h"
 #include "GuiMainWindow.h"
+#include "items/Processors/Delay and Reverb/ModDelay.h"
+#include "items/Processors/Delay and Reverb/Reverb.h"
 
 // knob
 
@@ -134,6 +136,18 @@ void GuiSliderKnob::HandleDrag(GEvent* evt)
 				// enable lfo/eg
 				synthItem->item->enabled = newVal != 0;
 			}
+			
+			if (synthItem->item && synthItem->item->type == kStackItemTypeModDelay)
+			{
+				ModDelay* md = (ModDelay*)synthItem->item;
+				md->Set();
+			}
+			if (synthItem->item && synthItem->item->type == kStackItemTypeGlobalReverb)
+			{
+				Reverb* md = (Reverb*)synthItem->item;
+				md->Set();
+			}
+
 			sprintf(&msg[0], "knob val: %d", (int)newVal);
 			DebugPrintLine(msg);
 		}

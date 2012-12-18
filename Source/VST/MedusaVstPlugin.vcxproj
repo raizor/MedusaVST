@@ -172,6 +172,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Components\GuiPanelModeller.h" />
     <ClInclude Include="GUI\Components\Displays\GuiDisplayWave.h" />
     <ClInclude Include="GUI\Components\Displays\GuiDisplayEg.h" />
     <ClInclude Include="Utils\directories.h" />
@@ -232,6 +233,7 @@
     <ClInclude Include="..\vstsdk2.4\public.sdk\source\vst2.x\vstfxstore.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Components\GuiPanelModeller.cpp" />
     <ClCompile Include="GUI\Components\Displays\GuiDisplayWave.cpp" />
     <ClCompile Include="GUI\Components\Displays\GuiDisplayEg.cpp" />
     <ClCompile Include="Utils\directories.cpp" />

@@ -7,6 +7,7 @@ Lfo::Lfo(StackItemType lfoType) : ItemProcessor(lfoType, true)
 	// TODO: INIT
 	AddIntParam(new ParamInt(kWaveFormSin)); // waveform type
 	AddIntParam(new ParamInt(kPolarityPositive)); // polarity
+	AddIntParam(new ParamInt(kLfoSyncNone)); // sync
 
 	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true, 20.0f)); // rate 
 	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeTime, true, 20.0f)); // delay time
@@ -43,4 +44,12 @@ void Lfo::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 			buffer[voice->Number]->Buffer[idx].ch[j] = v*depth*level;				
 		}
 	}
+}
+
+void Lfo::WaveChanged()
+{
+	WaveTable* table;
+	int wf = paramsInt[LFO_PARAM_INT_WAVEFORM]->Value();
+	table = WaveTable::Wavetables[wf];
+	waveTableIdx->SetWaveTable(table);
 }

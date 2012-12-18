@@ -1,6 +1,7 @@
 #include "GuiMainWindow.h"
 #include "../Text/TextWriter.h"
 #include "GuiPanelMaster.h"
+#include "Utils/VoicePool.h"
 
 GuiComponent* GuiMainWindow::hotComponent = NULL;
 GuiComponent* GuiMainWindow::dragComponent = NULL;
@@ -12,6 +13,7 @@ int GuiMainWindow::currentLfoAvNumber = 0;
 int GuiMainWindow::currentLfoPvNumber = 0;
 GuiPanelMain* GuiMainWindow::panelMain = 0;
 GuiPanelMaster* GuiMainWindow::panelMaster = 0;
+GuiPanelModeller* GuiMainWindow::panelModeller = 0;
 GuiPanelHeader* GuiMainWindow::panelHeader = 0;
 GuiPanelOsc* GuiMainWindow::panelOsc = 0;
 GuiPanelEg* GuiMainWindow::panelEg = 0;
@@ -42,6 +44,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	// container panels for main gui
 	panelOsc = new GuiPanelOsc( 460, 217, 0, 0, 0);
 	panelFilter = new GuiPanelFilter(460, 217, 460, 0, 0);
+	panelModeller = new GuiPanelModeller(386, 205, 525, 222, 0);
 	panelEg = new GuiPanelEg(460, 217, 0, 384-167, 0);
 	panelLfo = new GuiPanelLfo(460, 217, 460, 384-167, 0); 
 	panelModMatrix = new GuiModMatrix(635, 205, 0, 597-167, 0); 
@@ -75,6 +78,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelMain->panelPatchFx->AddSubComponent(panelPatchGlobal);
 	panelMain->panelPatchFx->AddSubComponent(panelDistortion);
 	panelMain->panelPatchFx->AddSubComponent(panelCompression);
+	panelMain->panelPatchFx->AddSubComponent(panelModeller);
 	panelMain->panelPatchFx->AddSubComponent(panelFxRoutingPatch);
 	panelMain->panelPatchFx->drawOverlay = false;
 
@@ -96,6 +100,7 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 
 	panelOsc->SetStackItem((Osc*)PatchList::list->CurrentPatch->items[NUMBER_START_OSC]);
 	panelEg->SetStackItem((Adsr*)PatchList::list->CurrentPatch->egAmp);
+	panelGlobalReverb->SetStackItem((Reverb*)VoicePool::Pool->GlobalReverb);
 	panelLfo->SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV]);
 	panelGlobalDelay->SetStackItem();
 }

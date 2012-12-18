@@ -63,6 +63,25 @@ GuiPanelFilter::GuiPanelFilter(int width, int height, int offsetX, int offsetY, 
 	labFilter2ResoBoost->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter2ResoBoost);
 
+	// knob labels
+	labKnob1 = new GuiLabel(40, 12, 265, 118, "CUT", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob1);
+
+	labKnob2a = new GuiLabel(40, 12, 308, 84, "RES", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob2a);
+
+	labKnob2b = new GuiLabel(40, 12, 308, 154, "RES", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob2b);
+
+	labKnob3a = new GuiLabel(40, 12, 360, 84, "PAN", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob3a);
+
+	labKnob3b = new GuiLabel(40, 12, 360, 154, "PAN", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob3b);
+
+	labKnob4 = new GuiLabel(40, 12, 405, 118, "LEVEL", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob4);
+
 	int num = NUMBER_START_FILTER;
 	SetStackItem((SimpleFilter*)PatchList::list->CurrentPatch->items[num], (SimpleFilter*)PatchList::list->CurrentPatch->items[num+1]);
 

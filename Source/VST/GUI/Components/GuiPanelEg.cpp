@@ -32,6 +32,9 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	AddSubComponent(knobReleaseTime);
 	AddSubComponent(knobReleaseLevel);
 
+	labSlider1 = new GuiLabel(40, 12, 414, 187, "LEVEL", true, kGuiLabelSizeTiny);
+	AddSubComponent(labSlider1);
+
 	// amount slider
 	sliderAmount = new GuiSlider(30, 130, 419, 54, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider);
 	AddSubComponent(sliderAmount);

@@ -35,6 +35,14 @@ public:
 	GuiLabel* labWaveType1;
 	GuiLabel* labWaveType2;
 
+	GuiLabel* labKnob1;
+	GuiLabel* labKnob2;
+	GuiLabel* labKnob3;
+
+	GuiLabel* labSlider1;
+	GuiLabel* labSlider2;
+	GuiLabel* labSlider3;
+
 	GuiPanelLfo(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelLfo(void);
 	void GuiPanelLfo::SetWaveformName(Lfo* osc);

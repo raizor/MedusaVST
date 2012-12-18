@@ -38,6 +38,13 @@ public:
 	GuiLabel* labFilter2Limiter;
 	GuiLabel* labFilter2ResoBoost;
 
+	GuiLabel* labKnob1;
+	GuiLabel* labKnob2a;
+	GuiLabel* labKnob2b;
+	GuiLabel* labKnob3a;
+	GuiLabel* labKnob3b;
+	GuiLabel* labKnob4;
+
 	GuiPanelFilter(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelFilter(void);
 	virtual void SetStackItem(SimpleFilter* item1, SimpleFilter* item2);

@@ -180,7 +180,11 @@ void GuiKnob::HandleDrag(GEvent* evt)
 		{
 			ModDelay* md = (ModDelay*)synthItem->item;
 			md->Set();
-
+		}
+		if (synthItem->item && synthItem->item->type == kStackItemTypeGlobalReverb)
+		{
+			Reverb* md = (Reverb*)synthItem->item;
+			md->Set();
 		}
 		DebugPrintLine(msg);
 	}

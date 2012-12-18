@@ -17,6 +17,7 @@ Reverb::Reverb(void) : ItemProcessor(kStackItemTypeGlobalReverb, true)
 	alld[1][0].Init(ballr0, REVERB_ballr0_LEN);
 	alld[1][1].Init(ballr1, REVERB_ballr1_LEN);
 
+	AddFloatParam(new ParamFloat(0, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // amount
 	AddFloatParam(new ParamFloat(100, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // time
 	AddFloatParam(new ParamFloat(112, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // low cut
 	AddFloatParam(new ParamFloat(32, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // hi cut
