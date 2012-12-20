@@ -8,6 +8,9 @@
 
 class Osc;
 
+class ContextMenuEx;
+class GContextMenuEx;
+
 class GuiPanelOsc : public GuiComponent
 {
 public:
@@ -43,6 +46,8 @@ public:
 	GuiLabel* labKnob1;
 	GuiLabel* labKnob2;
 	GuiLabel* labKnob3;
+
+	GContextMenuEx* menuMenu;
 	
 	GuiDisplayWave* displayWave;
 

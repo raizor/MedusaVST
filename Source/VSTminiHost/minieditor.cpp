@@ -12,17 +12,10 @@
 
 #include "pluginterfaces/vst2.x/aeffectx.h"
 
-#if _WIN32
 #include <windows.h>
-#elif TARGET_API_MAC_CARBON
-#include <Carbon/Carbon.h>
-static pascal OSStatus windowHandler (EventHandlerCallRef inHandlerCallRef, EventRef inEvent, void* inUserData);
-static pascal void idleTimerProc (EventLoopTimerRef inTimer, void* inUserData);
-#endif
-
 #include <stdio.h>
+#include "resources/resource.h"
 
-#if _WIN32
 //-------------------------------------------------------------------------------------------------------
 struct MyDLGTEMPLATE: DLGTEMPLATE
 {
@@ -35,7 +28,7 @@ struct MyDLGTEMPLATE: DLGTEMPLATE
 
 static INT_PTR CALLBACK EditorProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 static AEffect* theEffect = 0;
-#endif
+
 
 //-------------------------------------------------------------------------------------------------------
 bool checkEffectEditor (AEffect* effect)
@@ -46,7 +39,6 @@ bool checkEffectEditor (AEffect* effect)
 		return false;
 	}
 
-#if _WIN32
 	theEffect = effect;
 
 	MyDLGTEMPLATE t;	
@@ -54,55 +46,13 @@ bool checkEffectEditor (AEffect* effect)
 	t.cx = 100;
 	t.cy = 100;
 
+	//DialogBox(GetModuleHandle (0), MAKEINTRESOURCE(IDD_DIALOG1), 0, (DLGPROC)EditorProc);
 	DialogBoxIndirectParam (GetModuleHandle (0), &t, 0, (DLGPROC)EditorProc, (LPARAM)effect);
-
+	//DialogBox(GetModuleHandle (0), MAKEINTRESOURCE(IDD_DIALOG1), 0, (DLGPROC)EditorProc, (LPARAM)effect);
 	theEffect = 0;
-#elif TARGET_API_MAC_CARBON
-	WindowRef window;
-	Rect mRect = {0, 0, 300, 300};
-	OSStatus err = CreateNewWindow (kDocumentWindowClass, kWindowCloseBoxAttribute | kWindowCompositingAttribute | kWindowAsyncDragAttribute | kWindowStandardHandlerAttribute, &mRect, &window);
-	if (err != noErr)
-	{
-		printf ("HOST> Could not create mac window !\n");
-		return false;
-	}
-	static EventTypeSpec eventTypes[] = {
-		{ kEventClassWindow, kEventWindowClose }
-	};
-	InstallWindowEventHandler (window, windowHandler, GetEventTypeCount (eventTypes), eventTypes, window, NULL);
-
-	printf ("HOST> Open editor...\n");
-	effect->dispatcher (effect, effEditOpen, 0, 0, window, 0);
-	ERect* eRect = 0;
-	printf ("HOST> Get editor rect..\n");
-	effect->dispatcher (effect, effEditGetRect, 0, 0, &eRect, 0);
-	if (eRect)
-	{
-		int width = eRect->right - eRect->left;
-		int height = eRect->bottom - eRect->top;
-		Rect bounds;
-		GetWindowBounds (window, kWindowContentRgn, &bounds);
-		bounds.right = bounds.left + width;
-		bounds.bottom = bounds.top + height;
-		SetWindowBounds (window, kWindowContentRgn, &bounds); 
-	}
-	RepositionWindow (window, NULL, kWindowCenterOnMainScreen);
-	ShowWindow (window);
-
-	EventLoopTimerRef idleEventLoopTimer;
-	InstallEventLoopTimer (GetCurrentEventLoop (), kEventDurationSecond / 25., kEventDurationSecond / 25., idleTimerProc, effect, &idleEventLoopTimer);
-
-	RunAppModalLoopForWindow (window);
-	RemoveEventLoopTimer (idleEventLoopTimer);
-	
-	printf ("HOST> Close editor..\n");
-	effect->dispatcher (effect, effEditClose, 0, 0, 0, 0);
-	ReleaseWindow (window);
-#endif
 	return true;
 }
 
-#if _WIN32
 //-------------------------------------------------------------------------------------------------------
 INT_PTR CALLBACK EditorProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -145,12 +95,18 @@ INT_PTR CALLBACK EditorProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}	break;
 
 		//-----------------------
-		case WM_TIMER :
+		case WM_TIMER : // 275//113
 			if (effect)
-				effect->dispatcher (effect, effEditIdle, 0, 0, 0, 0);
+				//effect->dispatcher (effect, effEditIdle, 0, 0, 0, 0);
 			break;
 
 		case WM_KEYDOWN:
+			{
+				DebugBreak();
+				break;
+			}
+
+		case WM_CHAR:
 			{
 				DebugBreak();
 				break;
@@ -168,43 +124,8 @@ INT_PTR CALLBACK EditorProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			EndDialog (hwnd, IDOK);
 		}	break;
 	}
-
+	if (msg!=275)
+	printf("i msg: %d\n", msg);
 	return 0;
 }
 
-#elif TARGET_API_MAC_CARBON
-//-------------------------------------------------------------------------------------------------------
-pascal void idleTimerProc (EventLoopTimerRef inTimer, void *inUserData)
-{
-	AEffect* effect = (AEffect*)inUserData;
-	effect->dispatcher (effect, effEditIdle, 0, 0, 0, 0);
-}
-
-//-------------------------------------------------------------------------------------------------------
-pascal OSStatus windowHandler (EventHandlerCallRef inHandlerCallRef, EventRef inEvent, void *inUserData)
-{
-	OSStatus result = eventNotHandledErr;
-	WindowRef window = (WindowRef) inUserData;
-	UInt32 eventClass = GetEventClass (inEvent);
-	UInt32 eventKind = GetEventKind (inEvent);
-
-	switch (eventClass)
-	{
-		case kEventClassWindow:
-		{
-			switch (eventKind)
-			{
-				case kEventWindowClose:
-				{
-					QuitAppModalLoopForWindow (window);
-					break;
-				}
-			}
-			break;
-		}
-	}
-
-	return result;
-}
-
-#endif

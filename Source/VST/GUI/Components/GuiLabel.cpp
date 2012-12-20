@@ -18,36 +18,38 @@ void GuiLabel::draw()
 {
 	glPushMatrix();
 	glTranslatef(offsetX, offsetY, 0);
-
-	BMFont* font;
-
-	switch (size)
+	if (enabled)
 	{
-	case kGuiLabelSizeSmall:
-		font = TextWriter::writer->Lucida;
-		break;
-	case kGuiLabelSizeLarge:
-		font = TextWriter::writer->LucidaBig;
-		break;
-	case kGuiLabelSizeBold:
-		font = TextWriter::writer->LucidaBold;
-		break;
-	case kGuiLabelSizeTiny:
-		font = TextWriter::writer->LucidaTiny;
-		break;
-	default:
-		break;
-	}
-	font->SetColor(255,255,255,254);
-	font->SetScale(1.00f);
-	//TextWriter::writer->Lucida->PrintCenter(240, "WAVE FORM");
-	if (center)
-	{
-		font->PrintCenter(0, 0, width, text);
-	}else{
-		font->Print(0, 0, text);
-	}
+		BMFont* font;
+
+		switch (size)
+		{
+		case kGuiLabelSizeSmall:
+			font = TextWriter::writer->Lucida;
+			break;
+		case kGuiLabelSizeLarge:
+			font = TextWriter::writer->LucidaBig;
+			break;
+		case kGuiLabelSizeBold:
+			font = TextWriter::writer->LucidaBold;
+			break;
+		case kGuiLabelSizeTiny:
+			font = TextWriter::writer->LucidaTiny;
+			break;
+		default:
+			break;
+		}
 	
+		font->SetColor(255,255,255,254);
+		font->SetScale(1.00f);
+		//TextWriter::writer->Lucida->PrintCenter(240, "WAVE FORM");
+		if (center)
+		{
+			font->PrintCenter(0, 0, width, text);
+		}else{
+			font->Print(0, 0, text);
+		}
+	}
 	glPopMatrix();
 }
 

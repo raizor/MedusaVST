@@ -42,6 +42,16 @@ public:
 	GuiButton* butPitchEg;
 	std::vector<GuiButton*> butEgs;
 
+	GuiLabel* labKnob1;
+	GuiLabel* labKnob2;
+	GuiLabel* labKnob3;
+	GuiLabel* labKnob4;
+	GuiLabel* labKnob5;
+	GuiLabel* labKnob6;
+	GuiLabel* labKnob7;
+	GuiLabel* labKnob8;
+	GuiLabel* labKnob9;
+
 	GuiDisplayEg* displayEg;
 
 	GuiPanelEg(int width, int height, int offsetX, int offsetY, int imageId);

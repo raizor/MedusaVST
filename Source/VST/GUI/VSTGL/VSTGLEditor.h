@@ -26,17 +26,10 @@
 #define VSTGLEDITOR_H_
 
 #include "public.sdk/source/vst2.x/aeffeditor.h"
+#include <windows.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
-#ifdef WIN32
-	#include <windows.h>
-	#include <GL/gl.h>
-	#include <GL/glu.h>
-#elif MACX
-	#include <OpenGL/gl.h>
-	#include <OpenGL/glu.h>
-	#include <AGL/agl.h>
-	#include <Carbon/Carbon.h>
-#endif
 
 ///	Editor window for VST plugins, using OpenGL to handle all the drawing.
 /*!
@@ -74,6 +67,8 @@ class VSTGLEditor : public AEffEditor
 {
   public:
 
+    HHOOK keyboardHook;
+
 	///	Enum containing various flags to set certain properties of the window.
 	typedef enum
 	{
@@ -103,6 +98,9 @@ class VSTGLEditor : public AEffEditor
 	VSTGLEditor(AudioEffect *effect, WindowFlags flags=DefaultFlags);
 	///	Destructor.
 	virtual ~VSTGLEditor();
+
+	static bool NoteKeyOn(int keycode);
+	static bool NoteKeyOff(int keycode);
 
 	///	Returns the size of the editor, so the host can provide the correct-sized window.
 	bool getRect(ERect **rect) {*rect = &_rect; return true;};
@@ -192,29 +190,13 @@ class VSTGLEditor : public AEffEditor
 	int getWidth() const {return _rect.right-_rect.left;};
 	///	Returns the height of the window/context.
 	int getHeight() const {return _rect.bottom-_rect.top;};
-#ifdef WIN32
+
 	///	Windows: Message loop - we use this to intercept mouse messages, among other things.
 	static LONG WINAPI GLWndProc(HWND hwnd,
 								 UINT message,
 								 WPARAM wParam,
 								 LPARAM lParam);
-#endif
-#ifdef MACX
-	///	OSX: Message loop - we use this to intercept mouse messages, among other things.
-	static pascal OSStatus macEventHandler(EventHandlerCallRef handler,
-										   EventRef event,
-										   void *userData);
-
-	///	OSX: Used to update our context's bounds if the host changes them.
-	void updateBounds(int x, int y);
-	///	OSX: Returns the boundsX value.
-	int getBoundsX() const {return boundsX;};
-	///	OSX: Returns the boundsY value.
-	int getBoundsY() const {return boundsY;};
-
-	///	OSX: Returns our WindowRef.
-	WindowRef getWindowRef() const {return window;};
-#endif
+	
   protected:
 	///	Helper method, needs to be called before any drawing takes place.
 	void setupContext();
@@ -249,7 +231,6 @@ class VSTGLEditor : public AEffEditor
 	 */
 	void setupAntialiasing();
 
-#ifdef WIN32
 	///	Windows: Windows rendering context.
 	HGLRC glRenderingContext;
 	///	Windows: Holds a handle to the window we created in createWindow().
@@ -258,34 +239,6 @@ class VSTGLEditor : public AEffEditor
 	HDC dc;
 	///	Windows: The pixel format we want to use for the window.
 	PIXELFORMATDESCRIPTOR pixelformat;
-#endif
-#ifdef MACX
-	///	OSX: OS X rendering context.
-	AGLContext context;
-	///	OSX: The pixel format we used.
-	/*!
-		\todo Should make this cross-platform, and allow subclasses to set
-		it(?).
-	 */
-	AGLPixelFormat pixels;
-	///	OSX: Saved in setupContext(), to be used in swapBuffers().
-	GrafPtr port;
-	///	OSX: Reference to our event handler.
-	EventHandlerRef eventHandlerRef;
-	///	Our window.
-	WindowRef window;
-	///	OSX: Our context's actual bounds (x).
-	int boundsX;
-	///	OSX: Our context's actual bounds (y).
-	int boundsY;
-
-	///	OSX: The control class reference for our dummy HIView.
-	ControlDefSpec controlSpec;
-	///	OSX: Id for our dummy HI class.
-	CFStringRef classId;
-	///	OSX: Our dummy HIView (necessary for VST 2.4).
-	ControlRef controlRef;
-#endif
 
 	///	The rect our opengl context is contained within.
 	ERect _rect;

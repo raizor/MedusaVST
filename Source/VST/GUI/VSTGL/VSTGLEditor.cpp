@@ -26,6 +26,7 @@
 #include "public.sdk/source/vst2.x/audioeffect.h"
 #include "../../includes.h"
 #include <cstdio>
+#include "Utils/VoicePool.h"
 
 #ifdef WIN32
 //This is the instance of the application, set in the main source file.
@@ -85,6 +86,8 @@ antialiasing(0)
 	sprintf(tempstr, "VSTGLWindow%08x", reinterpret_cast<int>(this));
 	winClass.lpszClassName = tempstr;
 	winClass.hIconSm = NULL;
+	
+	//keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC )GLWndProc, (HINSTANCE)hInstance, 0);
 
 	//Register the window class (this is unregistered in the VSTGLEditor
 	//destructor).
@@ -94,17 +97,13 @@ antialiasing(0)
 //-----------------------------------------------------------------------------
 VSTGLEditor::~VSTGLEditor()
 {
-#ifdef WIN32
 	char tempstr[32];
 
 	//sprintf(tempstr, "VSTGLWindow%08x", static_cast<HINSTANCE>(hInstance));
 	sprintf(tempstr, "VSTGLWindow%08x", reinterpret_cast<int>(this));
+	//UnhookWindowsHookEx(keyboardHook);
 	//unregisters the window class
 	UnregisterClass(tempstr, static_cast<HINSTANCE>(hInstance));
-#elif MACX
-	//Unregister our HIView object.
-	UnregisterToolboxObjectClass((ToolboxObjectClassRef)controlSpec.u.classRef);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -170,30 +169,10 @@ void VSTGLEditor::close()
 	guiClose();
 	swapBuffers();
 
-#ifdef WIN32
 	wglMakeCurrent(NULL, NULL);
 	wglDeleteContext(glRenderingContext);
 	ReleaseDC(tempHWnd, dc);
 	DestroyWindow(tempHWnd);
-#elif MACX
-	aglSetCurrentContext(NULL);
-	aglSetDrawable(context, NULL);
-	if(context)
-	{
-		aglDestroyContext(context);
-		context = NULL;
-	}
-	if(pixels)
-	{
-		aglDestroyPixelFormat(pixels);
-		pixels = NULL;
-	}
-
-	HIViewRemoveFromSuperview(controlRef);
-
-	if(controlRef)
-		DisposeControl(controlRef);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -204,33 +183,11 @@ void VSTGLEditor::refreshGraphics()
 	swapBuffers();
 }
 
-#ifdef MACX
-//-----------------------------------------------------------------------------
-void VSTGLEditor::updateBounds(int x, int y)
-{
-	int tempHeight;
-	Rect tempRect2;
-	HIRect tempRect;
-
-	//Get the new bounds of our dummy HIView.
-	HIViewGetFrame(controlRef, &tempRect);
-
-	//Invert tempRect's y-axis (honestly, who designed this API!).
-	GetWindowBounds(window, kWindowContentRgn, &tempRect2);
-	tempHeight = (tempRect2.bottom-tempRect2.top);
-	tempRect.origin.y = tempHeight - tempRect.origin.y - tempRect.size.height;
-
-	boundsX = (int)tempRect.origin.x;
-	boundsY = (int)tempRect.origin.y;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 //This is only necessary in Windows (and only really for Tracktion) - the
 //window will have already been constructed for us on OS X.
 void VSTGLEditor::createWindow()
 {
-#ifdef WIN32
 	char tempstr[32];
 	HWND parentHWnd = static_cast<HWND>(systemWindow);
 
@@ -258,9 +215,7 @@ void VSTGLEditor::createWindow()
 	/* If Parent Window Is Set As Null, Get The Desktop Window */
 	if(parentHWnd == NULL)
 	{
-
 		parentHWnd = GetDesktopWindow();
-
 	}
 
 	/* Get Parent Client Area Measurements */
@@ -278,13 +233,11 @@ void VSTGLEditor::createWindow()
 
 	//This is so we can send messages to this object from the message loop.
 	SetWindowLong(tempHWnd, GWL_USERDATA, (long)this);
-#endif
 }
 
 //-----------------------------------------------------------------------------
 void VSTGLEditor::setupVSync()
 {
-#ifdef WIN32
 	unsigned char *extensions;
 	PFNWGLEXTSWAPCONTROLPROC wglSwapIntervalEXT = NULL;
 
@@ -301,18 +254,11 @@ void VSTGLEditor::setupVSync()
 		if(wglSwapIntervalEXT)
 			wglSwapIntervalEXT(1);
 	}
-#elif MACX
-	GLint swap = 1;
-
-	//Some things are so much easier on OSX...
-	aglSetInteger(context, AGL_SWAP_INTERVAL, &swap);
-#endif
 }
 
 //-----------------------------------------------------------------------------
 void VSTGLEditor::setupAntialiasing()
 {
-#ifdef WIN32
 	unsigned char *extensions;
 	PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB;
 	int pixelFormat;
@@ -369,39 +315,18 @@ void VSTGLEditor::setupAntialiasing()
 			}
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
 void VSTGLEditor::setupContext()
 {
-#ifdef WIN32
 	wglMakeCurrent(dc, glRenderingContext);
-#elif MACX
-	GLint tempBounds[4];
-
-    tempBounds[0] = boundsX;
-    tempBounds[1] = boundsY;
-	tempBounds[2] = (_rect.right-_rect.left);
-    tempBounds[3] = (_rect.bottom-_rect.top);
-
-	//Move the port to the correct offset.
-	aglSetInteger(context, AGL_BUFFER_RECT, tempBounds);
-    aglEnable(context, AGL_BUFFER_RECT);
-
-	//Also necessary for Bidule.
-	aglSetCurrentContext(context);
-#endif
 }
 
 //-----------------------------------------------------------------------------
 void VSTGLEditor::swapBuffers()
 {
-#ifdef WIN32
 	SwapBuffers(dc);
-#elif MACX
-	aglSwapBuffers(context);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -414,13 +339,13 @@ void VSTGLEditor::setRect(int x, int y, int width, int height)
 }
 
 //-----------------------------------------------------------------------------
-#ifdef WIN32
 
 //Don't know why MSVC doesn't seem to recognise WM_MOUSEWHEEL for me...
 //(this probably won't work)
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
 #endif
+
 
 LONG WINAPI VSTGLEditor::GLWndProc(HWND hwnd,
 								   UINT message,
@@ -429,7 +354,11 @@ LONG WINAPI VSTGLEditor::GLWndProc(HWND hwnd,
 {
 	VstKeyCode tempkey;
 	VSTGLEditor *ed = reinterpret_cast<VSTGLEditor *>(GetWindowLong(hwnd, GWL_USERDATA));
-
+	if (message == 13 || message == 135 || message == 0)
+	{
+	//	return 1;
+	}
+	//printf("msg: %d\n", message);
 	/*
 	int modifiers = 0;
 	if (GetKeyState (VK_CONTROL) < 0)
@@ -512,23 +441,62 @@ LONG WINAPI VSTGLEditor::GLWndProc(HWND hwnd,
 		case WM_KEYDOWN:
 			if(ed)
 			{
-				//This could be improved?
 				tempkey.character = wParam;
 				ed->onGLKeyDown(tempkey);
-			}
+				return 1;
+			}				
+			//This could be improved?
+			//tempkey.character = wParam;
+			//ed->onGLKeyDown(tempkey);
+			//NoteKeyOn(wParam);
+			//return 1;
+			//return NoteKeyOn(MapVirtualKey(wParam, MAPVK_VK_TO_CHAR));
 			break;
 		case WM_KEYUP:
 			if(ed)
 			{
 				tempkey.character = wParam;
 				ed->onGLKeyUp(tempkey);
+				return 1;
+				//ed->onGLKeyUp(tempkey);				
 			}
+			//tempkey.character = wParam;
+			//NoteKeyOff(wParam);
+			//return 1;
+			return NoteKeyOff(MapVirtualKey(wParam, MAPVK_VK_TO_CHAR));
 			break;
 		case WM_PAINT:
 			if(ed)
+			{
 				ed->idle();
+			}
 			break;
 	}
-	return DefWindowProc(hwnd, message, wParam, lParam);
+	//if (message == 13 || message == 135) return 1;
+	printf("msg: %d\n", message);	
+	return DefWindowProc(hwnd, message, wParam, lParam);	
 }
-#endif
+
+
+bool VSTGLEditor::NoteKeyOn(int keycode)
+{
+	printf("ch: %d\n", keycode);
+	//if (keycode == 71)
+	//{
+		return true;
+	//}
+	return false;
+	//VoicePool::Pool->GetVoiceAndPlayNote(0, 50, PatchList::list->CurrentPatch);
+	//return true;
+}
+
+bool VSTGLEditor::NoteKeyOff(int keycode)
+{
+	//if (keycode-32 == 'g')
+	//{
+		return true;
+	//}
+	//return false;
+	//VoicePool::Pool->Stop(0, 50);
+	//return true;
+}

@@ -175,13 +175,13 @@ VstIntPtr AudioEffect::dispatcher (VstInt32 opcode, VstInt32 index, VstIntPtr va
 		case effEditClose:			if (editor) editor->close ();						break;		
 		case effEditIdle:			if (editor) editor->idle ();						break;
 		
-	#if (TARGET_API_MAC_CARBON && !VST_FORCE_DEPRECATED)
+#if (TARGET_API_MAC_CARBON && !VST_FORCE_DEPRECATED)
 		case effEditDraw:			if (editor) editor->draw ((ERect*)ptr);				break;
 		case effEditMouse:			if (editor) v = editor->mouse (index, value);		break;
 		case effEditKey:			if (editor) v = editor->key (value);				break;
 		case effEditTop:			if (editor) editor->top ();							break;
 		case effEditSleep:			if (editor) editor->sleep ();						break;
-	#endif
+#endif
 		
 		case DECLARE_VST_DEPRECATED (effIdentify):	v = CCONST ('N', 'v', 'E', 'f');	break;
 

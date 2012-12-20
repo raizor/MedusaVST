@@ -301,6 +301,10 @@
     <ResourceCompile Include="resources\resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\fonts\envy\envy_256.fnt" />
+    <None Include="resources\fonts\envy\envy_big.fnt" />
+    <None Include="resources\fonts\envy\envy_bold.fnt" />
+    <None Include="resources\fonts\envy\envy_tiny.fnt" />
     <None Include="resources\fonts\lucida.fnt" />
     <None Include="resources\knobs\textures.json" />
     <None Include="resources\vstxsynth.vstxml" />
@@ -308,6 +312,12 @@
   <ItemGroup>
     <Image Include="buttons\buttons.png" />
     <Image Include="fonts\lucida.png" />
+    <Image Include="icons\oscModMode\icons_osc_mode_fixed.ico" />
+    <Image Include="icons\oscModMode\icons_osc_mode_fixedSync.ico" />
+    <Image Include="icons\oscModMode\icons_osc_mode_free.ico" />
+    <Image Include="icons\oscModMode\icons_osc_mode_invFree.ico" />
+    <Image Include="icons\oscModMode\icons_osc_mode_invSync.ico" />
+    <Image Include="icons\oscModMode\icons_osc_mode_sync.ico" />
     <Image Include="keyboard\keyboard_overlay.png" />
     <Image Include="knobs\knobSurround.png" />
     <Image Include="knobs\knob_bi.png" />
@@ -322,7 +332,17 @@
     <Image Include="panels\panel_main.png" />
     <Image Include="resources\buttons\buttons.png" />
     <Image Include="resources\font8.png" />
+    <Image Include="resources\fonts\envy\envy_256_0.png" />
+    <Image Include="resources\fonts\envy\envy_big_0.png" />
+    <Image Include="resources\fonts\envy\envy_bold_0.png" />
+    <Image Include="resources\fonts\envy\envy_tiny_0.png" />
     <Image Include="resources\fonts\lucida.png" />
+    <Image Include="resources\icons\oscModMode\icons_osc_mode_fixed.ico" />
+    <Image Include="resources\icons\oscModMode\icons_osc_mode_fixedSync.ico" />
+    <Image Include="resources\icons\oscModMode\icons_osc_mode_free.ico" />
+    <Image Include="resources\icons\oscModMode\icons_osc_mode_invFree.ico" />
+    <Image Include="resources\icons\oscModMode\icons_osc_mode_invSync.ico" />
+    <Image Include="resources\icons\oscModMode\icons_osc_mode_sync.ico" />
     <Image Include="resources\keyboard\keyboard_overlay.png" />
     <Image Include="resources\knobs\knobsurround.png" />
     <Image Include="resources\knobs\knob_bi_focus.png" />

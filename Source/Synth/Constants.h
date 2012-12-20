@@ -187,8 +187,8 @@ enum OscModMode
 	kOscModModeAdd = 0,
 	kOscModModeRing,
 	kOscModModeSync,
-	kOscModModePM,
-	kOscModModeFM,
+	kOscModModePM, // phase mod
+	kOscModModeFM, // freq mod
 	kOscModModeItemCount
 };
 

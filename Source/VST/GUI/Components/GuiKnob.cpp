@@ -1,4 +1,6 @@
 #include "GuiKnob.h"
+#include "Items/Processors/Osc.h"
+#include "Utils/WaveTableGen.h"
 #include "Items/Processors/Delay and Reverb/ModDelay.h"
 #include "GuiMainWindow.h"
 
@@ -176,6 +178,17 @@ void GuiKnob::HandleDrag(GEvent* evt)
 		ParamFloat* p  = (ParamFloat*)synthItem->param;
 		p->SetValueWithInt((int)newVal);
 		sprintf(&msg[0], "knob val: %d", (int)newVal);
+		if (synthItem->item && synthItem->item->type == kStackItemTypeWfOsc)
+		{
+			Osc* osc = (Osc*)synthItem->item;
+
+			if (p->number == OSC_PARAM_FLOAT_PHASE)
+			{
+				osc->waveTableIdx->CalcPhaseOffset();
+			}			
+
+		}
+
 		if (synthItem->item && synthItem->item->type == kStackItemTypeModDelay)
 		{
 			ModDelay* md = (ModDelay*)synthItem->item;

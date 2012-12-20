@@ -140,14 +140,16 @@ void Editor::draw()
 
 void Editor::onGLKeyDown(const VstKeyCode& key)
 {
-	/*int midiNumber = 70;
+	/*
+	int midiNumber = 70;
 	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
 	VoicePool::Pool->GetVoiceAndPlayNote(0, midiNumber, p);*/
 }
 
 void Editor::onGLKeyUp(const VstKeyCode& key)
 {
-	/*int midiNumber = 70;
+	/*
+	int midiNumber = 70;
 	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
 	VoicePool::Pool->GetVoiceAndPlayNote(0, midiNumber, p);*/
 }

@@ -32,6 +32,30 @@ GuiPanelEg::GuiPanelEg(int width, int height, int offsetX, int offsetY, int imag
 	AddSubComponent(knobReleaseTime);
 	AddSubComponent(knobReleaseLevel);
 
+	// knob labels
+	labKnob1 = new GuiLabel(40, 12, 17, 192, "DELAY", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob1);
+	labKnob2 = new GuiLabel(40, 12, 75, 192, "ATTACK", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob2);
+
+	labKnob3 = new GuiLabel(40, 12, 135, 192, "TIME", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob3);
+	labKnob4 = new GuiLabel(40, 12, 164, 193, "DECAY", true, kGuiLabelSizeTiny);
+	AddSubComponent(labKnob4);
+	labKnob5 = new GuiLabel(40, 12, 195, 192, "LEVEL", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob5);
+
+	labKnob6 = new GuiLabel(40, 12, 250, 192, "TIME", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob6);
+	labKnob7 = new GuiLabel(40, 12, 280, 193, "SUSTAIN", true, kGuiLabelSizeTiny);
+	AddSubComponent(labKnob7);
+	labKnob8 = new GuiLabel(40, 12, 310, 192, "LEVEL", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob8);
+
+	labKnob9 = new GuiLabel(40, 12, 365, 192, "RELEASE", true, kGuiLabelSizeBold);
+	AddSubComponent(labKnob9);
+
+	// slider label
 	labSlider1 = new GuiLabel(40, 12, 414, 187, "LEVEL", true, kGuiLabelSizeTiny);
 	AddSubComponent(labSlider1);
 
@@ -331,7 +355,20 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 		knobDecayLevel->enabled = false;
 		knobSustainTime->enabled = false;		
 		knobSustainLevel->enabled = false;
-		
+
+		labKnob2->SetText("START");
+		labKnob4->SetText("ATTACK");
+		labKnob6->SetText("DECAY");
+
+		labKnob7->enabled = true;
+		labKnob7->SetText("RELEASE");
+		labKnob7->offsetX = 335;
+
+		labKnob8->SetText("TIME");
+		labKnob8->offsetX = 303;
+
+		labKnob9->SetText("LEVEL");
+		labKnob9->offsetX = 368;
 	}else{
 		// other eg
 
@@ -365,8 +402,20 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 		knobStartLevel->enabled = false;		
 		knobAttackLevel->enabled = false;
 		knobReleaseLevel->enabled = false;	
-		
-		
+
+		labKnob2->SetText("ATTACK");
+		labKnob4->SetText("DECAY");
+		labKnob6->SetText("TIME");
+
+		labKnob7->enabled = true;
+		labKnob7->SetText("SUSTAIN");
+		labKnob7->offsetX = 280;
+
+		labKnob8->SetText("LEVEL");
+		labKnob8->offsetX = 310;
+
+		labKnob9->SetText("RELEASE");
+		labKnob9->offsetX = 366;
 	}
 
 	displayEg->eg = PatchList::list->CurrentPatch->egAmp;

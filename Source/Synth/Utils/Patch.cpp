@@ -43,13 +43,23 @@ Patch::Patch(int number)
 		Osc* osc = new Osc();
 		osc->enabled = i == 0;
 
-		/*
-		Osc* prev = i > 0 ? &patch->Oscs[i-1] : &patch->Oscs[Constants_NumOscillators-1];
-		Osc* next = i < Constants_NumOscillators - 1 ? &patch->Oscs[i+1] : &patch->Oscs[0];
-		patch->Oscs[i].OscPrevious = prev; 
-		patch->Oscs[i].OscNext = next;*/
-
 		items[numItems++] = osc;
+	}
+
+	// set osc prev/next
+
+	for(int i=0; i<Constants_NumOscillators; i++)
+	{
+		int prevIndex = i > 0 ? NUMBER_START_OSC+i-1 : NUMBER_START_OSC+Constants_NumOscillators-1;
+		int nextIndex = i < Constants_NumOscillators ? NUMBER_START_OSC+i+1 : NUMBER_START_OSC;
+
+		Item* prev = items[prevIndex];
+		Item* next = items[nextIndex];
+
+		Osc* osc = (Osc*)items[NUMBER_START_OSC+i];
+
+		osc->OscPrevious = (Osc*)prev; 
+		osc->OscNext = (Osc*)next;
 	}
 
 	// EGs

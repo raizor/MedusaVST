@@ -66,47 +66,22 @@ struct PluginLoader
 	{
 		if (module)
 		{
-		#if _WIN32
 			FreeLibrary ((HMODULE)module);
-		#elif TARGET_API_MAC_CARBON
-			CFBundleUnloadExecutable ((CFBundleRef)module);
-			CFRelease ((CFBundleRef)module);
-		#endif
 		}
 	}
 
 	bool loadLibrary (const char* fileName)
 	{
-	#if _WIN32
 		module = LoadLibrary (fileName);
-	#elif TARGET_API_MAC_CARBON
-		CFStringRef fileNameString = CFStringCreateWithCString (NULL, fileName, kCFStringEncodingUTF8);
-		if (fileNameString == 0)
-			return false;
-		CFURLRef url = CFURLCreateWithFileSystemPath (NULL, fileNameString, kCFURLPOSIXPathStyle, false);
-		CFRelease (fileNameString);
-		if (url == 0)
-			return false;
-		module = CFBundleCreate (NULL, url);
-		CFRelease (url);
-		if (module && CFBundleLoadExecutable ((CFBundleRef)module) == false)
-			return false;
-	#endif
 		return module != 0;
 	}
 
 	PluginEntryProc getMainEntry ()
 	{
 		PluginEntryProc mainProc = 0;
-	#if _WIN32
 		mainProc = (PluginEntryProc)GetProcAddress ((HMODULE)module, "VSTPluginMain");
 		if (!mainProc)
 			mainProc = (PluginEntryProc)GetProcAddress ((HMODULE)module, "main");
-	#elif TARGET_API_MAC_CARBON
-		mainProc = (PluginEntryProc)CFBundleGetFunctionPointerForName ((CFBundleRef)module, CFSTR("VSTPluginMain"));
-		if (!mainProc)
-			mainProc = (PluginEntryProc)CFBundleGetFunctionPointerForName ((CFBundleRef)module, CFSTR("main_macho"));
-	#endif
 		return mainProc;
 	}
 //-------------------------------------------------------------------------------------------------------
@@ -191,8 +166,7 @@ int main (int argc, char* argv[])
 	audioStreamDx = new AudioStreamDx(100);
 	threadHandle = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)RenderAudio, 0, 0, 0);
 	SetThreadPriority(threadHandle, THREAD_PRIORITY_ABOVE_NORMAL);
-
-
+	
 	checkEffectEditor (effect);
 
 	printf ("HOST> Close effect...\n");

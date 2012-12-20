@@ -176,18 +176,13 @@ void Osc::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* bufferOut, Voi
 	// Fill the data array with sample data
 
 	int syncCheckIndex = 0;
-
-	/* TODO
-	OscMode prevOscMode = (OscMode)OscPrevious->paramsInt[OSC_PARAM_MODE]->Value();
-	OscModMode prevOscModMode = (OscModMode)OscPrevious->paramsInt[OSC_PARAM_MOD_MODE]->Value();
+	
+	OscMode prevOscMode = (OscMode)OscPrevious->paramsInt[OSC_PARAM_INT_MODE]->Value();
+	OscModMode prevOscModMode = (OscModMode)OscPrevious->paramsInt[OSC_PARAM_INT_MOD_MODE]->Value();
 	bool ringMod = prevOscModMode == kOscModModeRing;
 	bool invert = prevOscMode == kOscModeInvertedFree  || prevOscMode == kOscModInvertedSync; 
 	bool fm = prevOscModMode == kOscModModeFM;
-	*/
-
-	bool ringMod = false;
-	bool invert = false;
-	bool fm = false;
+	bool pm = prevOscModMode == kOscModModePM;
 
 	SyncPositionsCount[voice->Number] = 0;
 	

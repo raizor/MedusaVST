@@ -2,6 +2,8 @@
 #include "Items/Processors/Osc.h"
 #include "Utils/WaveTableGen.h"
 #include "../../GUI/Components/GuiMainWindow.h"
+#include "../../Utils/ContextMenus.h"
+#include "windows.h"
 
 GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
@@ -145,9 +147,11 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	AddSubComponent(labOctave);
 
 	labMode = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*3), "Sync");
+	labMode->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	AddSubComponent(labMode);
 
 	labModMode = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*4), "Add");
+	labModMode->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	AddSubComponent(labModMode);
 
 	// knob labels
@@ -202,6 +206,27 @@ void GuiPanelOsc::SetStackItem(Osc* item)
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
 	knobLevel->synthItem = si;
+
+	Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+	char txt [100];
+
+	// osc mode
+	ParamInt *iparam = osc->paramsInt[OSC_PARAM_INT_MODE];	
+	GuiMainWindow::panelOsc->labMode->SetText(OscModeToString(iparam->Value()));
+
+	// osc mod mode
+	iparam = osc->paramsInt[OSC_PARAM_INT_MOD_MODE];	
+	GuiMainWindow::panelOsc->labModMode->SetText(OscModModeToString(iparam->Value()));
+
+	// transpose
+	ParamFloat *fparam = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_SEMI];
+	sprintf(txt, "%d", fparam->ValueAsInt());
+	GuiMainWindow::panelOsc->labTranspose->SetText(&txt[0]);
+
+	// octave
+	fparam = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_OCT];
+	sprintf(txt, "%d", fparam->ValueAsInt());
+	GuiMainWindow::panelOsc->labOctave->SetText(&txt[0]);
 
 	// set wave viz osc
 	displayWave->SetOsc(item);
@@ -294,13 +319,35 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 	}
 
 	// mode
-	if (data == GuiMainWindow::panelOsc->butLabMode || data == GuiMainWindow::panelOsc->labMode )
+	if (data == GuiMainWindow::panelOsc->labMode)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		for(int i=0; i<kOscModeItemCount-1; i++)
+		{
+			int* iv = new int();
+			*iv = i;
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, OscModeToString(i), 0);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+			ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MODE];
+			param->SetValue(it-1);
+			GuiMainWindow::panelOsc->labMode->SetText(OscModeToString(it-1));
+		}
+		// oscs
+		//GContextMenuEx* subMenu = new GContextMenuEx(); 
+		//menuSource->AddMenu(subMenu, "Oscillators");
+	}
+
+	if (data == GuiMainWindow::panelOsc->butLabMode)
 	{
 		DebugPrintLine("mode");
 		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
 		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MODE];
 		int currentIndex = param->Value();
-		if (currentIndex < kOscModeItemCount) // +/- 5 octaves
+		if (currentIndex < kOscModeItemCount-1) // +/- 5 octaves
 		{
 			currentIndex++;
 		}else{
@@ -311,9 +358,59 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labMode->SetText(OscModeToString(currentIndex));
 	}
+
+	if (data == GuiMainWindow::panelOsc->labModMode)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		for(int i=0; i<kOscModModeItemCount-1; i++)
+		{
+			int* iv = new int();
+			*iv = i;
+
+			/*
+			HANDLE hIcon = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_MYICON), IMAGE_ICON, 16, 16, 0);
+			if (hIcon)
+			{
+
+			}
+			*/
+
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, OscModModeToString(i), 0);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+			ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MOD_MODE];
+			param->SetValue(it-1);
+			GuiMainWindow::panelOsc->labModMode->SetText(OscModModeToString(it-1));
+		}
+		// oscs
+		//GContextMenuEx* subMenu = new GContextMenuEx(); 
+		//menuSource->AddMenu(subMenu, "Oscillators");
+	}
+
+	// mod mode
+	if (data == GuiMainWindow::panelOsc->butLabModMode)
+	{
+		DebugPrintLine("mode");
+		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MOD_MODE];
+		int currentIndex = param->Value();
+		if (currentIndex < kOscModModeItemCount-1) // +/- 5 octaves
+		{
+			currentIndex++;
+		}else{
+			currentIndex = 0;
+		}
+		param->SetValue(currentIndex);
+		char txt [100];
+		sprintf(txt, "%d", currentIndex);
+		GuiMainWindow::panelOsc->labModMode->SetText(OscModModeToString(currentIndex));
+	}
 }
 
-char* GuiPanelOsc::OscModeToString(int val) 
+char* GuiPanelOsc::OscModModeToString(int val) 
 { 
 	if (val == kOscModModeAdd) return "Add"; 
 	if (val == kOscModModeFM) return "Freq. Mod"; 
@@ -323,7 +420,7 @@ char* GuiPanelOsc::OscModeToString(int val)
 	return "???";
 }
 
-char* GuiPanelOsc::OscModModeToString(int val) 
+char* GuiPanelOsc::OscModeToString(int val) 
 { 
 	if (val == kOscModeNormalSync) return "Sync"; 
 	if (val == kOscModInvertedSync) return "Inv. Sync"; 

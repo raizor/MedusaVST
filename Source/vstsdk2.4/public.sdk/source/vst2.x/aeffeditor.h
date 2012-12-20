@@ -37,14 +37,6 @@ public:
 	virtual bool isOpen ()				{ return systemWindow != 0; }		///< Returns true if editor is currently open
 	virtual void idle ()				{}									///< Idle call supplied by Host application
 
-#if TARGET_API_MAC_CARBON
-	virtual void DECLARE_VST_DEPRECATED (draw) (ERect* rect) {}
-	virtual VstInt32 DECLARE_VST_DEPRECATED (mouse) (VstInt32 x, VstInt32 y) { return 0; }
-	virtual VstInt32 DECLARE_VST_DEPRECATED (key) (VstInt32 keyCode) { return 0; }
-	virtual void DECLARE_VST_DEPRECATED (top) () {}
-	virtual void DECLARE_VST_DEPRECATED (sleep) () {}
-#endif
-
 #if VST_2_1_EXTENSIONS
 	virtual bool onKeyDown (VstKeyCode& keyCode)	{ return false; }		///< Receive key down event. Return true only if key was really used!
 	virtual bool onKeyUp (VstKeyCode& keyCode)		{ return false; }		///< Receive key up event. Return true only if key was really used!
