@@ -3,6 +3,7 @@
 #include "Utils/WaveTableGen.h"
 #include "GuiPanelOsc.h"
 #include "../../GUI/Components/GuiMainWindow.h"
+#include "../../Utils/ContextMenus.h"
 
 GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
@@ -103,13 +104,28 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 	displayWave = new GuiDisplayWave(155, 155, 144, 44, 0);
 	AddSubComponent(displayWave);
 
+	// wave type 1
+
 	labWaveType1 = new GuiLabel(72, 12, 63, 44, "Sine");
 	labWaveType1->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
 	AddSubComponent(labWaveType1);
 
+	butLabWaveType1 = new GuiButton(52, 14, 9, 42, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabWaveType1->buttonType = kButtonTypeOscParam;
+	butLabWaveType1->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabWaveType1);
+	
+	// wave type 2
+
 	labWaveType2 = new GuiLabel(72, 12, 63, 56, "Sine");
 	labWaveType2->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
 	AddSubComponent(labWaveType2);
+
+	butLabWaveType2 = new GuiButton(52, 14, 9, 57, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabWaveType2->buttonType = kButtonTypeOscParam;
+	butLabWaveType2->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabWaveType2);
+
 
 	// knob labels
 	labKnob1 = new GuiLabel(40, 12, 10, 166, "OFFSET", true, kGuiLabelSizeBold);

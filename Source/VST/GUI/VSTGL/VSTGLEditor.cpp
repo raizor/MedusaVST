@@ -463,7 +463,7 @@ LONG WINAPI VSTGLEditor::GLWndProc(HWND hwnd,
 			//tempkey.character = wParam;
 			//NoteKeyOff(wParam);
 			//return 1;
-			return NoteKeyOff(MapVirtualKey(wParam, MAPVK_VK_TO_CHAR));
+			//return NoteKeyOff(MapVirtualKey(wParam, MAPVK_VK_TO_CHAR));
 			break;
 		case WM_PAINT:
 			if(ed)
@@ -473,7 +473,7 @@ LONG WINAPI VSTGLEditor::GLWndProc(HWND hwnd,
 			break;
 	}
 	//if (message == 13 || message == 135) return 1;
-	printf("msg: %d\n", message);	
+	//printf("msg: %d\n", message);	
 	return DefWindowProc(hwnd, message, wParam, lParam);	
 }
 

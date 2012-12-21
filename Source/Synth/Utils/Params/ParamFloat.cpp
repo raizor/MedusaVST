@@ -159,7 +159,7 @@ float ParamFloat::GetModulatedValue(Voice* voice, float* value, int bufferIndex)
 		float modder = ModList->Modulators[i].ModBuffer[voice->Number]->Buffer[bufferIndex].ch[0];
 		ModValue(value, modder, &mod->Curve);
 	}
-	return 0;
+	return *value;
 }
 
 

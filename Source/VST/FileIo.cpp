@@ -335,7 +335,77 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 			{
 				int itemNumber = ReadInt(fp, writer, useFile);
 				StackItemType itemType = (StackItemType)ReadInt(fp, writer, useFile);
-				patch->ModMatrix->SetSource(row->RowNum, patch->items[itemNumber]);
+
+				Item* it;
+				switch (itemType)
+				{
+				case (kStackItemTypeWfOsc):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeSimpleFilter):
+					itemNumber+=NUMBER_START_FILTER;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeEnvAdsr):
+					itemNumber+=NUMBER_START_EG;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeLfoAllVoices):
+					itemNumber+=NUMBER_START_LFO_AV;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeMixer):
+					// TODO
+					//itemNumber+=0;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeAmpEg):
+					it = patch->egAmp;
+					break;
+				case (kStackItemTypePitchEg):
+					it = patch->egPitch;
+					break;
+				case (kStackItemTypeLfoPerVoice):
+					itemNumber+=NUMBER_START_LFO_PV;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypePitchBender):
+					//itemNumber+=NUMBER_START_LFO_AV;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeDistortion):
+					it = patch->distort;
+					break;
+				case (kStackItemTypeModDelay):
+					it = VoicePool::Pool->GlobalDelay;
+					break;
+				case (kStackItemTypeGlobalReverb):
+					it = VoicePool::Pool->GlobalReverb;
+					break;
+				case (kStackItemTypeGlobalDelay):
+					it = VoicePool::Pool->GlobalDelay;
+					break;
+				case (kStackItemTypeCompressor):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeBoost):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypePatchSettings):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				case (kStackItemTypeChorusFlange):
+					itemNumber+=NUMBER_START_OSC;
+					it = patch->items[itemNumber];
+					break;
+				}
+				it = patch->items[itemNumber];
+
+				patch->ModMatrix->SetSource(row->RowNum, it);
 			}			
 
 			if (row->DestSet)

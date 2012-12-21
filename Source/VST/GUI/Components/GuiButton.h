@@ -23,6 +23,8 @@ enum ButtonType
 	kButtonTypeEgAmp,
 	kButtonTypeEgPitch,
 	kButtonTypeOscParam,
+	kButtonTypeFilterParam,
+	kButtonTypeLfoParam,
 	kButtonTypePage,
 	kButtonTypeDisk,
 	kButtonTypeExit,

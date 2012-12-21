@@ -8,6 +8,9 @@
 
 class Lfo;
 
+class ContextMenuEx;
+class GContextMenuEx;
+
 class GuiPanelLfo : public GuiComponent
 {
 public:
@@ -33,7 +36,9 @@ public:
 	GuiDisplayWave* displayWave;
 
 	GuiLabel* labWaveType1;
+	GuiButton* butLabWaveType1;
 	GuiLabel* labWaveType2;
+	GuiButton* butLabWaveType2;
 
 	GuiLabel* labKnob1;
 	GuiLabel* labKnob2;
@@ -42,6 +47,8 @@ public:
 	GuiLabel* labSlider1;
 	GuiLabel* labSlider2;
 	GuiLabel* labSlider3;
+
+	GContextMenuEx* menuMenu;
 
 	GuiPanelLfo(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelLfo(void);

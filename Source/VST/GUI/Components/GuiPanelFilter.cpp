@@ -2,7 +2,7 @@
 #include "Items/Processors/SimpleFilter.h"
 #include "Utils/WaveTableGen.h"
 #include "../../GUI/Components/GuiMainWindow.h"
-
+#include "../../Utils/ContextMenus.h"
 
 GuiPanelFilter::GuiPanelFilter(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
@@ -37,31 +37,70 @@ GuiPanelFilter::GuiPanelFilter(int width, int height, int offsetX, int offsetY, 
 	int textStartX = 86;
 
 	// labels
+
+	// type
 	labFilter1Type = new GuiLabel(72, 12, textStartX, textStartY+0, "Off");
 	labFilter1Type->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter1Type);
 
+	butLabFilter1Type = new GuiButton(52, 14, 13, 48, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabFilter1Type->buttonType = kButtonTypeOscParam;
+	butLabFilter1Type->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabFilter1Type);
+	
+	// limiter
 	labFilter1Limiter = new GuiLabel(72, 12, textStartX, textStartY+19, "Off");
 	labFilter1Limiter->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter1Limiter);
 
+	butLabFilter1Limiter = new GuiButton(52, 14, 13, 67, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabFilter1Limiter->buttonType = kButtonTypeOscParam;
+	butLabFilter1Limiter->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabFilter1Limiter);
+
+	// res boost
 	labFilter1ResoBoost = new GuiLabel(72, 12, textStartX, textStartY+38, "Off");
 	labFilter1ResoBoost->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter1ResoBoost);
 
+	butLabFilter1ResoBoost = new GuiButton(52, 14, 13, 86, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabFilter1ResoBoost->buttonType = kButtonTypeOscParam;
+	butLabFilter1ResoBoost->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabFilter1ResoBoost);
+
+
 	textStartY+=90;
 
+	// type
 	labFilter2Type = new GuiLabel(72, 12, textStartX, textStartY+0, "Off");
 	labFilter2Type->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter2Type);
 
+	butLabFilter2Type = new GuiButton(52, 14, 13, 138, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabFilter2Type->buttonType = kButtonTypeOscParam;
+	butLabFilter2Type->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabFilter2Type);
+
+	// limiter
 	labFilter2Limiter = new GuiLabel(72, 12, textStartX, textStartY+19, "Off");
 	labFilter2Limiter->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter2Limiter);
 
+	butLabFilter2Limiter = new GuiButton(52, 14, 13, 157, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabFilter2Limiter->buttonType = kButtonTypeOscParam;
+	butLabFilter2Limiter->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabFilter2Limiter);
+
+	// res boost
 	labFilter2ResoBoost = new GuiLabel(72, 12, textStartX, textStartY+38, "Off");
 	labFilter2ResoBoost->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
 	AddSubComponent(labFilter2ResoBoost);
+
+	butLabFilter2ResoBoost = new GuiButton(52, 14, 13, 176, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
+	butLabFilter2ResoBoost->buttonType = kButtonTypeOscParam;
+	butLabFilter2ResoBoost->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	AddSubComponent(butLabFilter2ResoBoost);
+
 
 	// knob labels
 	labKnob1 = new GuiLabel(40, 12, 265, 118, "CUT", true, kGuiLabelSizeBold);

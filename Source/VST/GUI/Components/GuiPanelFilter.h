@@ -7,6 +7,9 @@
 
 class SimpleFilter;
 
+class ContextMenuEx;
+class GContextMenuEx;
+
 class GuiPanelFilter : public GuiComponent
 {
 public:
@@ -30,13 +33,25 @@ public:
 	GuiButton* butMode; // parallel/dual
 	GuiButton* butLink; // parallel/dual
 
+	
 	GuiLabel* labFilter1Type;
+	GuiButton* butLabFilter1Type;
+
 	GuiLabel* labFilter1Limiter;
+	GuiButton* butLabFilter1Limiter;
+
 	GuiLabel* labFilter1ResoBoost;
+	GuiButton* butLabFilter1ResoBoost;
+
 
 	GuiLabel* labFilter2Type;
+	GuiButton* butLabFilter2Type;
+
 	GuiLabel* labFilter2Limiter;
+	GuiButton* butLabFilter2Limiter;
+
 	GuiLabel* labFilter2ResoBoost;
+	GuiButton* butLabFilter2ResoBoost;
 
 	GuiLabel* labKnob1;
 	GuiLabel* labKnob2a;
@@ -44,6 +59,8 @@ public:
 	GuiLabel* labKnob3a;
 	GuiLabel* labKnob3b;
 	GuiLabel* labKnob4;
+
+	GContextMenuEx* menuMenu;
 
 	GuiPanelFilter(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiPanelFilter(void);

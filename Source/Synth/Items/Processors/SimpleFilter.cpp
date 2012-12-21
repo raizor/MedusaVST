@@ -56,14 +56,14 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 				float fv = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->Value();
 				float mod = fv;
 				//FloatStackItemParam_ModulateValue(filter->Cutoff, &mod, idx);
-				mod = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
+				paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
 				fv = fv+(fv*mod);
 				float fr = calcfreq(fv);
 				float f = fr < 1.0f ? fr : 0.999f;
 				float resv = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->Value();//FloatStackItemParam_Value(filter->Resonance);
 				mod = resv;
 				//FloatStackItemParam_ModulateValue(filter->Resonance, &mod, idx);
-				mod = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
+				paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
 				resv = resv+(resv*mod);
 				float res = 1.0f - resv;
 				

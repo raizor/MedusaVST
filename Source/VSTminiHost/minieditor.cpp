@@ -124,8 +124,8 @@ INT_PTR CALLBACK EditorProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			EndDialog (hwnd, IDOK);
 		}	break;
 	}
-	if (msg!=275)
-	printf("i msg: %d\n", msg);
+	//if (msg!=275)
+	//printf("i msg: %d\n", msg);
 	return 0;
 }
 

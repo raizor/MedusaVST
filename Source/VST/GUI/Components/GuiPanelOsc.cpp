@@ -138,12 +138,15 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 
 	// labels
 	labWaveType = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*0), "Sine");
+	labWaveType->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	AddSubComponent(labWaveType);
 
 	labTranspose = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*1), "0");
+	labTranspose->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	AddSubComponent(labTranspose);
 
 	labOctave = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*2), "0");
+	labOctave->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
 	AddSubComponent(labOctave);
 
 	labMode = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*3), "Sync");
@@ -261,7 +264,7 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 	}
 
 	// wave type
-	if (data == GuiMainWindow::panelOsc->butLabWaveType || data == GuiMainWindow::panelOsc->labWaveType)
+	if (data == GuiMainWindow::panelOsc->butLabWaveType)
 	{
 		DebugPrintLine("WT");
 		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;			
@@ -280,52 +283,142 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		return;
 	}
 
+	if (data == GuiMainWindow::panelOsc->labWaveType && evt->button == kGEventMouseButtonRight)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		int numWaveTables = WaveTable::NumWaveTables;
+		for(int i=0; i<numWaveTables-1; i++)
+		{
+			char* c = new char[100];
+			sprintf(c, WaveTable::Wavetables[i]->TableName);
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+			ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
+			param->SetValue(it-1);
+			osc->WaveChanged();
+			SetWaveformName(osc);
+		}
+	}
+
 	// transpose
-	if (data == GuiMainWindow::panelOsc->butLabTranspose || data == GuiMainWindow::panelOsc->labTranspose)
+	if (data == GuiMainWindow::panelOsc->butLabTranspose)
 	{
 		DebugPrintLine("TR");
 		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
 		ParamFloat *param = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_SEMI];
 		int currentIndex = param->ValueAsInt();
-		if (currentIndex < 12) // +/- 12 semitones (1 octave)
+		if (evt->button == kGEventMouseButtonLeft)
 		{
-			currentIndex++;
-		}else{
-			currentIndex = -12;
+			if (currentIndex < 12) // +/- 12 semitones (1 octave)
+			{
+				currentIndex++;
+			}else{
+				currentIndex = -12;
+			}
+		}else if (evt->button == kGEventMouseButtonRight){
+			if (currentIndex >-12) // +/- 12 semitones (1 octave)
+			{
+				currentIndex--;
+			}else{
+				currentIndex = 12;
+			}
 		}
+
 		param->SetValueWithInt(currentIndex);
 		char txt [100];
 		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labTranspose->SetText(&txt[0]);
 	}
 
+	if (data == GuiMainWindow::panelOsc->labTranspose && evt->button == kGEventMouseButtonRight)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		for(int i=0; i<25; i++)
+		{
+			char* txt = new char[5];
+			sprintf(txt, "%d", i-12);
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, txt, 0);
+			delete(txt);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			char* txt = new char[5];
+			sprintf(txt, "%d", it-13);
+			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+			ParamFloat *param = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_SEMI];
+			param->SetValue(it-13);
+			GuiMainWindow::panelOsc->labTranspose->SetText(txt);
+			delete(txt);
+		}
+	}
+
 	// octave detune
-	if (data == GuiMainWindow::panelOsc->butLabOctave || data == GuiMainWindow::panelOsc->labOctave )
+	if (data == GuiMainWindow::panelOsc->butLabOctave)
 	{
 		DebugPrintLine("OCT");
 		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
 		ParamFloat *param = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_OCT];
 		int currentIndex = param->ValueAsInt();
-		if (currentIndex < 5) // +/- 5 octaves
+		if (evt->button == kGEventMouseButtonLeft)
 		{
-			currentIndex++;
-		}else{
-			currentIndex = -5;
+			if (currentIndex < 5) // +/- 5 octaves
+			{
+				currentIndex++;
+			}else{
+				currentIndex = -5;
+			}
+		}else if (evt->button == kGEventMouseButtonRight)
+		{
+			if (currentIndex >-5) // +/- 5 octaves
+			{
+				currentIndex--;
+			}else{
+				currentIndex = 5;
+			}
 		}
+		
 		param->SetValueWithInt(currentIndex);
 		char txt [100];
 		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labOctave->SetText(&txt[0]);
+		delete(txt);
+	}
+
+
+	if (data == GuiMainWindow::panelOsc->labOctave && evt->button == kGEventMouseButtonRight)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		for(int i=0; i<11; i++)
+		{
+			char* txt = new char[5];
+			sprintf(txt, "%d", i-5);
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, txt, 0);
+			delete(txt);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			char* txt = new char[5];
+			sprintf(txt, "%d", it-6);
+			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+			ParamFloat *param = osc->paramsFloat[OSC_PARAM_FLOAT_DETUNE_OCT];
+			param->SetValue(it-6);
+			GuiMainWindow::panelOsc->labOctave->SetText(txt);
+			delete(txt);
+		}
 	}
 
 	// mode
-	if (data == GuiMainWindow::panelOsc->labMode)
+	if (data == GuiMainWindow::panelOsc->labMode && evt->button == kGEventMouseButtonRight)
 	{
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
 		for(int i=0; i<kOscModeItemCount-1; i++)
 		{
-			int* iv = new int();
-			*iv = i;
 			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, OscModeToString(i), 0);
 		}
 		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
@@ -357,24 +450,16 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		char txt [100];
 		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labMode->SetText(OscModeToString(currentIndex));
+		delete(txt);
 	}
+
+	// mod mode
 
 	if (data == GuiMainWindow::panelOsc->labModMode)
 	{
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
 		for(int i=0; i<kOscModModeItemCount-1; i++)
 		{
-			int* iv = new int();
-			*iv = i;
-
-			/*
-			HANDLE hIcon = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_MYICON), IMAGE_ICON, 16, 16, 0);
-			if (hIcon)
-			{
-
-			}
-			*/
-
 			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, OscModModeToString(i), 0);
 		}
 		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
@@ -385,12 +470,8 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 			param->SetValue(it-1);
 			GuiMainWindow::panelOsc->labModMode->SetText(OscModModeToString(it-1));
 		}
-		// oscs
-		//GContextMenuEx* subMenu = new GContextMenuEx(); 
-		//menuSource->AddMenu(subMenu, "Oscillators");
 	}
 
-	// mod mode
 	if (data == GuiMainWindow::panelOsc->butLabModMode)
 	{
 		DebugPrintLine("mode");
@@ -407,6 +488,7 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		char txt [100];
 		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labModMode->SetText(OscModModeToString(currentIndex));
+		delete(txt);
 	}
 }
 
