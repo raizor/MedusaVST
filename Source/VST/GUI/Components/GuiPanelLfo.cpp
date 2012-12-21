@@ -112,7 +112,7 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 
 	butLabWaveType1 = new GuiButton(52, 14, 9, 42, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
 	butLabWaveType1->buttonType = kButtonTypeOscParam;
-	butLabWaveType1->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	butLabWaveType1->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
 	AddSubComponent(butLabWaveType1);
 	
 	// wave type 2
@@ -123,7 +123,7 @@ GuiPanelLfo::GuiPanelLfo(int width, int height, int offsetX, int offsetY, int im
 
 	butLabWaveType2 = new GuiButton(52, 14, 9, 57, IDB_BUTTONSTRIP, kSpritesButtons_None, kSpritesButtons_None, kSpritesButtons_None); 
 	butLabWaveType2->buttonType = kButtonTypeOscParam;
-	butLabWaveType2->ClickedHandler = (FpClickedCallback)&GuiPanelFilter::CallbackClicked;
+	butLabWaveType2->ClickedHandler = (FpClickedCallback)&GuiPanelLfo::CallbackClicked;
 	AddSubComponent(butLabWaveType2);
 
 
@@ -260,23 +260,110 @@ void GuiPanelLfo::CallbackClicked(void* data, GEvent* evt)
 		}
 	}
 
-	if (data == GuiMainWindow::panelLfo->labWaveType1)
+	// wave type 1
+
+	if (data == GuiMainWindow::panelLfo->labWaveType1 && evt->button == kGEventMouseButtonRight)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		int numWaveTables = WaveTable::NumWaveTables;
+		for(int i=0; i<numWaveTables-1; i++)
+		{
+			char* c = new char[100];
+			sprintf(c, WaveTable::Wavetables[i]->TableName);
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			Lfo* osc = (Lfo*)GuiMainWindow::panelLfo->synthItem->item;		
+			ParamInt *param = osc->paramsInt[LFO_PARAM_INT_WAVEFORM];
+			param->SetValue(it-1);
+			osc->WaveChanged();
+			SetWaveformName(osc);
+		}	
+	}
+
+	if (data == GuiMainWindow::panelLfo->butLabWaveType1)
 	{
 		Lfo* osc = (Lfo*)GuiMainWindow::panelLfo->synthItem->item;		
 		ParamInt *param = osc->paramsInt[LFO_PARAM_INT_WAVEFORM];
 		int currentIndex = param->Value();
 		int numWaveTables = WaveTable::NumWaveTables;
-		if (currentIndex < numWaveTables-1)
+		if (evt->button == kGEventMouseButtonLeft)
 		{
-			currentIndex++;
+
+			if (currentIndex < numWaveTables-1)
+			{
+				currentIndex++;
+			}else{
+				currentIndex = 0;
+			}
 		}else{
-			currentIndex = 0;
+			if (currentIndex > 0)
+			{
+				currentIndex--;
+			}else{
+				currentIndex = numWaveTables-1;
+			}
 		}
 		param->SetValue(currentIndex);
 		osc->WaveChanged();
 		char* c = GuiMainWindow::panelLfo->labWaveType1->text;
 		sprintf(c, osc->waveTableIdx->Table->TableName);
-		GuiMainWindow::panelLfo->labWaveType1->SetText(c);
-		
+		GuiMainWindow::panelLfo->labWaveType1->SetText(c);		
+	}
+
+
+	// wave type 2
+
+	if (data == GuiMainWindow::panelLfo->labWaveType2 && evt->button == kGEventMouseButtonRight)
+	{
+		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+		int numWaveTables = WaveTable::NumWaveTables;
+		for(int i=0; i<numWaveTables-1; i++)
+		{
+			char* c = new char[100];
+			sprintf(c, WaveTable::Wavetables[i]->TableName);
+			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);
+		}
+		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+		if (it)
+		{
+			Lfo* osc = (Lfo*)GuiMainWindow::panelLfo->synthItem->item;		
+			ParamInt *param = osc->paramsInt[LFO_PARAM_INT_WAVEFORM];
+			param->SetValue(it-1);
+			osc->WaveChanged();
+			SetWaveformName(osc);
+		}	
+	}
+
+	if (data == GuiMainWindow::panelLfo->butLabWaveType2)
+	{
+		Lfo* osc = (Lfo*)GuiMainWindow::panelLfo->synthItem->item;		
+		ParamInt *param = osc->paramsInt[LFO_PARAM_INT_WAVEFORM];
+		int currentIndex = param->Value();
+		int numWaveTables = WaveTable::NumWaveTables;
+		if (evt->button == kGEventMouseButtonLeft)
+		{
+
+			if (currentIndex < numWaveTables-1)
+			{
+				currentIndex++;
+			}else{
+				currentIndex = 0;
+			}
+		}else{
+			if (currentIndex > 0)
+			{
+				currentIndex--;
+			}else{
+				currentIndex = numWaveTables-1;
+			}
+		}
+		param->SetValue(currentIndex);
+		osc->WaveChanged();
+		char* c = GuiMainWindow::panelLfo->labWaveType2->text;
+		sprintf(c, osc->waveTableIdx->Table->TableName);
+		GuiMainWindow::panelLfo->labWaveType1->SetText(c);		
 	}
 }

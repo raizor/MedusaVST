@@ -271,12 +271,24 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		int numWaveTables = WaveTable::NumWaveTables;
 		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
 		int currentIndex = param->Value();
-		if (currentIndex < numWaveTables-1)
+		if (evt->button == kGEventMouseButtonLeft)
 		{
-			currentIndex++;
-		}else{
-			currentIndex = 0;
+			if (currentIndex < numWaveTables-1)
+			{
+				currentIndex++;
+			}else{
+				currentIndex = 0;
+			}
+		}else if (evt->button == kGEventMouseButtonRight)
+		{
+			if (currentIndex > 0)
+			{
+				currentIndex--;
+			}else{
+				currentIndex = numWaveTables-1;
+			}
 		}
+
 		param->SetValue(currentIndex);
 		osc->WaveChanged();
 		SetWaveformName(osc);
@@ -383,9 +395,9 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		}
 		
 		param->SetValueWithInt(currentIndex);
-		char txt [100];
+		char* txt = new char[10];
 		sprintf(txt, "%d", currentIndex);
-		GuiMainWindow::panelOsc->labOctave->SetText(&txt[0]);
+		GuiMainWindow::panelOsc->labOctave->SetText(txt);
 		delete(txt);
 	}
 
@@ -440,22 +452,31 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
 		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MODE];
 		int currentIndex = param->Value();
-		if (currentIndex < kOscModeItemCount-1) // +/- 5 octaves
+		if (evt->button == kGEventMouseButtonLeft)
 		{
-			currentIndex++;
-		}else{
-			currentIndex = 0;
+			if (currentIndex < kOscModeItemCount-1) // +/- 5 octaves
+			{
+				currentIndex++;
+			}else{
+				currentIndex = 0;
+			}
+		}else if (evt->button == kGEventMouseButtonRight)
+		{
+			if (currentIndex > 0) // +/- 5 octaves
+			{
+				currentIndex--;
+			}else{
+				currentIndex = kOscModeItemCount-1;
+			}
 		}
+
 		param->SetValue(currentIndex);
-		char txt [100];
-		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labMode->SetText(OscModeToString(currentIndex));
-		delete(txt);
 	}
 
 	// mod mode
 
-	if (data == GuiMainWindow::panelOsc->labModMode)
+	if (data == GuiMainWindow::panelOsc->labModMode && evt->button == kGEventMouseButtonRight)
 	{
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
 		for(int i=0; i<kOscModModeItemCount-1; i++)
@@ -478,17 +499,25 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
 		ParamInt *param = osc->paramsInt[OSC_PARAM_INT_MOD_MODE];
 		int currentIndex = param->Value();
-		if (currentIndex < kOscModModeItemCount-1) // +/- 5 octaves
+		if (evt->button == kGEventMouseButtonLeft)
 		{
-			currentIndex++;
-		}else{
-			currentIndex = 0;
+			if (currentIndex < kOscModModeItemCount-1) // +/- 5 octaves
+			{
+				currentIndex++;
+			}else{
+				currentIndex = 0;
+			}
+		}else if (evt->button == kGEventMouseButtonRight)
+		{
+			if (currentIndex > 0) // +/- 5 octaves
+			{
+				currentIndex--;
+			}else{
+				currentIndex = kOscModModeItemCount-1;
+			}
 		}
 		param->SetValue(currentIndex);
-		char txt [100];
-		sprintf(txt, "%d", currentIndex);
 		GuiMainWindow::panelOsc->labModMode->SetText(OscModModeToString(currentIndex));
-		delete(txt);
 	}
 }
 

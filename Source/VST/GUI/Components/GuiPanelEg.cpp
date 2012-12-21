@@ -418,7 +418,7 @@ void GuiPanelEg::SetStackItem(Adsr* item)
 		labKnob9->offsetX = 366;
 	}
 
-	displayEg->eg = PatchList::list->CurrentPatch->egAmp;
+	displayEg->eg = item;
 }
 
 

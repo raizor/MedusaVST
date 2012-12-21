@@ -145,6 +145,11 @@ void Patch::Generate(Voice* voice, int numSamples)
 		egAmp->Process(voice->Buffer, voice->Buffer, voice, numSamples);
 	}
 
+	if (egPitch->enabled)
+	{
+		// EGs output to voice temp buffer
+		egPitch->Process(voice->Buffer, voice->Buffer, voice, numSamples);
+	}
 }
 
 void Patch::Start( Voice* voice)
