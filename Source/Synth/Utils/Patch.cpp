@@ -42,7 +42,7 @@ Patch::Patch(int number)
 	{
 		Osc* osc = new Osc();
 		osc->enabled = i == 0;
-
+		osc->number = i;
 		items[numItems++] = osc;
 	}
 
@@ -74,6 +74,7 @@ Patch::Patch(int number)
 	{
 		Adsr* adsr = new Adsr(kStackItemTypeEnvAdsr);
 		adsr->enabled = false;
+		adsr->number = i;
 		items[numItems++] = adsr;
 	}
 

@@ -51,7 +51,6 @@ class ModulationMatrix
 public:
 	Patch* patch;
 	ModulationMatrixRow** Rows;	
-	int RowCount;
 	bool Changed;
 
 	ModulationMatrix(Patch* patch);

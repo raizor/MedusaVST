@@ -32,6 +32,7 @@ ModulationMatrix::ModulationMatrix(Patch* patch)
 		Rows[i]->ItemDest = new ModulationMatrixItem();
 		// TODO: change according to modulator type: eg = mult, lfo = plus etc
 		Rows[i]->RowNum = i;
+		Rows[i]->Range = new ModulationRange();
 		Rows[i]->SourceSet = false;		
 		Rows[i]->Curve = kModulationCurveNone;
 		Rows[i]->DestSet = false;
@@ -66,7 +67,7 @@ void ModulationMatrix::SetDest(int row, Item* item, ParamFloat* param)
 
 void ModulationMatrix::SetCurve(int row, int curve)
 {
-	Rows[0]->Curve = (ModulationCurve)curve;
+	Rows[row]->Curve = (ModulationCurve)curve;
 }
 
 void ModulationMatrix::HandleItem(Item* item)

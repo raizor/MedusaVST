@@ -1,5 +1,7 @@
 #pragma once
 
+#undef ENABLE_CONSOLE
+
 #include "Globals.h"
 #include "Constants.h"
 #include "Utils/PitchUtils.h"

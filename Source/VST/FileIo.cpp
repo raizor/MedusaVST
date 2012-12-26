@@ -329,7 +329,8 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 			row->RowNum = ReadInt(fp, writer, useFile);
 			row->SourceSet = ReadBool(fp, writer, useFile);
 			row->DestSet = ReadBool(fp, writer, useFile);
-			row->Curve = (ModulationCurve)ReadInt(fp, writer, useFile);
+			int curve = ReadInt(fp, writer, useFile);
+			patch->ModMatrix->SetCurve(j, curve);
 			// source
 			if (row->SourceSet)
 			{
@@ -402,8 +403,9 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 					itemNumber+=NUMBER_START_OSC;
 					it = patch->items[itemNumber];
 					break;
+				default:
+					DebugBreak();
 				}
-				it = patch->items[itemNumber];
 
 				patch->ModMatrix->SetSource(row->RowNum, it);
 			}			
@@ -413,6 +415,7 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 				// dest
 				int itemNumber = ReadInt(fp, writer, useFile);
 				StackItemType itemType = (StackItemType)ReadInt(fp, writer, useFile);
+				int paramNumber = ReadInt(fp, writer, useFile);
 				Item* it;
 				switch (itemType)
 				{
@@ -479,9 +482,9 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 					itemNumber+=NUMBER_START_OSC;
 					it = patch->items[itemNumber];
 					break;
+				default:
+					DebugBreak();
 				}
-				it = patch->items[itemNumber];
-				int paramNumber = ReadInt(fp, writer, useFile);
 				patch->ModMatrix->SetDest(row->RowNum, it, it->paramsFloat[paramNumber]);
 			}
 		}
@@ -696,11 +699,14 @@ int ZynthIo::SaveBank(FILE* fp, Writer *writer, bool useFile)
 			WriteInt(row->RowNum, fp, writer, useFile);
 			WriteBool(row->SourceSet, fp, writer, useFile);
 			WriteBool(row->DestSet, fp, writer, useFile);
-			WriteInt(row->Curve, fp, writer, useFile);
+			int curve = row->Curve;
+			WriteInt(curve, fp, writer, useFile);
 			if (row->SourceSet)
 			{
-				WriteInt(row->ItemSource->Item->number, fp, writer, useFile);
-				WriteInt(row->ItemSource->Item->type, fp, writer, useFile);
+				int inum = row->ItemSource->Item->number;
+				int itype = row->ItemSource->Item->type;
+				WriteInt(inum, fp, writer, useFile);
+				WriteInt(itype, fp, writer, useFile);
 			}
 			if (row->DestSet)
 			{
