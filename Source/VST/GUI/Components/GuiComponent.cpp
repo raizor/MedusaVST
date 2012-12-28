@@ -158,6 +158,27 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 
 	switch(evt->type)
 	{
+	case(kGEventKeyDown):
+		{
+			// check children first
+			for(int i=0; i<subComponents.size(); i++)
+			{
+				GuiComponent* gc = (GuiComponent*)subComponents.at(i);
+				gc->HandleEvent(evt, true);		
+			}
+
+			if (GuiMainWindow::editingComponent == this)
+			{
+				evt->isHandled = true;
+				Edited(evt);
+
+				if (EditedHandler != NULL)
+				{
+					(this->*EditedHandler)(this, evt);
+				}
+			}
+			break;
+		}
 	case(kGEventMouseMoved):
 		{
 			if (!recursing)
@@ -283,6 +304,12 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
  {
 	 
  }
+
+ void GuiComponent::Edited(GEvent* evt)
+ {
+
+ }
+
 
  void GuiComponent::AddSubComponent(GuiComponent* component)
  {

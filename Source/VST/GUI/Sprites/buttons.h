@@ -65,6 +65,7 @@ enum SpritesButton
 	kSpritesButtons_Keyboard_overlay,
 	kSpritesButtons_Overlay_adsr_other,
 	kSpritesButtons_Padsynth_panel,
+	kSpritesButtons_PanelTxt,
 	kSpritesButtons_SaveDisk,
 	kSpritesButtons_Slider,
 	kSpritesButtons_Slider_2,

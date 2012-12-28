@@ -24,6 +24,7 @@
 #include "Editor.h"
 #include "../../includes.h"
 #include "Components/GuiImageManager.h"
+#include "Components/GuiLabel.h"
 //#include "Text/FontManager.h"
 #include "Utils/VoicePool.h"
 
@@ -140,6 +141,43 @@ void Editor::draw()
 
 void Editor::onGLKeyDown(const VstKeyCode& key)
 {
+	if (GuiMainWindow::editingComponent != NULL)
+	{
+		GuiLabel* lab = (GuiLabel*)GuiMainWindow::editingComponent;
+
+		GEvent* evt = new GEvent();
+		evt->type = kGEventKeyDown;
+		evt->key[0] = key.character;
+		evt->key[1] = key.virt;
+		_mainWindow->HandleEvent(evt);
+
+		/*
+		char* txt = new char[255];
+		if (key.virt == VKEY_BACK || key.virt == VKEY_DELETE)
+		{
+			int len = strlen(lab->text);
+			lab->text[len-1] = 0;
+			//sprintf(txt, "%s%c", lab->text, key.character);		
+		}else{
+			sprintf(txt, "%s%c", lab->text, key.character);		
+			lab->SetText(txt);
+		}
+
+		GEvent* evt = new GEvent();
+		evt->type = kGEventKeyDown;
+		evt->key[0] = key.character;
+		evt->key[1] = key.virt;
+		_mainWindow->HandleEvent(evt);
+		*/
+		/*
+		if (lab->EditedHandler != NULL)
+		{
+			(lab->*EditedHandler)(this, 0);
+		}*/
+		//delete(txt);
+
+		//lab->Edited(new GEvent());
+	}
 	/*
 	int midiNumber = 70;
 	Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];

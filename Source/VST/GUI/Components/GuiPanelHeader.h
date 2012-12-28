@@ -30,5 +30,6 @@ public:
 	~GuiPanelHeader(void);
 	void GuiPanelHeader::HandlePatchChanged();
 	void CallbackClicked(void* data, GEvent* evt);
+	void GuiPanelHeader::CallbackEdited(void* data, GEvent* evt);
 };
 

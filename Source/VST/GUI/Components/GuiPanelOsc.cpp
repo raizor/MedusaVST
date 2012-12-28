@@ -302,7 +302,7 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
 		int numWaveTables = WaveTable::NumWaveTables;
 		char* c = new char[100];
-		for(int i=0; i<numWaveTables-1; i++)
+		for(int i=0; i<numWaveTables; i++)
 		{			
 			sprintf(c, WaveTable::Wavetables[i]->TableName);
 			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);

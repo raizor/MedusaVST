@@ -12,6 +12,8 @@
 #include "GuiPanelMain.h"
 #include "GuiPanelHeader.h"
 #include "GuiOverlayPadsynth.h"
+#include "GuiTxtEdit.h"
+
 
 #include "GuiPanelPatchGlobal.h"
 #include "GuiPanelDistortion.h"
@@ -32,7 +34,7 @@ class GuiMainWindow : public GuiComponent
 public:
 	static void* hWindow;
 	static char labelText[100];
-	static GuiComponent *hotComponent, *dragComponent;
+	static GuiComponent *hotComponent, *dragComponent, *editingComponent;
 	static GPoint *dragPoint, *movePoint;	
 	Patch* currentPatch;
 	static GuiPanelOsc* panelOsc;
@@ -47,6 +49,7 @@ public:
 	static GuiPanelMaster *panelMaster;
 	static GuiPanelHeader* panelHeader;
 	static GuiOverlayPadsynth* padsynthOverlay;
+	static GuiTxtEdit *txtEdit;
 
 	// patch fx
 	GuiPanelPatchGlobal* panelPatchGlobal;

@@ -36,6 +36,7 @@ public:
 	GuiComponentType type;
 	GuiComponent* parent;
 	FpClickedCallback ClickedHandler;
+	FpClickedCallback EditedHandler;
 	bool dirty;
 	bool hottable;
 	bool enabled;
@@ -55,6 +56,7 @@ public:
 	virtual void draw();
 	virtual void HandleEvent(GEvent* evt, bool recursing = false);
 	virtual void Clicked(GEvent* evt);
+	virtual void Edited(GEvent* evt);
 	virtual int GetOffsetX();
 	virtual int GetOffsetY();
 	virtual bool IsHot(GPoint pos, bool onlyCheckY = false);

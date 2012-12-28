@@ -14,7 +14,11 @@ public:
 	GuiButton* butGenerate;
 	GuiButton* butClose;
 
+	GuiLabel* labWaveTypeName;
 	GuiLabel* labWaveType;
+
+	GuiLabel* labNameName;
+	GuiLabel* labName;
 
 	GuiKnob* knobAmp;
 	GuiKnob* knobBandwidth;
@@ -27,10 +31,12 @@ public:
 	GuiLabel* labKnob4;
 
 	WaveForm waveForm;
+	int nPower;
 
 	GuiComponent* background;
 	GuiOverlayPadsynth(int width, int height, int offsetX, int offsetY, int imageId);
 	~GuiOverlayPadsynth(void);
 	void CallbackClicked(void* data, GEvent* evt);
+	void CallbackEdited(void* data, GEvent* evt);
 };
 

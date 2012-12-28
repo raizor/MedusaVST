@@ -61,6 +61,8 @@ GuiPanelHeader::GuiPanelHeader(int width, int height, int offsetX, int offsetY, 
 	AddSubComponent(imgPatchNoBox);
 
 	labPatchName = new GuiLabel(100, 20, 374, 146, "hello", false, kGuiLabelSizeSmall);
+	labPatchName->ClickedHandler = (FpClickedCallback)&GuiPanelHeader::CallbackClicked;
+	labPatchName->EditedHandler = (FpClickedCallback)&GuiPanelHeader::CallbackEdited;
 	AddSubComponent(labPatchName);
 
 	labPatchNum = new GuiLabel(100, 20, 735, 146, "1 / 100", true, kGuiLabelSizeSmall);
@@ -96,8 +98,19 @@ void GuiPanelHeader::HandlePatchChanged()
 }
 
 
+void GuiPanelHeader::CallbackEdited(void* data, GEvent* evt)
+{
+	sprintf(PatchList::list->CurrentPatch->name, labPatchName->text);
+}
+
 void GuiPanelHeader::CallbackClicked(void* data, GEvent* evt)
 {
+	if (data == labPatchName)
+	{
+		GuiMainWindow::panelHeader->labPatchName->isEditing = true;
+		GuiMainWindow::editingComponent = GuiMainWindow::panelHeader->labPatchName;
+	}
+
 	if (data == butNextPatch)
 	{
 		int num = PatchList::list->CurrentPatch->number+1 < 99 ? PatchList::list->CurrentPatch->number+1 : PatchList::list->CurrentPatch->number;

@@ -7,6 +7,7 @@
 GuiOverlayPadsynth::GuiOverlayPadsynth(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	waveForm = kWaveFormPadSynthChoir;
+	nPower = 2;
 
 	// overlay panel
 	background = new GuiComponent(397, 217, 0, 0, IDB_BUTTONSTRIP, kSpritesButtons_Padsynth_panel, false, 0);
@@ -49,16 +50,44 @@ GuiOverlayPadsynth::GuiOverlayPadsynth(int width, int height, int offsetX, int o
 	AddSubComponent(labKnob4);
 
 	// labels
+	labWaveTypeName = new GuiLabel(72, 12, 25, 49, "TYPE");
+	AddSubComponent(labWaveTypeName);
+
 	labWaveType = new GuiLabel(72, 12, 73, 49, "Choir");
 	labWaveType->ClickedHandler = (FpClickedCallback)&GuiOverlayPadsynth::CallbackClicked;
 	AddSubComponent(labWaveType);
+
+	labNameName = new GuiLabel(72, 12, 16, 72, "NAME");
+	AddSubComponent(labNameName);
+
+	labName = new GuiLabel(72, 12, 73, 72, "Unnamed");
+	labName->EditedHandler = (FpClickedCallback)&GuiOverlayPadsynth::CallbackEdited;
+	labName->ClickedHandler = (FpClickedCallback)&GuiOverlayPadsynth::CallbackClicked;
+	AddSubComponent(labName);
 }
 
-
+void GuiOverlayPadsynth::CallbackEdited(void* data, GEvent* evt)
+{
+}
 
 void GuiOverlayPadsynth::CallbackClicked(void* data, GEvent* evt)
 {
 	char msg[100];
+
+	/*
+	if (data == GuiMainWindow::padsynthOverlay->labNPower)
+	{
+		if (GuiMainWindow::padsynthOverlay->nPower < 10)
+		{
+			GuiMainWindow::padsynthOverlay->nPower++;			
+		}else{
+			GuiMainWindow::padsynthOverlay->nPower = 1;
+		}
+		char* ch = new char[10];
+		sprintf(ch, "%d", GuiMainWindow::padsynthOverlay->nPower);
+		GuiMainWindow::padsynthOverlay->labNPower->SetText(ch);
+		delete(ch);
+	}*/
 
 	if (data == GuiMainWindow::padsynthOverlay->labWaveType)
 	{
@@ -105,7 +134,7 @@ void GuiOverlayPadsynth::CallbackClicked(void* data, GEvent* evt)
 		float formantScale = 1.0f;
 		int tablesPerOctave = 4;
 
-		WaveTable* table = WaveTableGen::GeneratePadWaveTable(GuiMainWindow::padsynthOverlay->waveForm, "hello", amplitude, npower, formantScale, bandwidth, bandwidthScale, tablesPerOctave);
+		WaveTable* table = WaveTableGen::GeneratePadWaveTable(GuiMainWindow::padsynthOverlay->waveForm, "hello", amplitude, GuiMainWindow::padsynthOverlay->nPower, formantScale, bandwidth, bandwidthScale, tablesPerOctave);
 		WaveTable::Wavetables[WaveTable::NumWaveTables] = table;
 
 		int tableNum = WaveTable::NumWaveTables++;

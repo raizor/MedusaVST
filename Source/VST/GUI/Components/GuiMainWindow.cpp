@@ -5,12 +5,14 @@
 
 GuiComponent* GuiMainWindow::hotComponent = NULL;
 GuiComponent* GuiMainWindow::dragComponent = NULL;
+GuiComponent* GuiMainWindow::editingComponent = NULL;
 GPoint* GuiMainWindow::dragPoint = NULL;
 GPoint* GuiMainWindow::movePoint = NULL;
 int GuiMainWindow::currentOscNumber = 0;
 int GuiMainWindow::currentEgNumber = 0;
 int GuiMainWindow::currentLfoAvNumber = 0;
 int GuiMainWindow::currentLfoPvNumber = 0;
+GuiTxtEdit* GuiMainWindow::txtEdit = 0;
 GuiOverlayPadsynth* GuiMainWindow::padsynthOverlay = 0;
 GuiPanelMain* GuiMainWindow::panelMain = 0;
 GuiPanelMaster* GuiMainWindow::panelMaster = 0;
@@ -107,6 +109,10 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 
 	padsynthOverlay = new GuiOverlayPadsynth(397, 217, 0, 0, 0);
 	panelMain->panelPatch->AddSubComponent(padsynthOverlay);
+	padsynthOverlay->enabled = false;
+
+	//txtEdit = new GuiTxtEdit(700, 41, 121, 497, 0);
+	//AddSubComponent(txtEdit);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)

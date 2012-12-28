@@ -4,206 +4,208 @@
 
 SpritesButtonsSprites::SpritesButtonsSprites()
 {
-	imageWidth = 512;
+	imageWidth = 1024;
 	imageHeight = 512;
 	pixelSizeX = 1.0f/imageWidth;
 	pixelSizeY = 1.0f/imageHeight;
 	GSprite* sp = new GSprite(0,0,0,0, kSpritesButtons_None);
 	AddSprite(sp);
-	sp = new GSprite(162, 289, 211, 22, kSpritesButtons_Box_patchName);
+	sp = new GSprite(809, 2, 211, 22, kSpritesButtons_Box_patchName);
 	AddSprite(sp);
 
-	sp = new GSprite(410, 66, 70, 22, kSpritesButtons_Box_patchNum);
+	sp = new GSprite(704, 70, 70, 22, kSpritesButtons_Box_patchNum);
 	AddSprite(sp);
 
-	sp = new GSprite(274, 342, 26, 27, kSpritesButtons_But_1_off);
+	sp = new GSprite(521, 268, 26, 27, kSpritesButtons_But_1_off);
 	AddSprite(sp);
 
-	sp = new GSprite(252, 458, 26, 27, kSpritesButtons_But_1_off_lit);
+	sp = new GSprite(501, 239, 26, 27, kSpritesButtons_But_1_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(252, 429, 26, 27, kSpritesButtons_But_1_on);
+	sp = new GSprite(495, 210, 26, 27, kSpritesButtons_But_1_on);
 	AddSprite(sp);
 
-	sp = new GSprite(246, 400, 26, 27, kSpritesButtons_But_1_on_lit);
+	sp = new GSprite(493, 181, 26, 27, kSpritesButtons_But_1_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(246, 371, 26, 27, kSpritesButtons_But_2_off);
+	sp = new GSprite(493, 152, 26, 27, kSpritesButtons_But_2_off);
 	AddSprite(sp);
 
-	sp = new GSprite(246, 313, 26, 27, kSpritesButtons_But_2_off_lit);
+	sp = new GSprite(493, 70, 26, 27, kSpritesButtons_But_2_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(246, 342, 26, 27, kSpritesButtons_But_2_on);
+	sp = new GSprite(493, 123, 26, 27, kSpritesButtons_But_2_on);
 	AddSprite(sp);
 
-	sp = new GSprite(224, 458, 26, 27, kSpritesButtons_But_2_on_lit);
+	sp = new GSprite(493, 297, 26, 27, kSpritesButtons_But_2_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(224, 429, 26, 27, kSpritesButtons_But_3_off);
+	sp = new GSprite(493, 268, 26, 27, kSpritesButtons_But_3_off);
 	AddSprite(sp);
 
-	sp = new GSprite(218, 400, 26, 27, kSpritesButtons_But_3_off_lit);
+	sp = new GSprite(473, 239, 26, 27, kSpritesButtons_But_3_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(218, 371, 26, 27, kSpritesButtons_But_3_on);
+	sp = new GSprite(467, 210, 26, 27, kSpritesButtons_But_3_on);
 	AddSprite(sp);
 
-	sp = new GSprite(218, 313, 26, 27, kSpritesButtons_But_3_on_lit);
+	sp = new GSprite(465, 181, 26, 27, kSpritesButtons_But_3_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(218, 342, 26, 27, kSpritesButtons_But_4_off);
+	sp = new GSprite(465, 152, 26, 27, kSpritesButtons_But_4_off);
 	AddSprite(sp);
 
-	sp = new GSprite(196, 458, 26, 27, kSpritesButtons_But_4_off_lit);
+	sp = new GSprite(465, 70, 26, 27, kSpritesButtons_But_4_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(196, 429, 26, 27, kSpritesButtons_But_4_on);
+	sp = new GSprite(465, 123, 26, 27, kSpritesButtons_But_4_on);
 	AddSprite(sp);
 
-	sp = new GSprite(190, 400, 26, 27, kSpritesButtons_But_4_on_lit);
+	sp = new GSprite(465, 297, 26, 27, kSpritesButtons_But_4_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(190, 371, 26, 27, kSpritesButtons_But_5_off);
+	sp = new GSprite(465, 268, 26, 27, kSpritesButtons_But_5_off);
 	AddSprite(sp);
 
-	sp = new GSprite(190, 313, 26, 27, kSpritesButtons_But_5_off_lit);
+	sp = new GSprite(445, 239, 26, 27, kSpritesButtons_But_5_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(190, 342, 26, 27, kSpritesButtons_But_5_on);
+	sp = new GSprite(439, 210, 26, 27, kSpritesButtons_But_5_on);
 	AddSprite(sp);
 
-	sp = new GSprite(162, 400, 26, 27, kSpritesButtons_But_5_on_lit);
+	sp = new GSprite(437, 181, 26, 27, kSpritesButtons_But_5_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(162, 371, 26, 27, kSpritesButtons_But_6_off);
+	sp = new GSprite(437, 152, 26, 27, kSpritesButtons_But_6_off);
 	AddSprite(sp);
 
-	sp = new GSprite(162, 313, 26, 27, kSpritesButtons_But_6_off_lit);
+	sp = new GSprite(437, 70, 26, 27, kSpritesButtons_But_6_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(162, 342, 26, 27, kSpritesButtons_But_6_on);
+	sp = new GSprite(437, 123, 26, 27, kSpritesButtons_But_6_on);
 	AddSprite(sp);
 
-	sp = new GSprite(481, 253, 26, 27, kSpritesButtons_But_6_on_lit);
+	sp = new GSprite(776, 70, 26, 27, kSpritesButtons_But_6_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(160, 459, 34, 27, kSpritesButtons_But_amp_off);
+	sp = new GSprite(401, 181, 34, 27, kSpritesButtons_But_amp_off);
 	AddSprite(sp);
 
-	sp = new GSprite(160, 430, 34, 27, kSpritesButtons_But_amp_off_lit);
+	sp = new GSprite(401, 152, 34, 27, kSpritesButtons_But_amp_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(124, 459, 34, 27, kSpritesButtons_But_amp_on);
+	sp = new GSprite(401, 70, 34, 27, kSpritesButtons_But_amp_on);
 	AddSprite(sp);
 
-	sp = new GSprite(124, 430, 34, 27, kSpritesButtons_But_amp_on_lit);
+	sp = new GSprite(401, 123, 34, 27, kSpritesButtons_But_amp_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(481, 220, 28, 31, kSpritesButtons_But_filterLink_off);
+	sp = new GSprite(199, 289, 28, 31, kSpritesButtons_But_filterLink_off);
 	AddSprite(sp);
 
-	sp = new GSprite(482, 66, 28, 31, kSpritesButtons_But_filterLink_on);
+	sp = new GSprite(171, 256, 28, 31, kSpritesButtons_But_filterLink_on);
 	AddSprite(sp);
 
-	sp = new GSprite(401, 168, 51, 49, kSpritesButtons_But_filterMode_dual);
+	sp = new GSprite(36, 221, 51, 49, kSpritesButtons_But_filterMode_dual);
 	AddSprite(sp);
 
-	sp = new GSprite(457, 134, 51, 49, kSpritesButtons_But_filterMode_para);
+	sp = new GSprite(2, 281, 51, 49, kSpritesButtons_But_filterMode_para);
 	AddSprite(sp);
 
-	sp = new GSprite(401, 90, 62, 18, kSpritesButtons_But_generate);
+	sp = new GSprite(55, 310, 62, 18, kSpritesButtons_But_generate);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 470, 120, 28, kSpritesButtons_But_globalFx);
+	sp = new GSprite(323, 251, 120, 28, kSpritesButtons_But_globalFx);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 440, 120, 28, kSpritesButtons_But_globalFx_lit);
+	sp = new GSprite(229, 286, 120, 28, kSpritesButtons_But_globalFx_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 293, 36, 36, kSpritesButtons_But_left);
+	sp = new GSprite(127, 221, 36, 36, kSpritesButtons_But_left);
 	AddSprite(sp);
 
-	sp = new GSprite(274, 371, 32, 26, kSpritesButtons_But_master_limit_off);
+	sp = new GSprite(521, 297, 32, 26, kSpritesButtons_But_master_limit_off);
 	AddSprite(sp);
 
-	sp = new GSprite(274, 313, 32, 26, kSpritesButtons_But_master_limit_on);
+	sp = new GSprite(742, 94, 32, 26, kSpritesButtons_But_master_limit_on);
 	AddSprite(sp);
 
-	sp = new GSprite(410, 34, 86, 30, kSpritesButtons_But_modArp_arp);
+	sp = new GSprite(931, 58, 86, 30, kSpritesButtons_But_modArp_arp);
 	AddSprite(sp);
 
-	sp = new GSprite(410, 2, 86, 30, kSpritesButtons_But_modArp_mod);
+	sp = new GSprite(931, 26, 86, 30, kSpritesButtons_But_modArp_mod);
 	AddSprite(sp);
 
-	sp = new GSprite(401, 139, 54, 27, kSpritesButtons_But_mod_1_8);
+	sp = new GSprite(383, 221, 54, 27, kSpritesButtons_But_mod_1_8);
 	AddSprite(sp);
 
-	sp = new GSprite(401, 110, 54, 27, kSpritesButtons_But_mod_9_16);
+	sp = new GSprite(327, 221, 54, 27, kSpritesButtons_But_mod_9_16);
 	AddSprite(sp);
 
-	sp = new GSprite(308, 313, 26, 26, kSpritesButtons_But_osc_power_off);
+	sp = new GSprite(521, 70, 26, 26, kSpritesButtons_But_osc_power_off);
 	AddSprite(sp);
 
-	sp = new GSprite(302, 342, 26, 26, kSpritesButtons_But_osc_power_on);
+	sp = new GSprite(521, 123, 26, 26, kSpritesButtons_But_osc_power_on);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 410, 120, 28, kSpritesButtons_But_patch);
+	sp = new GSprite(205, 221, 120, 28, kSpritesButtons_But_patch);
 	AddSprite(sp);
 
-	sp = new GSprite(40, 293, 120, 28, kSpritesButtons_But_patchFx);
+	sp = new GSprite(201, 256, 120, 28, kSpritesButtons_But_patchFx);
 	AddSprite(sp);
 
-	sp = new GSprite(40, 342, 120, 28, kSpritesButtons_But_patchFx_lit);
+	sp = new GSprite(809, 56, 120, 28, kSpritesButtons_But_patchFx_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 380, 120, 28, kSpritesButtons_But_patch_lit);
+	sp = new GSprite(809, 26, 120, 28, kSpritesButtons_But_patch_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(124, 401, 36, 27, kSpritesButtons_But_pitch_off);
+	sp = new GSprite(704, 94, 36, 27, kSpritesButtons_But_pitch_off);
 	AddSprite(sp);
 
-	sp = new GSprite(124, 372, 36, 27, kSpritesButtons_But_pitch_off_lit);
+	sp = new GSprite(427, 281, 36, 27, kSpritesButtons_But_pitch_off_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(437, 293, 36, 27, kSpritesButtons_But_pitch_on);
+	sp = new GSprite(389, 281, 36, 27, kSpritesButtons_But_pitch_on);
 	AddSprite(sp);
 
-	sp = new GSprite(399, 292, 36, 27, kSpritesButtons_But_pitch_on_lit);
+	sp = new GSprite(351, 281, 36, 27, kSpritesButtons_But_pitch_on_lit);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 342, 36, 36, kSpritesButtons_But_right);
+	sp = new GSprite(93, 259, 36, 36, kSpritesButtons_But_right);
 	AddSprite(sp);
 
-	sp = new GSprite(439, 255, 36, 36, kSpritesButtons_Exit);
+	sp = new GSprite(89, 221, 36, 36, kSpritesButtons_Exit);
 	AddSprite(sp);
 
-	sp = new GSprite(375, 289, 22, 22, kSpritesButtons_Exit_small);
+	sp = new GSprite(401, 99, 22, 22, kSpritesButtons_Exit_small);
 	AddSprite(sp);
 
-	sp = new GSprite(477, 282, 32, 58, kSpritesButtons_Keyboard_overlay);
+	sp = new GSprite(2, 221, 32, 58, kSpritesButtons_Keyboard_overlay);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 2, 406, 66, kSpritesButtons_Overlay_adsr_other);
+	sp = new GSprite(401, 2, 406, 66, kSpritesButtons_Overlay_adsr_other);
 	AddSprite(sp);
 
-	sp = new GSprite(2, 70, 397, 217, kSpritesButtons_Padsynth_panel);
+	sp = new GSprite(2, 2, 397, 217, kSpritesButtons_Padsynth_panel);
 	AddSprite(sp);
 
-	sp = new GSprite(401, 254, 36, 36, kSpritesButtons_SaveDisk);
+	sp = new GSprite(2, 332, 700, 41, kSpritesButtons_PanelTxt);
 	AddSprite(sp);
 
-	sp = new GSprite(441, 220, 38, 33, kSpritesButtons_Slider);
+	sp = new GSprite(55, 272, 36, 36, kSpritesButtons_SaveDisk);
 	AddSprite(sp);
 
-	sp = new GSprite(401, 219, 38, 33, kSpritesButtons_Slider_2);
+	sp = new GSprite(159, 294, 38, 33, kSpritesButtons_Slider);
 	AddSprite(sp);
 
-	sp = new GSprite(454, 185, 38, 33, kSpritesButtons_Slider_focus);
+	sp = new GSprite(165, 221, 38, 33, kSpritesButtons_Slider_2);
 	AddSprite(sp);
 
-	sp = new GSprite(465, 99, 38, 33, kSpritesButtons_Slider_focus_2);
+	sp = new GSprite(131, 259, 38, 33, kSpritesButtons_Slider_focus);
 	AddSprite(sp);
 
+	sp = new GSprite(119, 297, 38, 33, kSpritesButtons_Slider_focus_2);
+	AddSprite(sp);
 
 }

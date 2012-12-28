@@ -206,6 +206,7 @@
             <filename>padsynth_panel.png</filename>
             <filename>exit_small.png</filename>
             <filename>but_generate.png</filename>
+            <filename>panelTxt.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
