@@ -1,6 +1,7 @@
 #include "WaveTableGen.h"
 #include "WaveFormGen.h"
 #include "PadSynth/PadSynth.h" 
+#include "PitchUtils.h"
 
 #ifndef REPLAYER
 	#include <stdio.h>
@@ -269,64 +270,64 @@ WaveTable* WaveTableGen::GeneratePadWaveTable(WaveForm waveForm, char* name, flo
 {
 	WaveTable *wt = 0;	
 
-	//if (waveForm == WaveFormPadSynthChoir || waveForm == WaveFormPadSynthEnsemble || waveForm == WaveFormPadSynthExtended)
-	//{
-	//	/*
-	//	int tableSize = (int)pow(2.0,16.0); // 512kb
-	//	double* vals = PadSynthBuildWaveTable(PadSynthTypeChoir, 1760, 1.0f, 1.0f, tableSize, true);
-	//	DebugBreak();*/
-	//	// padsynth choir wavetable
-	//	
-	//	int tableSize = (int)FloatToInt(pow(2.0f,16.0f)); // 512kb
-	//	//int tableSize = (int)pow(2.0,22.0); // 512kb
-	//	//wt = WaveTable_Create(tableSize + 1, false);
-	//	wt = WaveTable_Create(tableSize + 1, tablesPerOctave);
-	//	sprintf(wt->TableName, name);
-	//	wt->Form = waveForm;
+	if (waveForm == kWaveFormPadSynthChoir || waveForm == kWaveFormPadSynthEnsemble || waveForm == kWaveFormPadSynthExtended)
+	{
+		/*
+		int tableSize = (int)pow(2.0,16.0); // 512kb
+		double* vals = PadSynthBuildWaveTable(PadSynthTypeChoir, 1760, 1.0f, 1.0f, tableSize, true);
+		DebugBreak();*/
+		// padsynth choir wavetable
+		
+		int tableSize = (int)FloatToInt(pow(2.0f,16.0f)); // 512kb
+		//int tableSize = (int)pow(2.0,22.0); // 512kb
+		//wt = WaveTable_Create(tableSize + 1, false);
+		wt = new WaveTable(tableSize + 1, tablesPerOctave);
+		sprintf(wt->TableName, name);
+		wt->Form = waveForm;
 
-	//	wt->amplitude = amplitude;
-	//	wt->npower = npower;		
-	//	wt->formantScale = formantScale;
-	//	wt->bandWidth = bandWidth;
-	//	wt->bandWidthScale = bandWidthScale;
-	//	wt->TablesPerOctave = tablesPerOctave;
+		wt->amplitude = amplitude;
+		wt->npower = npower;		
+		wt->formantScale = formantScale;
+		wt->bandWidth = bandWidth;
+		wt->bandWidthScale = bandWidthScale;
+		wt->TablesPerOctave = tablesPerOctave;
 
 
-	//	float freq = 27.5f; // A0		
-	//	int midiNoteNum = 21; // A0
-	//	for(int tab =0; tab<tablesPerOctave*8; tab++) // 8 octaves
-	//	//for(int tab =0; tab<1; tab++) // 8 octaves
-	//	{			
-	//		//break;
-	//		wt->Tables[tab].Frequency = freq;
-	//		wt->Tables[tab].MidiNoteNumber = midiNoteNum;
-	//		midiNoteNum+=(12/tablesPerOctave); // 12 semitones = 1 octave
-	//		// NOTE: sample length for padsynth affects amplitude, smaller = higher amp!! need to cater for this
-	//		PadSynthType padType;
-	//		if (waveForm == WaveFormPadSynthChoir)
-	//		{
-	//			padType = PadSynthTypeChoir;
-	//		}else if (waveForm == WaveFormPadSynthEnsemble)
-	//		{	
-	//			padType = PadSynthTypeEnsemble;
-	//		}else if (waveForm == WaveFormPadSynthExtended)
-	//		{
-	//			padType = PadSynthTypeExtended;
-	//		}
-	//		REALTYPE* vals = PadSynthBuildWaveTable(padType, freq, amplitude, npower, formantScale, tableSize, true);
-	//		for (int i = 0; i < wt->Tables[tab].FloatBuffer->Size - 1; i++)
-	//		{
-	//			float v = (float)vals[i];
-	//			wt->Tables[tab].FloatBuffer->Buffer[i].ch[0] = v;
-	//			wt->Tables[tab].FloatBuffer->Buffer[i].ch[0] = v;
-	//		}
-	//		freq=PitchUtils_MidiNoteToFrequency(midiNoteNum); // double frequency (+1 octave)
-	//		delete(vals);
-	//	}		
-	//}
+		float freq = 27.5f; // A0		
+		int midiNoteNum = 21; // A0
+		for(int tab =0; tab<tablesPerOctave*8; tab++) // 8 octaves
+		//for(int tab =0; tab<1; tab++) // 8 octaves
+		{			
+			//break;
+			wt->Tables[tab].Frequency = freq;
+			wt->Tables[tab].MidiNoteNumber = midiNoteNum;
+			midiNoteNum+=(12/tablesPerOctave); // 12 semitones = 1 octave
+			// NOTE: sample length for padsynth affects amplitude, smaller = higher amp!! need to cater for this
+			PadSynthType padType;
+			if (waveForm == kWaveFormPadSynthChoir)
+			{
+				padType = kPadSynthTypeChoir;
+			}else if (waveForm == kWaveFormPadSynthEnsemble)
+			{	
+				padType = kPadSynthTypeEnsemble;
+			}else if (waveForm == kWaveFormPadSynthExtended)
+			{
+				padType = kPadSynthTypeExtended;
+			}
+			REALTYPE* vals = PadSynth::PadSynthBuildWaveTable(padType, freq, amplitude, npower, formantScale, tableSize, true);
+			for (int i = 0; i < wt->Tables[tab].FloatBuffer->Size - 1; i++)
+			{
+				float v = (float)vals[i];
+				wt->Tables[tab].FloatBuffer->Buffer[i].ch[0] = v;
+				wt->Tables[tab].FloatBuffer->Buffer[i].ch[0] = v;
+			}
+			freq=PitchUtils::instance->MidiNoteToFrequency(midiNoteNum); // double frequency (+1 octave)
+			delete(vals);
+		}		
+	}
 
-	//wt->Tables[0].FloatBuffer->Buffer[ wt->Tables[0].FloatBuffer->Size - 1].ch[0] = wt->Tables[0].FloatBuffer->Buffer[0].ch[0];
-	//wt->Tables[0].FloatBuffer->Buffer[ wt->Tables[0].FloatBuffer->Size - 1].ch[1] = wt->Tables[0].FloatBuffer->Buffer[0].ch[1];
+	wt->Tables[0].FloatBuffer->Buffer[ wt->Tables[0].FloatBuffer->Size - 1].ch[0] = wt->Tables[0].FloatBuffer->Buffer[0].ch[0];
+	wt->Tables[0].FloatBuffer->Buffer[ wt->Tables[0].FloatBuffer->Size - 1].ch[1] = wt->Tables[0].FloatBuffer->Buffer[0].ch[1];
 	return wt;
 }
 	

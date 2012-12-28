@@ -11,6 +11,7 @@ int GuiMainWindow::currentOscNumber = 0;
 int GuiMainWindow::currentEgNumber = 0;
 int GuiMainWindow::currentLfoAvNumber = 0;
 int GuiMainWindow::currentLfoPvNumber = 0;
+GuiOverlayPadsynth* GuiMainWindow::padsynthOverlay = 0;
 GuiPanelMain* GuiMainWindow::panelMain = 0;
 GuiPanelMaster* GuiMainWindow::panelMaster = 0;
 GuiPanelModeller* GuiMainWindow::panelModeller = 0;
@@ -103,6 +104,9 @@ GuiMainWindow::GuiMainWindow(int width, int height, int offsetX, int offsetY, in
 	panelGlobalReverb->SetStackItem((Reverb*)VoicePool::Pool->GlobalReverb);
 	panelLfo->SetStackItem((Lfo*)PatchList::list->CurrentPatch->items[NUMBER_START_LFO_AV]);
 	panelGlobalDelay->SetStackItem();
+
+	padsynthOverlay = new GuiOverlayPadsynth(397, 217, 0, 0, 0);
+	panelMain->panelPatch->AddSubComponent(padsynthOverlay);
 }
 
 void GuiMainWindow::PatchChanged(Patch* patch)

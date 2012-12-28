@@ -11,6 +11,7 @@
 #include "GuiModMatrix.h"
 #include "GuiPanelMain.h"
 #include "GuiPanelHeader.h"
+#include "GuiOverlayPadsynth.h"
 
 #include "GuiPanelPatchGlobal.h"
 #include "GuiPanelDistortion.h"
@@ -45,6 +46,7 @@ public:
 	static GuiKeyboard* keyboard;
 	static GuiPanelMaster *panelMaster;
 	static GuiPanelHeader* panelHeader;
+	static GuiOverlayPadsynth* padsynthOverlay;
 
 	// patch fx
 	GuiPanelPatchGlobal* panelPatchGlobal;

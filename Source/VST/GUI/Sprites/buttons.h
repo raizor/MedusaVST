@@ -39,6 +39,7 @@ enum SpritesButton
 	kSpritesButtons_But_filterLink_on,
 	kSpritesButtons_But_filterMode_dual,
 	kSpritesButtons_But_filterMode_para,
+	kSpritesButtons_But_generate,
 	kSpritesButtons_But_globalFx,
 	kSpritesButtons_But_globalFx_lit,
 	kSpritesButtons_But_left,
@@ -60,8 +61,10 @@ enum SpritesButton
 	kSpritesButtons_But_pitch_on_lit,
 	kSpritesButtons_But_right,
 	kSpritesButtons_Exit,
+	kSpritesButtons_Exit_small,
 	kSpritesButtons_Keyboard_overlay,
 	kSpritesButtons_Overlay_adsr_other,
+	kSpritesButtons_Padsynth_panel,
 	kSpritesButtons_SaveDisk,
 	kSpritesButtons_Slider,
 	kSpritesButtons_Slider_2,
@@ -69,6 +72,7 @@ enum SpritesButton
 	kSpritesButtons_Slider_focus_2,
 
 };
+
 
 class SpritesButtonsSprites : public GSpriteCollection
 {

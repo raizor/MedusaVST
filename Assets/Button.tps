@@ -203,6 +203,9 @@
             <filename>../Source/VST/resources/buttons/box_patchNum.png</filename>
             <filename>../Source/VST/resources/buttons/but_left.png</filename>
             <filename>../Source/VST/resources/buttons/but_right.png</filename>
+            <filename>padsynth_panel.png</filename>
+            <filename>exit_small.png</filename>
+            <filename>but_generate.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

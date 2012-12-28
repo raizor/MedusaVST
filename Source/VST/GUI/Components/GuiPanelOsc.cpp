@@ -242,6 +242,8 @@ void GuiPanelOsc::SetWaveformName(Osc* osc)
 	sprintf(c, osc->waveTableIdx->Table->TableName);
 }
 
+#define ID_PADSYNTH 6000
+
 void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 {
 	char msg[100];
@@ -299,20 +301,29 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 	{
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
 		int numWaveTables = WaveTable::NumWaveTables;
+		char* c = new char[100];
 		for(int i=0; i<numWaveTables-1; i++)
-		{
-			char* c = new char[100];
+		{			
 			sprintf(c, WaveTable::Wavetables[i]->TableName);
 			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);
 		}
+
+		sprintf(c, "PadSynth");
+		GuiMainWindow::panelOsc->menuMenu->AddItem(ID_PADSYNTH, c, 0);
+
 		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
 		if (it)
 		{
-			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
-			ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
-			param->SetValue(it-1);
-			osc->WaveChanged();
-			SetWaveformName(osc);
+			if (it == ID_PADSYNTH)
+			{
+				GuiMainWindow::padsynthOverlay->enabled = true;
+			}else{
+				Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+				ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
+				param->SetValue(it-1);
+				osc->WaveChanged();
+				SetWaveformName(osc);
+			}
 		}
 	}
 

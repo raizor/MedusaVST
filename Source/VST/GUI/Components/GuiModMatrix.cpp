@@ -77,6 +77,8 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			int id = 1000;
 			Patch* p = PatchList::list->CurrentPatch;
 
+			menuSource->AddItem(9999, "", 0);
+
 			// oscs
 			GContextMenuEx* subMenu = new GContextMenuEx(); 
 			menuSource->AddMenu(subMenu, "Oscillators");
@@ -149,9 +151,15 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			int it = menuSource->SelectAt(evt->pos);
 			if (it)
 			{
-				Item* pp = (Item*)it; 
-				PatchList::list->CurrentPatch->ModMatrix->SetSource(i, (Item*)pp);
-				GuiMainWindow::panelModMatrix->butSource.at(i)->SetText(SourceName(pp));
+				if (it == 9999)
+				{
+					PatchList::list->CurrentPatch->ModMatrix->Rows[i]->SourceSet = false;
+					GuiMainWindow::panelModMatrix->butSource.at(i)->SetText("");
+				}else{
+					Item* pp = (Item*)it; 
+					PatchList::list->CurrentPatch->ModMatrix->SetSource(i, (Item*)pp);
+					GuiMainWindow::panelModMatrix->butSource.at(i)->SetText(SourceName(pp));
+				}
 			}
 
 			/*
@@ -194,6 +202,8 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			int id = 1000;
 			Patch* p = PatchList::list->CurrentPatch;
 
+			menuSource->AddItem(9999, "", 0);
+
 			// oscs
 			GContextMenuEx* menuItem = new GContextMenuEx(); 
 			menuSource->AddMenu(menuItem, "Oscillators");
@@ -205,7 +215,17 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 				sprintf(msg, "OSC %d", i+1);
 				menuItem->AddMenu(subMenu, msg);
 			}	
-			
+
+			/*
+			// all oscs
+			GContextMenuEx* subMenu = new GContextMenuEx(); 
+			int xid = 5000;
+			AddParamMenus(subMenu, &xid, p->items[NUMBER_START_OSC+i]);
+			char* msg = new char[100];
+			sprintf(msg, "ALL OSC", i+1);
+			menuItem->AddMenu(subMenu, msg);
+			*/
+
 			// filters
 			menuItem = new GContextMenuEx(); 
 			menuSource->AddMenu(menuItem, "Filters");
@@ -261,9 +281,15 @@ void GuiModMatrix::CallbackClicked(void* data, GEvent* evt)
 			int it = menuSource->SelectAt(evt->pos);
 			if (it)
 			{
-				opair* pp = (opair*)it; 
-				PatchList::list->CurrentPatch->ModMatrix->SetDest(i, (Item*)pp->val1, (ParamFloat*)pp->val2);
-				GuiMainWindow::panelModMatrix->butDest.at(i)->SetText(DestName(pp));
+				if (it == 9999)
+				{
+					PatchList::list->CurrentPatch->ModMatrix->Rows[i]->DestSet = false;
+					GuiMainWindow::panelModMatrix->butDest.at(i)->SetText("");
+				}else{
+					opair* pp = (opair*)it; 
+					PatchList::list->CurrentPatch->ModMatrix->SetDest(i, (Item*)pp->val1, (ParamFloat*)pp->val2);
+					GuiMainWindow::panelModMatrix->butDest.at(i)->SetText(DestName(pp));
+				}
 			}
 			
 			/*
