@@ -7,7 +7,17 @@
 GuiOverlayPadsynth::GuiOverlayPadsynth(int width, int height, int offsetX, int offsetY, int imageId) : GuiComponent(width, height, offsetX, offsetY, imageId)
 {
 	waveForm = kWaveFormPadSynthChoir;
-	nPower = 2;
+	npower = 2;
+	formantScale = 1.0f;
+	bandWidth = 20.0f;
+	amplitude = 1.0f;
+	bandWidthScale = 0.5f;
+
+	paramFloatAmplitude = new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni); 
+	paramIntNPower = new ParamInt(2); // waveform type
+	paramFloatBandwidth = new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni, true, 20.0f); 
+	paramFloatBandwidthScale = new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni); 
+	paramFloatFormantScale = new ParamFloat(127.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni);
 
 	// overlay panel
 	background = new GuiComponent(397, 217, 0, 0, IDB_BUTTONSTRIP, kSpritesButtons_Padsynth_panel, false, 0);
@@ -35,6 +45,15 @@ GuiOverlayPadsynth::GuiOverlayPadsynth(int width, int height, int offsetX, int o
 	butGenerate->ClickedHandler = (FpClickedCallback)&GuiOverlayPadsynth::CallbackClicked;
 	AddSubComponent(butGenerate);
 
+	// sliders
+
+	sliderAmp = new GuiSlider(30, 128, 355, 60, IDB_BUTTONSTRIP, kSpritesButtons_Slider_focus, kSpritesButtons_Slider, kSliderTypeGeneric, "AMPLITUDE");
+	AddSubComponent(sliderAmp);
+
+	// slider labels
+
+	labSlider1 = new GuiLabel(40, 12, 350, 193, "AMP", true, kGuiLabelSizeBold);
+	AddSubComponent(labSlider1);
 
 	// knob labels
 	labKnob1 = new GuiLabel(40, 12, 16, 175, "AMP", true, kGuiLabelSizeBold);
@@ -64,7 +83,52 @@ GuiOverlayPadsynth::GuiOverlayPadsynth(int width, int height, int offsetX, int o
 	labName->EditedHandler = (FpClickedCallback)&GuiOverlayPadsynth::CallbackEdited;
 	labName->ClickedHandler = (FpClickedCallback)&GuiOverlayPadsynth::CallbackClicked;
 	AddSubComponent(labName);
+
+
+	// root
+	this->synthItem = new LinkedSynthItem();
+	this->synthItem->item = 0;
+
+	// controls
+	LinkedSynthItem* si;
+
+	// amplitude
+	si = new LinkedSynthItem();
+	si->item = 0;
+	si->itemType = kStackItemTypePatchSettings;
+	si->param = paramFloatAmplitude;
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	knobAmp->synthItem = si;
+
+	// bandwidth
+	si = new LinkedSynthItem();
+	si->item = 0;
+	si->itemType = kStackItemTypePatchSettings;
+	si->param = paramFloatBandwidth;
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	knobBandwidth->synthItem = si;
+
+	// bandwidth scale
+	si = new LinkedSynthItem();
+	si->item = 0;
+	si->itemType = kStackItemTypePatchSettings;
+	si->param = paramFloatBandwidthScale;
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	knobBandwidthScale->synthItem = si;
+
+	// formant scale
+	si = new LinkedSynthItem();
+	si->item = 0;
+	si->itemType = kStackItemTypePatchSettings;
+	si->param = paramFloatFormantScale;
+	si->valueType = kParamValueTypeZeroToOneUni;
+	si->paramType = kParamTypeFloat;
+	knobBandwidthScale->synthItem = si;
 }
+
 
 void GuiOverlayPadsynth::CallbackEdited(void* data, GEvent* evt)
 {
@@ -88,6 +152,12 @@ void GuiOverlayPadsynth::CallbackClicked(void* data, GEvent* evt)
 		GuiMainWindow::padsynthOverlay->labNPower->SetText(ch);
 		delete(ch);
 	}*/
+
+	if (data == GuiMainWindow::padsynthOverlay->labName)
+	{
+		GuiMainWindow::padsynthOverlay->labName->isEditing = true;
+		GuiMainWindow::editingComponent = GuiMainWindow::padsynthOverlay->labName;
+	}
 
 	if (data == GuiMainWindow::padsynthOverlay->labWaveType)
 	{
@@ -134,7 +204,7 @@ void GuiOverlayPadsynth::CallbackClicked(void* data, GEvent* evt)
 		float formantScale = 1.0f;
 		int tablesPerOctave = 4;
 
-		WaveTable* table = WaveTableGen::GeneratePadWaveTable(GuiMainWindow::padsynthOverlay->waveForm, "hello", amplitude, GuiMainWindow::padsynthOverlay->nPower, formantScale, bandwidth, bandwidthScale, tablesPerOctave);
+		WaveTable* table = WaveTableGen::GeneratePadWaveTable(GuiMainWindow::padsynthOverlay->waveForm, GuiMainWindow::padsynthOverlay->labName->text, GuiMainWindow::padsynthOverlay->paramFloatAmplitude->Value(), GuiMainWindow::padsynthOverlay->paramIntNPower->Value(), GuiMainWindow::padsynthOverlay->paramFloatFormantScale->Value(), GuiMainWindow::padsynthOverlay->paramFloatBandwidth->Value(), GuiMainWindow::padsynthOverlay->paramFloatBandwidthScale->Value(), tablesPerOctave);
 		WaveTable::Wavetables[WaveTable::NumWaveTables] = table;
 
 		int tableNum = WaveTable::NumWaveTables++;
@@ -174,6 +244,7 @@ void GuiOverlayPadsynth::CallbackClicked(void* data, GEvent* evt)
 		GuiMainWindow::panelOsc->labOctave->SetText(txt);
 		delete(txt);
 		*/
+		GuiMainWindow::padsynthOverlay->enabled = false;
 	}
 }
 

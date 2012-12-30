@@ -59,6 +59,7 @@ public:
 	~GuiPanelOsc(void);
 	virtual void SetStackItem(Osc* item);
 	void CallbackClicked(void* data, GEvent* evt);
+	void CallbackEdited(void* data, GEvent* evt);
 	static char* OscModModeToString(int val);
 	static char* OscModeToString(int val);
 	void GuiPanelOsc::SetWaveformName(Osc* osc);

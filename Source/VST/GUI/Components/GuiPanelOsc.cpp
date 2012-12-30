@@ -139,6 +139,7 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 	// labels
 	labWaveType = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*0), "Sine");
 	labWaveType->ClickedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackClicked;
+	labWaveType->EditedHandler = (FpClickedCallback)&GuiPanelOsc::CallbackEdited;
 	AddSubComponent(labWaveType);
 
 	labTranspose = new GuiLabel(72, 12, textStartX, textStartY+(lineSpacing*1), "0");
@@ -172,6 +173,15 @@ GuiPanelOsc::GuiPanelOsc(int width, int height, int offsetX, int offsetY, int im
 
 GuiPanelOsc::~GuiPanelOsc(void)
 {
+}
+
+void GuiPanelOsc::CallbackEdited(void* data, GEvent* evt)
+{
+	Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+	ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
+	sprintf(WaveTable::Wavetables[param->Value()]->TableName, GuiMainWindow::panelOsc->labWaveType->text);
+	//sprintf(c, WaveTable::Wavetables[i]->TableName);
+	//sprintf(PatchList::list->CurrentPatch->name, labPatchName->text);
 }
 
 void GuiPanelOsc::SetStackItem(Osc* item)
@@ -297,34 +307,42 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 		return;
 	}
 
-	if (data == GuiMainWindow::panelOsc->labWaveType && evt->button == kGEventMouseButtonRight)
+	if (data == GuiMainWindow::panelOsc->labWaveType)
 	{
-		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
-		int numWaveTables = WaveTable::NumWaveTables;
-		char* c = new char[100];
-		for(int i=0; i<numWaveTables; i++)
-		{			
-			sprintf(c, WaveTable::Wavetables[i]->TableName);
-			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);
-		}
-
-		sprintf(c, "PadSynth");
-		GuiMainWindow::panelOsc->menuMenu->AddItem(ID_PADSYNTH, c, 0);
-
-		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
-		if (it)
+		if (evt->button == kGEventMouseButtonRight)
 		{
-			if (it == ID_PADSYNTH)
-			{
-				GuiMainWindow::padsynthOverlay->enabled = true;
-			}else{
-				Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
-				ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
-				param->SetValue(it-1);
-				osc->WaveChanged();
-				SetWaveformName(osc);
+			GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
+			int numWaveTables = WaveTable::NumWaveTables;
+			char* c = new char[100];
+			for(int i=0; i<numWaveTables; i++)
+			{			
+				sprintf(c, WaveTable::Wavetables[i]->TableName);
+				GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, c, 0);
 			}
+
+			sprintf(c, "Design New PadSynth Wavetable");
+			GuiMainWindow::panelOsc->menuMenu->AddItem(ID_PADSYNTH, c, 0);
+
+			int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+			if (it)
+			{
+				if (it == ID_PADSYNTH)
+				{
+					GuiMainWindow::padsynthOverlay->enabled = true;
+				}else{
+					Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
+					ParamInt *param = osc->paramsInt[OSC_PARAM_INT_WAVEFORM];
+					param->SetValue(it-1);
+					osc->WaveChanged();
+					SetWaveformName(osc);
+				}
+			}
+		}else if (evt->button == kGEventMouseButtonLeft)
+		{
+			GuiMainWindow::panelOsc->labWaveType->isEditing = true;
+			GuiMainWindow::editingComponent = GuiMainWindow::panelOsc->labWaveType;
 		}
+
 	}
 
 	// transpose
@@ -440,11 +458,12 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 	if (data == GuiMainWindow::panelOsc->labMode && evt->button == kGEventMouseButtonRight)
 	{
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
-		for(int i=0; i<kOscModeItemCount-1; i++)
+		for(int i=0; i<kOscModeItemCount; i++)
 		{
 			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, OscModeToString(i), 0);
 		}
 		int it = GuiMainWindow::panelOsc->menuMenu->SelectAt(evt->pos);
+
 		if (it)
 		{
 			Osc* osc = (Osc*)GuiMainWindow::panelOsc->synthItem->item;		
@@ -490,7 +509,7 @@ void GuiPanelOsc::CallbackClicked(void* data, GEvent* evt)
 	if (data == GuiMainWindow::panelOsc->labModMode && evt->button == kGEventMouseButtonRight)
 	{
 		GuiMainWindow::panelOsc->menuMenu = new GContextMenuEx();
-		for(int i=0; i<kOscModModeItemCount-1; i++)
+		for(int i=0; i<kOscModModeItemCount; i++)
 		{
 			GuiMainWindow::panelOsc->menuMenu->AddItem(i+1, OscModModeToString(i), 0);
 		}
@@ -550,6 +569,8 @@ char* GuiPanelOsc::OscModeToString(int val)
 	if (val == kOscModeFixedSync) return "Fixed Sync"; 
 	if (val == kOscModeInvertedFree) return "Inv. Free"; 
 	if (val == kOscModeNormalFree) return "Free"; 
+	if (val == kOscModeMultiFree) return "Multi Free"; 
+	if (val == kOscModeMultiSync) return "Multi Sync"; 
 	
 	return "???";
 }

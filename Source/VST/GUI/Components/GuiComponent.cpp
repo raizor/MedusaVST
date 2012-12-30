@@ -307,7 +307,7 @@ void GuiComponent::HandleEvent(GEvent* evt, bool recursing)
 
  void GuiComponent::Edited(GEvent* evt)
  {
-
+	 int xx = 1;
  }
 
 

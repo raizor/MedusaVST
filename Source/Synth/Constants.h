@@ -179,6 +179,8 @@ enum OscMode
 	kOscModeInvertedFree,
 	kOscModeFixedSync,
 	kOscModeFixedFree,
+	kOscModeMultiFree,
+	kOscModeMultiSync,
 	kOscModeItemCount
 };
 

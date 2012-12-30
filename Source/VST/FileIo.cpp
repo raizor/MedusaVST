@@ -514,6 +514,14 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 
 	// TODO load/save patch settings
 
+	// clear existing wavetables
+	for(int i=6; i<WaveTable::NumWaveTables; i++)
+	{
+		delete(WaveTable::Wavetables[i]);
+	}
+
+	WaveTable::NumWaveTables = 5;
+
 	int numWaveTables = ReadInt(fp, writer, useFile);
 
 	for(int i=0; i<numWaveTables; i++)

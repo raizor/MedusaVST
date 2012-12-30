@@ -39,12 +39,13 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 
 	//sF32 ff = calcfreq(fr) * 44100.0f;
 
+	flt_left = lrc[voice->Number][0];
+	flt_right = lrc[voice->Number][1];
+
 	switch(filterType)
 	{
 		case(kFilterTypeLowPass):
 		{
-			flt_left = lrc[voice->Number][0];
-			flt_right = lrc[voice->Number][1];
 			for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+numSamples; i++)
 			{
 				//float wet = FloatStackItemParam_Value(filter->Level);
@@ -62,9 +63,8 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 				float f = fr < 1.0f ? fr : 0.999f;
 				float resv = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->Value();//FloatStackItemParam_Value(filter->Resonance);
 				mod = resv;
-				//FloatStackItemParam_ModulateValue(filter->Resonance, &mod, idx);
 				paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
-				resv = resv+(resv*mod);
+				//resv = resv+(resv*mod);
 				float res = 1.0f - resv;
 				
 				float inLeft = bufferIn->Buffer[idx].ch[0];
@@ -82,8 +82,6 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 
 		case(kFilterTypeHighPass):
 			{
-				flt_left = lrc[voice->Number][0];
-				flt_right = lrc[voice->Number][1];
 				for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+numSamples; i++)
 				{
 					float wet = paramsFloat[PROC_PARAM_FLOAT_LEVEL]->Value();
@@ -93,7 +91,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					float fv = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->Value();
 					float mod = fv;
 					//FloatStackItemParam_ModulateValue(filter->Cutoff, &mod, idx);
-					mod = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
+					paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
 					fv = fv+(fv*mod);
 					float fr = calcfreq(fv);
 					float f = fr < 1.0f ? fr : 0.999f;
@@ -101,7 +99,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					mod = resv;
 					//FloatStackItemParam_ModulateValue(filter->Resonance, &mod, idx);
 					mod = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
-					resv = resv+(resv*mod);
+					//resv = resv+(resv*mod);
 					float res = 1.0f - resv;
 
 					float inLeft = bufferIn->Buffer[idx].ch[0];
@@ -117,8 +115,6 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 			}
 		case(kFilterTypeBandPass):
 			{
-				flt_left = lrc[voice->Number][0];
-				flt_right = lrc[voice->Number][1];
 				for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+numSamples; i++)
 				{
 					float wet = paramsFloat[PROC_PARAM_FLOAT_LEVEL]->Value();
@@ -129,6 +125,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					float fv = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->Value();
 					float mod = fv;
 					//FloatStackItemParam_ModulateValue(filter->Cutoff, &mod, idx);
+					paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
 					fv = fv+(fv*mod);
 					float fr = calcfreq(fv);
 					float f = fr < 1.0f ? fr : 0.999f;
@@ -136,7 +133,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					mod = resv;
 					//FloatStackItemParam_ModulateValue(filter->Resonance, &mod, idx);
 					mod = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
-					resv = resv+(resv*mod);
+					//resv = resv+(resv*mod);
 					float res = 1.0f - resv;
 
 					float inLeft = bufferIn->Buffer[idx].ch[0];
@@ -152,8 +149,6 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 			}
 		case(kFilterTypeNotch):
 			{				
-				flt_left = lrc[voice->Number][0];
-				flt_right = lrc[voice->Number][1];
 				for (int i = Constants::instance->BufferOffset; i < Constants::instance->BufferOffset+numSamples; i++)
 				{
 					float wet = paramsFloat[PROC_PARAM_FLOAT_LEVEL]->Value();
@@ -162,8 +157,8 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					int idx = i%Constants_MixBufferSizeFloat;
 					float fv = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->Value();
 					float mod = fv;
-					mod = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
 					//FloatStackItemParam_ModulateValue(filter->Cutoff, &mod, idx);
+					paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
 					fv = fv+(fv*mod);
 					float fr = calcfreq(fv);
 					float f = fr < 1.0f ? fr : 0.999f;
@@ -171,7 +166,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					mod = resv;
 					//FloatStackItemParam_ModulateValue(filter->Resonance, &mod, idx);
 					mod = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
-					resv = resv+(resv*mod);
+					//resv = resv+(resv*mod);
 					float res = 1.0f - resv;
 
 					float inLeft = bufferIn->Buffer[idx].ch[0];
@@ -198,7 +193,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					float fv = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->Value();
 					float mod = fv;
 					//FloatStackItemParam_ModulateValue(filter->Cutoff, &mod, idx);
-					mod = paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
+					paramsFloat[FILTER_PARAM_FLOAT_CUTOFF]->GetModulatedValue(voice, &mod, idx);
 					fv = fv+(fv*mod);
 					float fr = calcfreq(fv);
 					float f = fr < 1.0f ? fr : 0.999f;
@@ -206,7 +201,7 @@ void SimpleFilter::Process(SampleBufferFloat* bufferIn, SampleBufferFloat* buffe
 					mod = resv;
 					//FloatStackItemParam_ModulateValue(filter->Resonance, &mod, idx);
 					mod = paramsFloat[FILTER_PARAM_FLOAT_RESONANCE]->GetModulatedValue(voice, &mod, idx);
-					resv = resv+(resv*mod);
+					//resv = resv+(resv*mod);
 					float res = 1.0f - resv;
 
 					float inLeft = bufferIn->Buffer[idx].ch[0];

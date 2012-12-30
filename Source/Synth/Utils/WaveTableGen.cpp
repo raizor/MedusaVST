@@ -142,11 +142,6 @@ float WaveTableIndex::Sample(Voice* voice, float frequency, bool* syncHit)
 			voicePhaseAccumulator[voice->Number] += phaseAccumulation;
 		}
 
-		if (voicePhaseAccumulator[voice->Number] > targetTable->FloatBuffer->Size)
-		{
-			//DebugBreak();
-		}
-
 		return val;
 	}
 
@@ -182,12 +177,12 @@ float WaveTable::Sample(long index)
 void WaveTableGen::GenerateTables()
 {
 	WaveTable::NumWaveTables = 0;
-	WaveTable::WaveTableOff = WaveTableGen::GenerateWaveTable(kWaveFormOff, "Off");
-	WaveTable::WaveTableSine = WaveTableGen::GenerateWaveTable(kWaveFormSin, "Sin");
-	WaveTable::WaveTableSaw = WaveTableGen::GenerateWaveTable(kWaveFormSaw, "Saw");	
-	WaveTable::WaveTableTri = WaveTableGen::GenerateWaveTable(kWaveFormTriangle, "Tri");
-	WaveTable::WaveTableSquare = WaveTableGen::GenerateWaveTable(kWaveFormSquare, "Square");
-	WaveTable::WaveTableNoise = WaveTableGen::GenerateWaveTable(kWaveFormNoise, "Noise");
+	WaveTable::WaveTableOff = WaveTableGen::GenerateWaveTable(kWaveFormOff, "Off"); // 0 
+	WaveTable::WaveTableSine = WaveTableGen::GenerateWaveTable(kWaveFormSin, "Sin"); // 1 
+	WaveTable::WaveTableSaw = WaveTableGen::GenerateWaveTable(kWaveFormSaw, "Saw");	 // 2 
+	WaveTable::WaveTableTri = WaveTableGen::GenerateWaveTable(kWaveFormTriangle, "Tri"); // 3 
+	WaveTable::WaveTableSquare = WaveTableGen::GenerateWaveTable(kWaveFormSquare, "Square"); // 4
+	WaveTable::WaveTableNoise = WaveTableGen::GenerateWaveTable(kWaveFormNoise, "Noise"); // 5
 	//WaveTables_Tables->WaveTableNoise = WaveTableGen_GeneratePadWaveTable(WaveFormPadSynthExtended, "xx", 1.0, 2, 1.0, 20.0, 0.5, 8);
 
 	WaveTable::Wavetables = new WaveTable*[100]; // up to 100 wavetables atm

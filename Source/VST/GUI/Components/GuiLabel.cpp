@@ -9,6 +9,7 @@ GuiLabel::GuiLabel(int width, int height, int offsetX, int offsetY, char* text, 
 	this->isEditable = editable;
 	this->size = size;
 	this->center = center;
+	this->EditedHandler = 0;
 	sprintf(this->text, "%s", text);
 }
 
@@ -38,14 +39,16 @@ void GuiLabel::Edited(GEvent* evt)
 
 void GuiLabel::HandleEvent(GEvent* evt, bool recursing) 
 {
-	if (evt->type == kGEventKeyDown && GuiMainWindow::editingComponent == this)
+	if (evt->type == kGEventKeyDown && GuiMainWindow::editingComponent == this && !evt->isHandled)
 	{
 		Edited(evt);
 
 		if (EditedHandler != NULL)
 		{
 			(this->*EditedHandler)(this, evt);
+			evt->isHandled = true;
 		}
+		return;
 	}
 	GuiComponent::HandleEvent(evt, false);
 }
@@ -75,8 +78,26 @@ void GuiLabel::draw()
 		default:
 			break;
 		}
+
+
+		// shadow
+		font->SetColor(0,0,0,255);
+		font->SetScale(1.00f);
+		//TextWriter::writer->Lucida->PrintCenter(240, "WAVE FORM");
+		if (center)
+		{
+			font->PrintCenter(1, 1, width, text);
+		}else{
+			font->Print(1, 1, text);
+		}
 	
-		font->SetColor(255,255,255,254);
+		if (GuiMainWindow::editingComponent == this)
+		{
+			font->SetColor(255,255,0,255);
+		}else{
+			font->SetColor(255,255,255,255);
+		}
+		
 		font->SetScale(1.00f);
 		//TextWriter::writer->Lucida->PrintCenter(240, "WAVE FORM");
 		if (center)
