@@ -199,6 +199,9 @@ void VstXSynth::processReplacing (float** inputs, float** outputs, VstInt32 samp
 				default:
 					break;
 				}
+			}else if (runtime > evt->deltaTime+chunkSize){
+				// missed old event?
+				evt->handled = true;
 			}else{
 				// future event
 				break;

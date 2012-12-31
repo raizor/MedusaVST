@@ -6,7 +6,7 @@ SimpleFilter::SimpleFilter(void) : ItemProcessor(kStackItemTypeSimpleFilter)
 {
 	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // cutoff 
 	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // res 
-	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypePan)); // panning 
+	AddFloatParam(new ParamFloat(64.0f, true, 1.0f, 0.5f, kParamValueTypePan)); // panning 
 	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneBi)); // separation 
 	AddFloatParam(new ParamFloat(0.0f, true, 1.0f, 0.5f, kParamValueTypeZeroToOneUni)); // // cutoff mod 
 

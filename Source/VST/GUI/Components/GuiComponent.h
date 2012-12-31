@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define DRAW_OVERLAYS
+#define xDRAW_OVERLAYS
 
 enum GuiComponentType
 {

@@ -126,7 +126,7 @@ GuiOverlayPadsynth::GuiOverlayPadsynth(int width, int height, int offsetX, int o
 	si->param = paramFloatFormantScale;
 	si->valueType = kParamValueTypeZeroToOneUni;
 	si->paramType = kParamTypeFloat;
-	knobBandwidthScale->synthItem = si;
+	knobFormantScale->synthItem = si;
 }
 
 

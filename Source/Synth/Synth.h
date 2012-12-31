@@ -1,6 +1,6 @@
 #pragma once
 
-#undef ENABLE_CONSOLE
+#undef xENABLE_CONSOLE
 
 #include "Globals.h"
 #include "Constants.h"

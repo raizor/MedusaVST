@@ -55,8 +55,8 @@ void GuiKeyboardKey::HandleEvent(GEvent* evt, bool recursing)
 				sprintf(&msg[0], "KEY x: %d, y: %d", (int)evt->pos.x, (int)evt->pos.y);
 				DebugPrintLine(msg);
 				keyDown = true;
-				Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
-				VoicePool::Pool->GetVoiceAndPlayNote(0, midiNumber, p);
+				//Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+				VoicePool::Pool->GetVoiceAndPlayNote(0, midiNumber, PatchList::list->CurrentPatch);
 				evt->isHandled = true;
 			}
 
@@ -202,7 +202,7 @@ void GuiKeyboard::draw()
 
 	float sizeX = keyWidth * pixelSizeX;
 	float sizeY = keyHeight * pixelSizeY;
-
+#ifdef DRAW_OVERLAYS
 	glDisable(GL_TEXTURE_2D);
 	glColor4f(1,0,0,0.3f);
 
@@ -218,6 +218,7 @@ void GuiKeyboard::draw()
 	glEnd();
 	glEnable(GL_TEXTURE_2D);
 	glColor4f(1,1,1,1);
+#endif
 
 	if (GuiMainWindow::hotComponent == this)
 	{
@@ -358,7 +359,7 @@ void GuiKeyboard::HandleEvent(GEvent* evt, bool recursing)
 				if (key->keyDown)
 				{
 					key->keyDown = false;
-					Patch* p = PatchList::list->CurrentPatch = PatchList::list->patches[0];
+					Patch* p = PatchList::list->CurrentPatch;
 					VoicePool::Pool->Stop(0, key->midiNumber);
 				}
 				

@@ -237,6 +237,48 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 		read(&numPatches, sizeof(int), 1, fp, writer, useFile);
 	}
 
+
+	// clear existing wavetables
+	for(int i=6; i<WaveTable::NumWaveTables; i++)
+	{
+		delete(WaveTable::Wavetables[i]);
+	}
+
+	WaveTable::NumWaveTables = 5;
+
+	int numWaveTables = ReadInt(fp, writer, useFile);
+
+	for(int i=0; i<numWaveTables; i++)
+	{
+		char tableName[100];
+
+		read(tableName, sizeof(char)*100, 1, fp, writer, useFile);
+		WaveForm form = (WaveForm)ReadInt(fp, writer, useFile);
+		float amplitude = ReadFloat(fp, writer, useFile);
+		float npower = ReadInt(fp, writer, useFile);
+		float formantScale = ReadFloat(fp, writer, useFile);
+		float bandWidth = ReadFloat(fp, writer, useFile);
+		float bandWidthScale = ReadFloat(fp, writer, useFile);
+		int tablesPerOctave = ReadInt(fp, writer, useFile);
+
+		// re-create the wavetables - assume all are padsynth atm
+
+		WaveTable* table;
+
+		if (i>5)
+		{
+			if (form == kWaveFormPadSynthChoir || form == kWaveFormPadSynthEnsemble || form == kWaveFormPadSynthExtended)
+			{
+				table = WaveTableGen::GeneratePadWaveTable(form, tableName, amplitude, npower, formantScale, bandWidth, bandWidthScale, tablesPerOctave);
+			}else{
+				DebugBreak();
+			}
+
+			WaveTable::Wavetables[++WaveTable::NumWaveTables] = table;
+		}
+
+	}
+
 	// global delay
 	LoadParams(VoicePool::Pool->GlobalDelay, fp, writer, useFile);
 
@@ -258,7 +300,7 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 		// filter mode
 		int filtMode = ReadInt(fp, writer, useFile);
 		patch->FilterProcMode->SetValue(filtMode);
-
+		
 		// load oscillators	
 		int num = Constants_NumOscillators;
 		read(&num, sizeof(int), 1, fp, writer, useFile);
@@ -266,6 +308,7 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 		{
 			Osc* oobj = (Osc*)patch->items[NUMBER_START_OSC+j];
 			LoadParams(oobj, fp, writer, useFile);
+			oobj->WaveChanged();
 		}
 
 		// load lfo av	
@@ -513,47 +556,7 @@ void ZynthIo::LoadBank(FILE* fp, Writer *writer, bool useFile)
 	}
 
 	// TODO load/save patch settings
-
-	// clear existing wavetables
-	for(int i=6; i<WaveTable::NumWaveTables; i++)
-	{
-		delete(WaveTable::Wavetables[i]);
-	}
-
-	WaveTable::NumWaveTables = 5;
-
-	int numWaveTables = ReadInt(fp, writer, useFile);
-
-	for(int i=0; i<numWaveTables; i++)
-	{
-		char tableName[100];
-
-		read(tableName, sizeof(char)*100, 1, fp, writer, useFile);
-		WaveForm form = (WaveForm)ReadInt(fp, writer, useFile);
-		float amplitude = ReadFloat(fp, writer, useFile);
-		float npower = ReadInt(fp, writer, useFile);
-		float formantScale = ReadFloat(fp, writer, useFile);
-		float bandWidth = ReadFloat(fp, writer, useFile);
-		float bandWidthScale = ReadFloat(fp, writer, useFile);
-		int tablesPerOctave = ReadInt(fp, writer, useFile);
-
-		// re-create the wavetables - assume all are padsynth atm
-
-		WaveTable* table;
-
-		if (i>5)
-		{
-			if (form == kWaveFormPadSynthChoir || form == kWaveFormPadSynthEnsemble || form == kWaveFormPadSynthExtended)
-			{
-				table = WaveTableGen::GeneratePadWaveTable(form, tableName, amplitude, npower, formantScale, bandWidth, bandWidthScale, tablesPerOctave);
-			}else{
-				DebugBreak();
-			}
-
-			WaveTable::Wavetables[WaveTable::NumWaveTables++] = table;
-		}
-
-	}
+	
 
 }
 
@@ -606,6 +609,26 @@ int ZynthIo::SaveBank(FILE* fp, Writer *writer, bool useFile)
 
 	// num patches
 	write(&numPatches, 1, sizeof(int), fp, writer, useFile);
+
+	
+	// save wavetables
+	write(&WaveTable::NumWaveTables, 1, sizeof(int), fp, writer, useFile);
+
+	for(int i=0; i<WaveTable::NumWaveTables; i++)
+	{
+		WaveTable* wt = WaveTable::Wavetables[i];
+
+		// save patch name
+		write(&wt->TableName, 1, sizeof(char)*100, fp, writer, useFile);
+
+		write(&wt->Form, 1, sizeof(int), fp, writer, useFile);
+		write(&wt->amplitude, 1, sizeof(float), fp, writer, useFile);
+		write(&wt->npower, 1, sizeof(int), fp, writer, useFile);
+		write(&wt->formantScale, 1, sizeof(float), fp, writer, useFile);
+		write(&wt->bandWidth, 1, sizeof(float), fp, writer, useFile);
+		write(&wt->bandWidthScale, 1, sizeof(float), fp, writer, useFile);
+		write(&wt->TablesPerOctave, 1, sizeof(int), fp, writer, useFile);
+	}
 	
 	/*
 	for(int i=0; i<numPatches; i++)
@@ -637,7 +660,7 @@ int ZynthIo::SaveBank(FILE* fp, Writer *writer, bool useFile)
 		
 		// filter mode
 		WriteInt(patch->FilterProcMode->Value(), fp, writer, useFile);
-
+		
 		// save oscillators	
 		WriteInt(Constants_NumOscillators, fp, writer, useFile);
 		for(int j=0; j<Constants_NumOscillators; j++)
@@ -723,25 +746,6 @@ int ZynthIo::SaveBank(FILE* fp, Writer *writer, bool useFile)
 				WriteInt(row->ItemDest->Param->number, fp, writer, useFile);
 			}
 		}
-	}
-
-	// save wavetables
-	write(&WaveTable::NumWaveTables, 1, sizeof(int), fp, writer, useFile);
-
-	for(int i=0; i<WaveTable::NumWaveTables; i++)
-	{
-		WaveTable* wt = WaveTable::Wavetables[i];
-
-		// save patch name
-		write(&wt->TableName, 1, sizeof(char)*100, fp, writer, useFile);
-
-		write(&wt->Form, 1, sizeof(int), fp, writer, useFile);
-		write(&wt->amplitude, 1, sizeof(float), fp, writer, useFile);
-		write(&wt->npower, 1, sizeof(int), fp, writer, useFile);
-		write(&wt->formantScale, 1, sizeof(float), fp, writer, useFile);
-		write(&wt->bandWidth, 1, sizeof(float), fp, writer, useFile);
-		write(&wt->bandWidthScale, 1, sizeof(float), fp, writer, useFile);
-		write(&wt->TablesPerOctave, 1, sizeof(int), fp, writer, useFile);
 	}
 
 	// return amount of mem used

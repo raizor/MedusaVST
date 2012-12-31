@@ -171,34 +171,45 @@ void GuiPanelHeader::CallbackClicked(void* data, GEvent* evt)
 			}
 		}
 	}else{
-		GuiPanelHeader::butPatch->state = data == GuiPanelHeader::butPatch ? kButtonStateOn : kButtonStateOff;
-		GuiPanelHeader::butPatchFx->state = data == GuiPanelHeader::butPatchFx ? kButtonStateOn : kButtonStateOff;
-		GuiPanelHeader::butGlobalFx->state = data == GuiPanelHeader::butGlobalFx ? kButtonStateOn : kButtonStateOff;
 
-		if (GuiPanelHeader::butPatch->state == kButtonStateOn)
+		if (data == GuiPanelHeader::butPatch || GuiPanelHeader::butPatch || GuiPanelHeader::butPatch)
 		{
-			GuiMainWindow::panelMain->panelNumber = kPanelPatch;
-			GuiMainWindow::panelMain->panelPatch->enabled = true;
-			GuiMainWindow::panelMain->panelPatchFx->enabled = false;
-			GuiMainWindow::panelMain->panelGlobalFx->enabled = false;
-		}
+			GuiMainWindow::panelMain->panelPatch->enabled = data == GuiPanelHeader::butPatch;
+			GuiMainWindow::panelMain->panelPatchFx->enabled = data == GuiPanelHeader::butPatchFx;
+			GuiMainWindow::panelMain->panelGlobalFx->enabled = data == GuiPanelHeader::butGlobalFx;
 
-		if (GuiPanelHeader::butPatchFx->state == kButtonStateOn)
-		{
-			GuiMainWindow::panelMain->panelNumber = kPanelPatchFx;
-			GuiMainWindow::panelMain->panelPatch->enabled = false;
-			GuiMainWindow::panelMain->panelPatchFx->enabled = true;
-			GuiMainWindow::panelMain->panelGlobalFx->enabled = false;
-		}
+			GuiPanelHeader::butPatch->enabled ? kButtonStateOn : kButtonStateOff;
+			GuiPanelHeader::butPatchFx->enabled ? kButtonStateOn : kButtonStateOff;
+			GuiPanelHeader::butGlobalFx->enabled ? kButtonStateOn : kButtonStateOff;
 
-		if (GuiPanelHeader::butGlobalFx->state == kButtonStateOn)
-		{
-			GuiMainWindow::panelMain->panelNumber = KPanelGlobalFx;
-			GuiMainWindow::panelMain->panelPatch->enabled = false;
-			GuiMainWindow::panelMain->panelPatchFx->enabled = false;
-			GuiMainWindow::panelMain->panelGlobalFx->enabled = true;
-		}
+			GuiPanelHeader::butPatch->state = data == GuiPanelHeader::butPatch ? kButtonStateOn : kButtonStateOff;
+			GuiPanelHeader::butPatchFx->state = data == GuiPanelHeader::butPatchFx ? kButtonStateOn : kButtonStateOff;
+			GuiPanelHeader::butGlobalFx->state = data == GuiPanelHeader::butGlobalFx ? kButtonStateOn : kButtonStateOff;
 
+			if (GuiPanelHeader::butPatch->state == kButtonStateOn)
+			{
+				GuiMainWindow::panelMain->panelNumber = kPanelPatch;
+				GuiMainWindow::panelMain->panelPatch->enabled = true;
+				GuiMainWindow::panelMain->panelPatchFx->enabled = false;
+				GuiMainWindow::panelMain->panelGlobalFx->enabled = false;
+			}
+
+			if (GuiPanelHeader::butPatchFx->state == kButtonStateOn)
+			{
+				GuiMainWindow::panelMain->panelNumber = kPanelPatchFx;
+				GuiMainWindow::panelMain->panelPatch->enabled = false;
+				GuiMainWindow::panelMain->panelPatchFx->enabled = true;
+				GuiMainWindow::panelMain->panelGlobalFx->enabled = false;
+			}
+
+			if (GuiPanelHeader::butGlobalFx->state == kButtonStateOn)
+			{
+				GuiMainWindow::panelMain->panelNumber = KPanelGlobalFx;
+				GuiMainWindow::panelMain->panelPatch->enabled = false;
+				GuiMainWindow::panelMain->panelPatchFx->enabled = false;
+				GuiMainWindow::panelMain->panelGlobalFx->enabled = true;
+			}
+		}
 		/*
 		char msg[100];
 		for (int i=0; i<GuiMainWindow::panelOsc->butOscs.size(); i++)

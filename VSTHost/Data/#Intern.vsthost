@@ -68,7 +68,6 @@ FX1_LinkTo0=2
 FX1_LinkVol0=1
 FX1_LinkMap0=0,1
 FX2_Pos=',\z\z\z\z\z\z\z\01\z\z\zÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ2\z\z\z*\z\z\zÒ\z\z\zj\z\z\z
-FX2_EditPos=',\z\z\z\z\z\z\z\01\z\z\zÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÌ\01\z\z\z\z\z\zx\05\z\z‰\03\z\z
 FX2_File=G:\Projects\GITHub\MedusaVST\Bin\Debug\MedusaVstPlugin.dll
 FX2_VoiceFilter=0
 FX2_SystemFilter=49152

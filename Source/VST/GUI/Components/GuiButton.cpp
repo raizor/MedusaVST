@@ -110,6 +110,7 @@ void GuiButton::draw()
 
 		case(kButtonTypeOscParam):
 			{
+#ifdef DRAW_OVERLAYS
 				glDisable(GL_TEXTURE_2D);
 				switch (type)
 				{
@@ -139,6 +140,7 @@ void GuiButton::draw()
 				glEnd();
 				glEnable(GL_TEXTURE_2D);
 				glColor4f(1,1,1,1);
+#endif
 			}
 		case(kButtonTypeEgNumber):
 			{
